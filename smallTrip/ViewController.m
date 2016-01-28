@@ -7,10 +7,11 @@
 //
 
 #import "ViewController.h"
-
+#import "ShareButton.h"
 #import <UIImageView+WebCache.h>
+#import "LikeButton.h"
 
-@interface ViewController ()
+@interface ViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -24,9 +25,17 @@
     label.text = @"我们征程现在开始啦！！！";
     [self.view addSubview:label];
     
+    ShareButton *button = [[ShareButton alloc] initShareButton:self];
+    button.frame = CGRectMake(100, 100, 40, 30);
     
+    [self.view addSubview:button];
+    
+    LikeButton *likeView = [[LikeButton alloc] initWithFrame:CGRectMake(100, 300, 120, 30) delegate:self];
+    likeView.countLabel.text = @"123";
+    [self.view addSubview:likeView];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
