@@ -1,0 +1,27 @@
+//
+//  PrefixHeader.pch
+//  smallTrip
+//
+//  Created by 刘常凯 on 16/1/29.
+//  Copyright © 2016年 刘常凯. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//  屏幕bounds
+#define KBOUNDS [UIScreen mainScreen].bounds
+//  屏幕宽度
+#define KWIDTH [UIScreen mainScreen].bounds.size.width
+//  屏幕高度
+#define KHEIGHT [UIScreen mainScreen].bounds.size.height
+
+//  button宽度
+#define BUTTONWIDTH [UIScreen mainScreen].bounds.size.width / 5.8
+//  button高度
+#define BUTTONHEIGHT [UIScreen mainScreen].bounds.size.width / 22.3
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */

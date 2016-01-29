@@ -42,7 +42,10 @@
     [button addTarget:self action:@selector(returnC:) forControlEvents:UIControlEventTouchUpInside];
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     
-    
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    button1.frame = CGRectMake(100, 400, BUTTONWIDTH, BUTTONHEIGHT);
+    button1.backgroundColor = [UIColor cyanColor];
+    [self.view addSubview:button1];
 }
 
 - (void)returnC:(UIButton *)sender{
