@@ -11,6 +11,5 @@
 @interface LikeButton : UIView
 
 @property (nonatomic, strong) UILabel *countLabel;
-- (instancetype)initWithFrame:(CGRect)frame delegate:(id)delegate;
 
 @end

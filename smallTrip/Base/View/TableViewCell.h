@@ -10,4 +10,7 @@
 
 @interface TableViewCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *imageViews;
+
+
 @end

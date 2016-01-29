@@ -10,18 +10,15 @@
 
 @interface LikeButton ()
 
-@property (nonatomic, assign) id delegate;
 @property (nonatomic, strong) UIButton *likeButton;
-
 @property (nonatomic, assign) BOOL isTap;
 
 @end
 
 @implementation LikeButton
 
-- (instancetype)initWithFrame:(CGRect)frame delegate:(id)delegate {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    self.delegate = delegate;
     if (self) {
         self.isTap = NO;
         
@@ -39,7 +36,9 @@
 }
 
 - (void)doTap:(UIButton *)button {
+//    _countLabel.text = [self]
     if (!_isTap) {
+        
         if (![_countLabel.text containsString:@"."]) {
             CGFloat value = [_countLabel.text floatValue] + 1;
             if (value > 9999) {
@@ -57,7 +56,7 @@
         _countLabel.textColor = [UIColor redColor];
         _isTap = YES;
         
-        if (_delegate) {
+        if ([self viewController]) {
             // 请求服务器修改数据
         }
     } else {
@@ -80,15 +79,30 @@
                 _countLabel.text = [NSString stringWithFormat:@"%.0f", value];
             }
         }
-
         _countLabel.textColor = [UIColor blackColor];
         _isTap = NO;
         
-        if (_delegate) {
+        if ([self viewController]) {
             // 请求服务器修改数据
         }
     }
   
+}
+
+// 获取响应链中的controller 用来调用模态方法
+- (UIViewController *)viewController {
+//    for (UIView *next = [self superview]; next; next = [next superview]) {
+//        UIResponder *responder = [next nextResponder];
+//        if ([responder isKindOfClass:[UIViewController class]]) {
+//            return (UIViewController *)responder;
+//        }
+//    }
+//    return nil;
+    id object = [self nextResponder];
+    while (![object isKindOfClass:[UIViewController class]] && object != nil) {
+        object = [object nextResponder];
+    }
+    return (UIViewController *)object;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

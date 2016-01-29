@@ -7,7 +7,7 @@
 //
 
 #import "ShareButton.h"
-#import "ViewController.h"
+#import "IndexController.h"
 @interface ShareButton ()<UIAlertViewDelegate>
 
 @property (nonatomic, assign) id delegate;
@@ -18,16 +18,13 @@
 
 /**
  *  分享button便利构造器
- *
- *  @param delegate 执行模态方法的代理
- *
  *  @return button对象
  */
 - (id)initShareButton {
     // 创建button
     self = [ShareButton buttonWithType:UIButtonTypeCustom];
     // 给分享button设置图片
-    [self setImage:[UIImage imageNamed:@"12"] forState:UIControlStateNormal];
+    [self setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     // 给分享button添加触发方法
     [self addTarget:self action:@selector(doTap:) forControlEvents:UIControlEventTouchUpInside];
     return self;
@@ -63,7 +60,8 @@
         id controller = [self viewController];
         if (controller) {
             // 模态到登录页面
-            
+            IndexController *VC = [[IndexController alloc] init];
+            [controller presentViewController:VC  animated:YES completion:nil];
         }
     }
 }

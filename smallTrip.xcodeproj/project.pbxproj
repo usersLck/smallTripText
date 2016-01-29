@@ -35,6 +35,9 @@
 		720E804E1C5A156F00B865D1 /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E804D1C5A156F00B865D1 /* SearchView.m */; };
 		720E80511C5A157C00B865D1 /* TourView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E80501C5A157C00B865D1 /* TourView.m */; };
 		8D0CFAE841ED1A1DA01A796A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 047672840C2A20FD5D333830 /* libPods.a */; };
+		F46884BD1C5B3BF10097C8DC /* LikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884B81C5B3BF10097C8DC /* LikeButton.m */; };
+		F46884BE1C5B3BF10097C8DC /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884BA1C5B3BF10097C8DC /* ShareButton.m */; };
+		F46884BF1C5B3BF10097C8DC /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884BC1C5B3BF10097C8DC /* TableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +111,12 @@
 		720E80501C5A157C00B865D1 /* TourView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourView.m; sourceTree = "<group>"; };
 		754E2B67BAE45D08DA42ED79 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		778A14F4E66694476FC86A92 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F46884B71C5B3BF10097C8DC /* LikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeButton.h; sourceTree = "<group>"; };
+		F46884B81C5B3BF10097C8DC /* LikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeButton.m; sourceTree = "<group>"; };
+		F46884B91C5B3BF10097C8DC /* ShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareButton.h; sourceTree = "<group>"; };
+		F46884BA1C5B3BF10097C8DC /* ShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareButton.m; sourceTree = "<group>"; };
+		F46884BB1C5B3BF10097C8DC /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		F46884BC1C5B3BF10097C8DC /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +415,12 @@
 		720E7FF21C59F1B800B865D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F46884B71C5B3BF10097C8DC /* LikeButton.h */,
+				F46884B81C5B3BF10097C8DC /* LikeButton.m */,
+				F46884B91C5B3BF10097C8DC /* ShareButton.h */,
+				F46884BA1C5B3BF10097C8DC /* ShareButton.m */,
+				F46884BB1C5B3BF10097C8DC /* TableViewCell.h */,
+				F46884BC1C5B3BF10097C8DC /* TableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -615,11 +630,14 @@
 				720E803C1C5A152300B865D1 /* IndexModel.m in Sources */,
 				7207839C1C5B0A5600DC3045 /* DrawerController.m in Sources */,
 				720E80361C5A150700B865D1 /* BaseModel.m in Sources */,
+				F46884BE1C5B3BF10097C8DC /* ShareButton.m in Sources */,
 				720E80511C5A157C00B865D1 /* TourView.m in Sources */,
 				720E80421C5A153A00B865D1 /* TourModel.m in Sources */,
 				720E802D1C5A14D500B865D1 /* IndexController.m in Sources */,
+				F46884BF1C5B3BF10097C8DC /* TableViewCell.m in Sources */,
 				720E804E1C5A156F00B865D1 /* SearchView.m in Sources */,
 				720E80391C5A151900B865D1 /* ComModel.m in Sources */,
+				F46884BD1C5B3BF10097C8DC /* LikeButton.m in Sources */,
 				720E80331C5A14F300B865D1 /* TourFeelingController.m in Sources */,
 				720E7FAF1C59EA2F00B865D1 /* AppDelegate.m in Sources */,
 				720E80301C5A14E300B865D1 /* SearchController.m in Sources */,
@@ -767,6 +785,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallTrip.smallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Debug;
 		};
@@ -779,6 +798,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallTrip.smallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Release;
 		};

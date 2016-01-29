@@ -15,8 +15,10 @@
 
 /*
     分享按钮用法：
-            ShareButton *button = [ShareButton alloc] initShareButton:self];
+            ShareButton *button = [ShareButton alloc] initShareButton];
             button.frame = CGRectMake(100, 100, 40, 30);
             [self.view addSubview:button];
+ 
+ 分享按钮添加在ImageView上时，应该打开ImageView的交互
 */
 @end
