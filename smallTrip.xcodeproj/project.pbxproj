@@ -499,6 +499,7 @@
 				TargetAttributes = {
 					720E7FA61C59EA2F00B865D1 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = TCFD4H2R52;
 					};
 					720E7FBF1C59EA3000B865D1 = {
 						CreatedOnToolsVersion = 7.2;
@@ -765,9 +766,11 @@
 			baseConfigurationReference = 778A14F4E66694476FC86A92 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/smallTrip/Resources/PrefixHeader.pch";
 				INFOPLIST_FILE = smallTrip/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallTrip.smallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -779,9 +782,11 @@
 			baseConfigurationReference = 754E2B67BAE45D08DA42ED79 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/smallTrip/Resources/PrefixHeader.pch";
 				INFOPLIST_FILE = smallTrip/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallTrip.smallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";

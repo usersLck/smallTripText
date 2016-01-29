@@ -43,9 +43,13 @@
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    button1.frame = CGRectMake(100, 400, BUTTONWIDTH, BUTTONHEIGHT);
+    button1.frame = CGRectMake(100, 400, 85, 30);
+    NSLog(@"%@", NSStringFromCGRect([UIScreen mainScreen].bounds));
     button1.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:button1];
+    [button1 setTitle:@"测试钮" forState:UIControlStateNormal];
+    button1.layer.cornerRadius = 5;
+    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (void)returnC:(UIButton *)sender{
