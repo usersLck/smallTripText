@@ -8,15 +8,66 @@
 
 #import "IndexController.h"
 
-@interface IndexController ()
+#import "SearchController.h"
+
+#import "TourFeelingController.h"
+
+#import "TourDetailController.h"
+
+#import <RESideMenu.h>
+
+@interface IndexController () <RESideMenuDelegate>
 
 @end
 
 @implementation IndexController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navigationItem.title = @"推荐";
+    self.view.backgroundColor  = [UIColor redColor];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(50, 50, 300, 200);
+    [self.view addSubview:button];
+    [button addTarget:self action:@selector(returnC:) forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    
+    
+}
+
+- (void)returnC:(UIButton *)sender{
+    
+    TourDetailController *tour = [[TourDetailController alloc] init];
+    
+    
+    
+    [self.navigationController pushViewController:tour animated:YES];
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu willShowMenuViewController:(UIViewController *)menuViewController {
+    NSLog(@"1");
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu didShowMenuViewController:(UIViewController *)menuViewController {
+    NSLog(@"2");
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu willHideMenuViewController:(UIViewController *)menuViewController {
+    NSLog(@"3");
+}
+
+- (void)sideMenu:(RESideMenu *)sideMenu didHideMenuViewController:(UIViewController *)menuViewController {
+    NSLog(@"4");
 }
 
 - (void)didReceiveMemoryWarning {

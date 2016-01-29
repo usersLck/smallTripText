@@ -8,7 +8,19 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+#import "IndexController.h"
+
+#import "CommunityController.h"
+
+#import "SearchController.h"
+
+#import "TourFeelingController.h"
+
+#import "DrawerController.h"
+
+#import <RESideMenu.h>
+
+@interface AppDelegate () <RESideMenuDelegate>
 
 @end
 
@@ -17,6 +29,59 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor  = [UIColor whiteColor];
+    
+    UITabBarController *tabbar = [[UITabBarController alloc] init];
+    
+    IndexController *index = [[IndexController alloc] init];
+    UINavigationController *indexNavi = [[UINavigationController alloc] initWithRootViewController:index];
+    indexNavi.tabBarItem.title = @"首页";
+    indexNavi.tabBarItem.image = [UIImage imageNamed:@"index"];
+    
+    SearchController *search = [[SearchController alloc] init];
+    UINavigationController *searchNavi = [[UINavigationController alloc] initWithRootViewController:search];
+    searchNavi.tabBarItem.title = @"发现";
+    searchNavi.tabBarItem.image = [UIImage imageNamed:@"search"];
+    
+    
+    TourFeelingController *tour = [[TourFeelingController alloc] init];
+    UINavigationController *tourNavi = [[UINavigationController alloc] initWithRootViewController:tour];
+    tourNavi.tabBarItem.title = @"游圈";
+    tourNavi.tabBarItem.image = [UIImage imageNamed:@"tour"];
+    
+    CommunityController *community = [[CommunityController alloc] init];
+    UINavigationController *communityNavi = [[UINavigationController alloc] initWithRootViewController:community];
+    communityNavi.tabBarItem.title = @"社交";
+    communityNavi.tabBarItem.image = [UIImage imageNamed:@"community"];
+    
+    
+    NSArray *array = @[indexNavi, searchNavi, tourNavi, communityNavi];
+    
+    tabbar.viewControllers = array;
+    
+    tabbar.selectedIndex = 0;
+    
+    DrawerController *drawer = [[DrawerController alloc] init];
+    
+    RESideMenu *reside = [[RESideMenu alloc] initWithContentViewController:tabbar leftMenuViewController:drawer rightMenuViewController:nil];
+    reside.view.backgroundColor = [UIColor yellowColor];
+    reside.view.frame = [UIScreen mainScreen].bounds;
+    reside.menuPreferredStatusBarStyle = UIStatusBarStyleLightContent;
+    reside.contentViewShadowColor = [UIColor blackColor];
+    reside.contentViewShadowOffset = CGSizeMake(0, 0);
+    reside.contentViewShadowOpacity = 0.6;
+    reside.contentViewShadowRadius = 12;
+    reside.contentViewShadowEnabled = NO;
+    reside.delegate = self;
+
+    
+    self.window.rootViewController = reside;
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
