@@ -11,7 +11,7 @@
 @interface ShareButton : UIButton
 
 // 初始化方法
-- (id)initShareButton:(id)delegate;
+- (id)initShareButton;
 
 /*
     分享按钮用法：

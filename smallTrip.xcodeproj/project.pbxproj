@@ -33,6 +33,7 @@
 		F46884A91C5A17D80097C8DC /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884A81C5A17D80097C8DC /* ShareButton.m */; };
 		F46884AD1C5A3DF40097C8DC /* 12.png in Resources */ = {isa = PBXBuildFile; fileRef = F46884AC1C5A3DF40097C8DC /* 12.png */; };
 		F46884B01C5A42750097C8DC /* LikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884AF1C5A42750097C8DC /* LikeButton.m */; };
+		F46884B31C5AF3020097C8DC /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884B21C5AF3020097C8DC /* TableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,8 @@
 		F46884AC1C5A3DF40097C8DC /* 12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 12.png; sourceTree = "<group>"; };
 		F46884AE1C5A42750097C8DC /* LikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeButton.h; sourceTree = "<group>"; };
 		F46884AF1C5A42750097C8DC /* LikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeButton.m; sourceTree = "<group>"; };
+		F46884B11C5AF3020097C8DC /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		F46884B21C5AF3020097C8DC /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,6 +397,8 @@
 				F46884A81C5A17D80097C8DC /* ShareButton.m */,
 				F46884AE1C5A42750097C8DC /* LikeButton.h */,
 				F46884AF1C5A42750097C8DC /* LikeButton.m */,
+				F46884B11C5AF3020097C8DC /* TableViewCell.h */,
+				F46884B21C5AF3020097C8DC /* TableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -610,6 +615,7 @@
 				720E7FAF1C59EA2F00B865D1 /* AppDelegate.m in Sources */,
 				720E80301C5A14E300B865D1 /* SearchController.m in Sources */,
 				720E804B1C5A156500B865D1 /* IndexView.m in Sources */,
+				F46884B31C5AF3020097C8DC /* TableViewCell.m in Sources */,
 				720E80481C5A155C00B865D1 /* ComView.m in Sources */,
 				720E802A1C5A14C800B865D1 /* CommunityController.m in Sources */,
 				720E80271C5A14B700B865D1 /* BaseController.m in Sources */,

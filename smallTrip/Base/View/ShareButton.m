@@ -23,14 +23,13 @@
  *
  *  @return button对象
  */
-- (id)initShareButton:(id)delegate {
-    // 创建button 风格为外界传入的buttonType
+- (id)initShareButton {
+    // 创建button
     self = [ShareButton buttonWithType:UIButtonTypeCustom];
     // 给分享button设置图片
     [self setImage:[UIImage imageNamed:@"12"] forState:UIControlStateNormal];
     // 给分享button添加触发方法
     [self addTarget:self action:@selector(doTap:) forControlEvents:UIControlEventTouchUpInside];
-    self.delegate = delegate;
     return self;
 }
 
@@ -61,10 +60,22 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         NSLog(@"用户选择要登录，请调用登录页面");
-        if (_delegate) {
+        id controller = [self viewController];
+        if (controller) {
             // 模态到登录页面
+            
         }
     }
+}
+// 寻找响应链上的controller 用来模态到新的界面
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

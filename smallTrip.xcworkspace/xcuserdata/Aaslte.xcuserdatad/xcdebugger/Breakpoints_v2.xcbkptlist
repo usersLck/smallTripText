@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "smallTrip/Base/View/ShareButton.m"
-            timestampString = "475680004.067291"
+            timestampString = "475730681.291473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "-doTap:"
             landmarkType = "5">
          </BreakpointContent>
