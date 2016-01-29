@@ -25,12 +25,14 @@
 		720E803C1C5A152300B865D1 /* IndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E803B1C5A152300B865D1 /* IndexModel.m */; };
 		720E803F1C5A152E00B865D1 /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E803E1C5A152E00B865D1 /* SearchModel.m */; };
 		720E80421C5A153A00B865D1 /* TourModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E80411C5A153A00B865D1 /* TourModel.m */; };
-		720E80451C5A154C00B865D1 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E80441C5A154C00B865D1 /* BaseView.m */; };
 		720E80481C5A155C00B865D1 /* ComView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E80471C5A155C00B865D1 /* ComView.m */; };
 		720E804B1C5A156500B865D1 /* IndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E804A1C5A156500B865D1 /* IndexView.m */; };
 		720E804E1C5A156F00B865D1 /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E804D1C5A156F00B865D1 /* SearchView.m */; };
 		720E80511C5A157C00B865D1 /* TourView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720E80501C5A157C00B865D1 /* TourView.m */; };
 		8D0CFAE841ED1A1DA01A796A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 047672840C2A20FD5D333830 /* libPods.a */; };
+		F46884A91C5A17D80097C8DC /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884A81C5A17D80097C8DC /* ShareButton.m */; };
+		F46884AD1C5A3DF40097C8DC /* 12.png in Resources */ = {isa = PBXBuildFile; fileRef = F46884AC1C5A3DF40097C8DC /* 12.png */; };
+		F46884B01C5A42750097C8DC /* LikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884AF1C5A42750097C8DC /* LikeButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +90,6 @@
 		720E803E1C5A152E00B865D1 /* SearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchModel.m; sourceTree = "<group>"; };
 		720E80401C5A153A00B865D1 /* TourModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TourModel.h; sourceTree = "<group>"; };
 		720E80411C5A153A00B865D1 /* TourModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourModel.m; sourceTree = "<group>"; };
-		720E80431C5A154C00B865D1 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
-		720E80441C5A154C00B865D1 /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
 		720E80461C5A155C00B865D1 /* ComView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComView.h; sourceTree = "<group>"; };
 		720E80471C5A155C00B865D1 /* ComView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComView.m; sourceTree = "<group>"; };
 		720E80491C5A156500B865D1 /* IndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexView.h; sourceTree = "<group>"; };
@@ -100,6 +100,11 @@
 		720E80501C5A157C00B865D1 /* TourView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TourView.m; sourceTree = "<group>"; };
 		754E2B67BAE45D08DA42ED79 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		778A14F4E66694476FC86A92 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F46884A71C5A17D80097C8DC /* ShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareButton.h; sourceTree = "<group>"; };
+		F46884A81C5A17D80097C8DC /* ShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareButton.m; sourceTree = "<group>"; };
+		F46884AC1C5A3DF40097C8DC /* 12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 12.png; sourceTree = "<group>"; };
+		F46884AE1C5A42750097C8DC /* LikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeButton.h; sourceTree = "<group>"; };
+		F46884AF1C5A42750097C8DC /* LikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +345,7 @@
 		720E7FEC1C59F11000B865D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F46884AC1C5A3DF40097C8DC /* 12.png */,
 				720E804F1C5A157C00B865D1 /* TourView.h */,
 				720E80501C5A157C00B865D1 /* TourView.m */,
 			);
@@ -384,8 +390,10 @@
 		720E7FF21C59F1B800B865D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				720E80431C5A154C00B865D1 /* BaseView.h */,
-				720E80441C5A154C00B865D1 /* BaseView.m */,
+				F46884A71C5A17D80097C8DC /* ShareButton.h */,
+				F46884A81C5A17D80097C8DC /* ShareButton.m */,
+				F46884AE1C5A42750097C8DC /* LikeButton.h */,
+				F46884AF1C5A42750097C8DC /* LikeButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -516,6 +524,7 @@
 				720E7FBA1C59EA2F00B865D1 /* LaunchScreen.storyboard in Resources */,
 				720E7FB71C59EA2F00B865D1 /* Assets.xcassets in Resources */,
 				720E7FB51C59EA2F00B865D1 /* Main.storyboard in Resources */,
+				F46884AD1C5A3DF40097C8DC /* 12.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,14 +605,15 @@
 				720E804E1C5A156F00B865D1 /* SearchView.m in Sources */,
 				720E7FB21C59EA2F00B865D1 /* ViewController.m in Sources */,
 				720E80391C5A151900B865D1 /* ComModel.m in Sources */,
+				F46884B01C5A42750097C8DC /* LikeButton.m in Sources */,
 				720E80331C5A14F300B865D1 /* TourFeelingController.m in Sources */,
 				720E7FAF1C59EA2F00B865D1 /* AppDelegate.m in Sources */,
 				720E80301C5A14E300B865D1 /* SearchController.m in Sources */,
 				720E804B1C5A156500B865D1 /* IndexView.m in Sources */,
-				720E80451C5A154C00B865D1 /* BaseView.m in Sources */,
 				720E80481C5A155C00B865D1 /* ComView.m in Sources */,
 				720E802A1C5A14C800B865D1 /* CommunityController.m in Sources */,
 				720E80271C5A14B700B865D1 /* BaseController.m in Sources */,
+				F46884A91C5A17D80097C8DC /* ShareButton.m in Sources */,
 				720E7FAC1C59EA2F00B865D1 /* main.m in Sources */,
 				720E803F1C5A152E00B865D1 /* SearchModel.m in Sources */,
 			);
@@ -751,6 +761,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallTrip.smallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Debug;
 		};
@@ -763,6 +774,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallTrip.smallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = "-Wno-deprecated-declarations";
 			};
 			name = Release;
 		};
