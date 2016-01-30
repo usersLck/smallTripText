@@ -24,7 +24,7 @@
         
         _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
-        [_likeButton setImage:[UIImage imageNamed:@"12"] forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [_likeButton addTarget:self action:@selector(doTap:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_likeButton];
         
@@ -36,59 +36,58 @@
 }
 
 - (void)doTap:(UIButton *)button {
-//    _countLabel.text = [self]
-    if (!_isTap) {
-        
-        if (![_countLabel.text containsString:@"."]) {
-            CGFloat value = [_countLabel.text floatValue] + 1;
-            if (value > 9999) {
-                _countLabel.text = [NSString stringWithFormat:@"%.1f万", value / 10000];
-            } else {
-                _countLabel.text = [NSString stringWithFormat:@"%.0f", value];
-            }
-        } else {
-            NSRange range = [_countLabel.text rangeOfString:@"."];
-            NSString *string = [_countLabel.text substringToIndex:range.location];
-            NSString *str = [_countLabel.text substringWithRange:NSMakeRange(range.location + 1, _countLabel.text.length - range.location - 2)];
-            NSInteger value = [str integerValue] + 1;
-            _countLabel.text = [NSString stringWithFormat:@"%@.%ld万", string, value];
-        }
-        _countLabel.textColor = [UIColor redColor];
-        _isTap = YES;
-        
-        if ([self viewController]) {
-            // 请求服务器修改数据
-        }
-    } else {
-        if (![_countLabel.text containsString:@"."]) {
-            CGFloat value = [_countLabel.text floatValue] - 1;
-            if (value > 9999) {
-                _countLabel.text = [NSString stringWithFormat:@"%.1f万", value / 10000];
-            } else {
-                _countLabel.text = [NSString stringWithFormat:@"%.0f", value];
-            }
-        } else {
-            NSRange range = [_countLabel.text rangeOfString:@"."];
-            NSString *string = [_countLabel.text substringToIndex:range.location];
-            NSString *str = [_countLabel.text substringWithRange:NSMakeRange(range.location + 1, _countLabel.text.length - range.location - 2)];
-            NSInteger values = [string integerValue] * 10000 + [str integerValue];
-            CGFloat value = values - 1;
-            if (value > 9999) {
-                _countLabel.text = [NSString stringWithFormat:@"%.1f万", value / 10000];
-            } else {
-                _countLabel.text = [NSString stringWithFormat:@"%.0f", value];
-            }
-        }
-        _countLabel.textColor = [UIColor blackColor];
-        _isTap = NO;
-        
-        if ([self viewController]) {
-            // 请求服务器修改数据
-        }
+    _countLabel.text = [self getString];
+    if ([self viewController]) {
+        // 请求服务器修改数据
     }
-  
 }
 
+
+- (NSString *)getString {
+    NSString *string = nil;
+    
+    if (![_countLabel.text containsString:@"."]) {
+        CGFloat value = 0.0;
+        if (!_isTap) {
+            value = [_countLabel.text floatValue] + 1;
+        } else {
+            value = [_countLabel.text floatValue] - 1;
+        }
+
+        if (value > 9999) {
+            string = [NSString stringWithFormat:@"%.1f万", value / 10000];
+        } else {
+            string = [NSString stringWithFormat:@"%.0f", value];
+        }
+    } else {
+        NSRange range = [_countLabel.text rangeOfString:@"."];
+        NSString *frontStr = [_countLabel.text substringToIndex:range.location];
+        NSString *backStr = [_countLabel.text substringWithRange:NSMakeRange(range.location + 1, _countLabel.text.length - range.location - 2)];
+        CGFloat backValue = 0.0;
+        if (!_isTap) {
+            backValue = [backStr floatValue] + 1;
+        } else {
+            backValue = [backStr floatValue] - 1;
+        }
+        CGFloat frontValue = [frontStr floatValue] * 10000;
+        CGFloat value = frontValue + backValue;
+        if (value > 9999) {
+            string = [NSString stringWithFormat:@"%.1f万", value / 10000];
+        } else {
+            string = [NSString stringWithFormat:@"%.0f", value];
+        }
+    }
+    
+    if (!_isTap) {
+        _countLabel.textColor = [UIColor redColor];
+        _isTap = YES;
+    } else {
+        _countLabel.textColor = [UIColor blackColor];
+        _isTap = NO;
+    }
+    
+    return string;
+}
 // 获取响应链中的controller 用来调用模态方法
 - (UIViewController *)viewController {
 //    for (UIView *next = [self superview]; next; next = [next superview]) {
