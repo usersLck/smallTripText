@@ -10,6 +10,6 @@
 
 @interface LikeButton : UIView
 
-@property (nonatomic, strong) UILabel *countLabel;
+@property (nonatomic, strong, readonly) UILabel *countLabel;
 
 @end

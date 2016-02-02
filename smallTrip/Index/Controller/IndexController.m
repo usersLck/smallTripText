@@ -18,6 +18,8 @@
 
 
 //  首页
+#import "LikeButton.h"
+
 @interface IndexController () <RESideMenuDelegate>
 
 @end
@@ -38,12 +40,14 @@
     
     self.navigationItem.title = @"推荐";
     self.view.backgroundColor  = [UIColor redColor];
+    self.view.backgroundColor  = [UIColor whiteColor];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(50, 50, 300, 200);
     [self.view addSubview:button];
     [button addTarget:self action:@selector(returnC:) forControlEvents:UIControlEventTouchUpInside];
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     
+
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
     button1.frame = CGRectMake(100, 400, 85, 30);
     button1.backgroundColor = [UIColor cyanColor];
@@ -51,6 +55,10 @@
     [button1 setTitle:@"测试钮" forState:UIControlStateNormal];
     button1.layer.cornerRadius = 5;
     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    LikeButton *likeButton = [[LikeButton alloc] initWithFrame:CGRectMake(300, 300, 100, 30)];
+    likeButton.countLabel.text = @"10000";
+    [self.view addSubview:likeButton];
 }
 
 - (void)returnC:(UIButton *)sender{
