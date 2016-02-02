@@ -1,33 +1,24 @@
 //
-//  SearchController.m
+//  ForumManageController.m
 //  smallTrip
 //
-//  Created by 刘常凯 on 16/1/28.
+//  Created by 刘常凯 on 16/1/31.
 //  Copyright © 2016年 刘常凯. All rights reserved.
 //
 
-#import "SearchController.h"
+#import "ForumManageController.h"
 
 
-//  发现
-@interface SearchController ()
+//  ta的社交
+@interface ForumManageController ()
 
 @end
 
-@implementation SearchController
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
-}
+@implementation ForumManageController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.navigationItem.title = @"发现";
-    self.view.backgroundColor = [UIColor greenColor];
 }
 
 - (void)didReceiveMemoryWarning {

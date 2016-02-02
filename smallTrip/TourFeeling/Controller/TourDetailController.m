@@ -8,6 +8,10 @@
 
 #import "TourDetailController.h"
 
+#import "TabbarView.h"
+
+
+//  游记详情
 @interface TourDetailController ()
 
 @end
@@ -18,18 +22,34 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
-    
+    [self CreateTabButton];
+    self.view.backgroundColor = [UIColor brownColor];
 }
 
 - (void)CreateTabButton{
-//    UIView *tabView = [UIView alloc] initWithFrame:CGRectMake(0, [], <#CGFloat width#>, <#CGFloat height#>)
+    
+    TabbarView *tabView = [[TabbarView alloc] initWithFrame:CGRectMake(0, KHEIGHT - TABBARHEIGHT, KWIDTH, TABBARHEIGHT) andDelegate:self];
+    [self.view addSubview:tabView];
+   
 }
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"游记详情";
     self.view.backgroundColor = [UIColor purpleColor];
+    
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStyleDone target:self action:@selector(returnIndex:)];
+    self.navigationItem.leftBarButtonItem = button;
+    
+    
+    
+}
+
+- (void)returnIndex:(UIBarButtonItem *)sender{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

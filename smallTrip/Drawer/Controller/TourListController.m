@@ -1,33 +1,26 @@
 //
-//  SearchController.m
+//  TourListController.m
 //  smallTrip
 //
-//  Created by 刘常凯 on 16/1/28.
+//  Created by 刘常凯 on 16/2/2.
 //  Copyright © 2016年 刘常凯. All rights reserved.
 //
 
-#import "SearchController.h"
+#import "TourListController.h"
 
 
-//  发现
-@interface SearchController ()
+//  游记集锦
+@interface TourListController ()
 
 @end
 
-@implementation SearchController
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
-}
+@implementation TourListController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"发现";
-    self.view.backgroundColor = [UIColor greenColor];
+    self.navigationItem.title = @"游记集锦";
 }
 
 - (void)didReceiveMemoryWarning {

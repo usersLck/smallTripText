@@ -1,33 +1,22 @@
 //
-//  SearchController.m
+//  EditPasswordController.m
 //  smallTrip
 //
-//  Created by 刘常凯 on 16/1/28.
+//  Created by 刘常凯 on 16/2/2.
 //  Copyright © 2016年 刘常凯. All rights reserved.
 //
 
-#import "SearchController.h"
+#import "EditPasswordController.h"
 
-
-//  发现
-@interface SearchController ()
+@interface EditPasswordController ()
 
 @end
 
-@implementation SearchController
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
-}
+@implementation EditPasswordController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.navigationItem.title = @"发现";
-    self.view.backgroundColor = [UIColor greenColor];
 }
 
 - (void)didReceiveMemoryWarning {

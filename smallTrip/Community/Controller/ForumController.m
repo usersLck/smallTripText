@@ -1,47 +1,43 @@
 //
-//  TourFeelingController.m
+//  ForumController.m
 //  smallTrip
 //
-//  Created by 刘常凯 on 16/1/28.
+//  Created by 刘常凯 on 16/1/30.
 //  Copyright © 2016年 刘常凯. All rights reserved.
 //
 
-#import "TourFeelingController.h"
+#import "ForumController.h"
 
-#import "TourManageController.h"
+#import "ForumDetailController.h"
 
-
-//  游圈主页
-@interface TourFeelingController ()
+//  问答专区
+@interface ForumController ()
 
 @end
 
-@implementation TourFeelingController
+@implementation ForumController
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"游圈";
     self.view.backgroundColor = [UIColor blueColor];
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(KWIDTH / 4 * 3, KHEIGHT - TABBARHEIGHT * 2, TABBARHEIGHT, TABBARHEIGHT);
+    button.frame = CGRectMake(50, 50, 150, 80);
+    [button setTitle:@"问答详情" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(returnDetail:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    [button setTitle:@"+" forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:34];
-    [button addTarget:self action:@selector(returnManage:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)returnManage:(UIButton *)sender{
-    TourManageController *manage = [[TourManageController alloc] init];
-    [self.navigationController pushViewController:manage animated:YES];
+- (void)returnDetail:(UIButton *)sender{
+    ForumDetailController *partner = [[ForumDetailController alloc] init];
+    [self.navigationController pushViewController:partner animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

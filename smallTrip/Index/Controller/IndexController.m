@@ -16,6 +16,8 @@
 
 #import <RESideMenu.h>
 
+
+//  首页
 #import "LikeButton.h"
 
 @interface IndexController () <RESideMenuDelegate>
@@ -37,16 +39,17 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"推荐";
+    self.view.backgroundColor  = [UIColor redColor];
     self.view.backgroundColor  = [UIColor whiteColor];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(50, 50, 300, 200);
     [self.view addSubview:button];
     [button addTarget:self action:@selector(returnC:) forControlEvents:UIControlEventTouchUpInside];
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    
 
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
     button1.frame = CGRectMake(100, 400, 85, 30);
-    NSLog(@"%@", NSStringFromCGRect([UIScreen mainScreen].bounds));
     button1.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:button1];
     [button1 setTitle:@"测试钮" forState:UIControlStateNormal];
@@ -61,9 +64,6 @@
 - (void)returnC:(UIButton *)sender{
     
     TourDetailController *tour = [[TourDetailController alloc] init];
-    
-    
-    
     [self.navigationController pushViewController:tour animated:YES];
 }
 
