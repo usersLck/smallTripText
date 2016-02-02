@@ -16,6 +16,8 @@
 
 #import <RESideMenu.h>
 
+
+//  首页
 @interface IndexController () <RESideMenuDelegate>
 
 @end
@@ -44,7 +46,6 @@
     
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeCustom];
     button1.frame = CGRectMake(100, 400, 85, 30);
-    NSLog(@"%@", NSStringFromCGRect([UIScreen mainScreen].bounds));
     button1.backgroundColor = [UIColor cyanColor];
     [self.view addSubview:button1];
     [button1 setTitle:@"测试钮" forState:UIControlStateNormal];
@@ -55,9 +56,6 @@
 - (void)returnC:(UIButton *)sender{
     
     TourDetailController *tour = [[TourDetailController alloc] init];
-    
-    
-    
     [self.navigationController pushViewController:tour animated:YES];
 }
 

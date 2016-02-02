@@ -65,7 +65,9 @@
     
     DrawerController *drawer = [[DrawerController alloc] init];
     
-    RESideMenu *reside = [[RESideMenu alloc] initWithContentViewController:tabbar leftMenuViewController:drawer rightMenuViewController:nil];
+    UINavigationController *drawerNavi = [[UINavigationController alloc] initWithRootViewController:drawer];
+    
+    RESideMenu *reside = [[RESideMenu alloc] initWithContentViewController:tabbar leftMenuViewController:drawerNavi rightMenuViewController:nil];
     reside.view.backgroundColor = [UIColor yellowColor];
     reside.view.frame = [UIScreen mainScreen].bounds;
     reside.menuPreferredStatusBarStyle = UIStatusBarStyleLightContent;

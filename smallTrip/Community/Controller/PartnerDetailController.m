@@ -1,33 +1,27 @@
 //
-//  SearchController.m
+//  PartnerDetailController.m
 //  smallTrip
 //
-//  Created by 刘常凯 on 16/1/28.
+//  Created by 刘常凯 on 16/1/31.
 //  Copyright © 2016年 刘常凯. All rights reserved.
 //
 
-#import "SearchController.h"
+#import "PartnerDetailController.h"
 
 
-//  发现
-@interface SearchController ()
+//  结伴详情
+@interface PartnerDetailController ()
 
 @end
 
-@implementation SearchController
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
-}
+@implementation PartnerDetailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.title = @"结伴详情";
+    self.view.backgroundColor = [UIColor colorWithRed:100 green:100 blue:100 alpha:0.7];
     
-    self.navigationItem.title = @"发现";
-    self.view.backgroundColor = [UIColor greenColor];
 }
 
 - (void)didReceiveMemoryWarning {
