@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7203F2571C7C5467009C8BE4 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F2561C7C5467009C8BE4 /* Weather.m */; };
+		7203F25A1C7C5AE3009C8BE4 /* WeatherDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F2591C7C5AE3009C8BE4 /* WeatherDetail.m */; };
+		7203F25D1C7C604C009C8BE4 /* CityWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F25C1C7C604C009C8BE4 /* CityWeather.m */; };
+		7203F2601C7C60F8009C8BE4 /* CityPollute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F25F1C7C60F8009C8BE4 /* CityPollute.m */; };
+		7203F2631C7D4055009C8BE4 /* IndexDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F2621C7D4055009C8BE4 /* IndexDetail.m */; };
+		7203F2651C7D5719009C8BE4 /* weatherBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7203F2641C7D5719009C8BE4 /* weatherBack.png */; };
+		7203F2681C7D598D009C8BE4 /* LineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F2671C7D598D009C8BE4 /* LineData.m */; };
+		7203F26B1C7DE675009C8BE4 /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F26A1C7DE675009C8BE4 /* WeatherCell.m */; };
+		7203F26E1C7EF14E009C8BE4 /* CurveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7203F26D1C7EF14E009C8BE4 /* CurveView.m */; };
+		72046E041C7756C1008F2F8B /* PhotoTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 72046E031C7756C1008F2F8B /* PhotoTextCell.m */; };
 		720783901C5AF50000DC3045 /* tour.png in Resources */ = {isa = PBXBuildFile; fileRef = 7207838C1C5AF50000DC3045 /* tour.png */; };
 		720783911C5AF50000DC3045 /* index.png in Resources */ = {isa = PBXBuildFile; fileRef = 7207838D1C5AF50000DC3045 /* index.png */; };
 		720783921C5AF50000DC3045 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 7207838E1C5AF50000DC3045 /* search.png */; };
@@ -59,6 +69,7 @@
 		72C4D0621C5E1DB4003B8B6B /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C4D0611C5E1DB4003B8B6B /* DrawerView.m */; };
 		72C4D0651C5E1DC7003B8B6B /* Drawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C4D0641C5E1DC7003B8B6B /* Drawer.m */; };
 		72C4D0681C5E1EA3003B8B6B /* CreateButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C4D0671C5E1EA3003B8B6B /* CreateButtons.m */; };
+		72FF29441C6F790400198515 /* NetHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FF29431C6F790400198515 /* NetHandler.m */; };
 		72FFD2CB1C60889500EDEEE3 /* CollectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FFD2CA1C60889500EDEEE3 /* CollectController.m */; };
 		72FFD2D11C6088F700EDEEE3 /* MyTourController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FFD2D01C6088F700EDEEE3 /* MyTourController.m */; };
 		72FFD2D41C60894800EDEEE3 /* MyForumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FFD2D31C60894800EDEEE3 /* MyForumController.m */; };
@@ -93,6 +104,25 @@
 
 /* Begin PBXFileReference section */
 		047672840C2A20FD5D333830 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7203F2551C7C5467009C8BE4 /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		7203F2561C7C5467009C8BE4 /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		7203F2581C7C5AE3009C8BE4 /* WeatherDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDetail.h; sourceTree = "<group>"; };
+		7203F2591C7C5AE3009C8BE4 /* WeatherDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDetail.m; sourceTree = "<group>"; };
+		7203F25B1C7C604C009C8BE4 /* CityWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityWeather.h; sourceTree = "<group>"; };
+		7203F25C1C7C604C009C8BE4 /* CityWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityWeather.m; sourceTree = "<group>"; };
+		7203F25E1C7C60F8009C8BE4 /* CityPollute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPollute.h; sourceTree = "<group>"; };
+		7203F25F1C7C60F8009C8BE4 /* CityPollute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityPollute.m; sourceTree = "<group>"; };
+		7203F2611C7D4055009C8BE4 /* IndexDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexDetail.h; sourceTree = "<group>"; };
+		7203F2621C7D4055009C8BE4 /* IndexDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexDetail.m; sourceTree = "<group>"; };
+		7203F2641C7D5719009C8BE4 /* weatherBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weatherBack.png; sourceTree = "<group>"; };
+		7203F2661C7D598D009C8BE4 /* LineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineData.h; sourceTree = "<group>"; };
+		7203F2671C7D598D009C8BE4 /* LineData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineData.m; sourceTree = "<group>"; };
+		7203F2691C7DE675009C8BE4 /* WeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCell.h; sourceTree = "<group>"; };
+		7203F26A1C7DE675009C8BE4 /* WeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCell.m; sourceTree = "<group>"; };
+		7203F26C1C7EF14E009C8BE4 /* CurveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurveView.h; sourceTree = "<group>"; };
+		7203F26D1C7EF14E009C8BE4 /* CurveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurveView.m; sourceTree = "<group>"; };
+		72046E021C7756C1008F2F8B /* PhotoTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTextCell.h; sourceTree = "<group>"; };
+		72046E031C7756C1008F2F8B /* PhotoTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTextCell.m; sourceTree = "<group>"; };
 		7207838C1C5AF50000DC3045 /* tour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tour.png; sourceTree = "<group>"; };
 		7207838D1C5AF50000DC3045 /* index.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = index.png; sourceTree = "<group>"; };
 		7207838E1C5AF50000DC3045 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
@@ -190,6 +220,8 @@
 		72C4D0641C5E1DC7003B8B6B /* Drawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drawer.m; sourceTree = "<group>"; };
 		72C4D0661C5E1EA3003B8B6B /* CreateButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateButtons.h; sourceTree = "<group>"; };
 		72C4D0671C5E1EA3003B8B6B /* CreateButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateButtons.m; sourceTree = "<group>"; };
+		72FF29421C6F790400198515 /* NetHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHandler.h; sourceTree = "<group>"; };
+		72FF29431C6F790400198515 /* NetHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetHandler.m; sourceTree = "<group>"; };
 		72FFD2C91C60889500EDEEE3 /* CollectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectController.h; sourceTree = "<group>"; };
 		72FFD2CA1C60889500EDEEE3 /* CollectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectController.m; sourceTree = "<group>"; };
 		72FFD2CF1C6088F700EDEEE3 /* MyTourController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTourController.h; sourceTree = "<group>"; };
@@ -493,6 +525,16 @@
 			children = (
 				720E80401C5A153A00B865D1 /* TourModel.h */,
 				720E80411C5A153A00B865D1 /* TourModel.m */,
+				7203F2551C7C5467009C8BE4 /* Weather.h */,
+				7203F2561C7C5467009C8BE4 /* Weather.m */,
+				7203F2581C7C5AE3009C8BE4 /* WeatherDetail.h */,
+				7203F2591C7C5AE3009C8BE4 /* WeatherDetail.m */,
+				7203F25B1C7C604C009C8BE4 /* CityWeather.h */,
+				7203F25C1C7C604C009C8BE4 /* CityWeather.m */,
+				7203F25E1C7C60F8009C8BE4 /* CityPollute.h */,
+				7203F25F1C7C60F8009C8BE4 /* CityPollute.m */,
+				7203F2611C7D4055009C8BE4 /* IndexDetail.h */,
+				7203F2621C7D4055009C8BE4 /* IndexDetail.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -502,6 +544,12 @@
 			children = (
 				720E804F1C5A157C00B865D1 /* TourView.h */,
 				720E80501C5A157C00B865D1 /* TourView.m */,
+				7203F2661C7D598D009C8BE4 /* LineData.h */,
+				7203F2671C7D598D009C8BE4 /* LineData.m */,
+				7203F2691C7DE675009C8BE4 /* WeatherCell.h */,
+				7203F26A1C7DE675009C8BE4 /* WeatherCell.m */,
+				7203F26C1C7EF14E009C8BE4 /* CurveView.h */,
+				7203F26D1C7EF14E009C8BE4 /* CurveView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -509,9 +557,12 @@
 		720E7FED1C59F13200B865D1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72FF29421C6F790400198515 /* NetHandler.h */,
+				72FF29431C6F790400198515 /* NetHandler.m */,
 				728818B11C5B9CAF00C62C7D /* magnifier.png */,
 				728818A21C5B57E600C62C7D /* strategy.png */,
 				728818A41C5B57F100C62C7D /* weather.png */,
+				7203F2641C7D5719009C8BE4 /* weatherBack.png */,
 				728818A61C5B57F700C62C7D /* map.png */,
 				7207838C1C5AF50000DC3045 /* tour.png */,
 				7207838D1C5AF50000DC3045 /* index.png */,
@@ -564,6 +615,8 @@
 				728818AF1C5B8C8500C62C7D /* TabbarView.m */,
 				72C4D0661C5E1EA3003B8B6B /* CreateButtons.h */,
 				72C4D0671C5E1EA3003B8B6B /* CreateButtons.m */,
+				72046E021C7756C1008F2F8B /* PhotoTextCell.h */,
+				72046E031C7756C1008F2F8B /* PhotoTextCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -740,6 +793,7 @@
 				728818A71C5B57F700C62C7D /* map.png in Resources */,
 				720783931C5AF50000DC3045 /* community.png in Resources */,
 				728818A31C5B57E600C62C7D /* strategy.png in Resources */,
+				7203F2651C7D5719009C8BE4 /* weatherBack.png in Resources */,
 				720783921C5AF50000DC3045 /* search.png in Resources */,
 				728818B21C5B9CAF00C62C7D /* magnifier.png in Resources */,
 				720E7FBA1C59EA2F00B865D1 /* LaunchScreen.storyboard in Resources */,
@@ -828,8 +882,10 @@
 				72C4D05C1C5E15CE003B8B6B /* ForumDetailController.m in Sources */,
 				F46884BE1C5B3BF10097C8DC /* ShareButton.m in Sources */,
 				72FFD2E61C608F1200EDEEE3 /* EditPasswordController.m in Sources */,
+				72FF29441C6F790400198515 /* NetHandler.m in Sources */,
 				72082FFF1C5C9C10003FDE83 /* ForumController.m in Sources */,
 				728818AA1C5B6D6700C62C7D /* WeatherController.m in Sources */,
+				7203F2601C7C60F8009C8BE4 /* CityPollute.m in Sources */,
 				72FFD2DD1C608BA500EDEEE3 /* TourListController.m in Sources */,
 				72C4D0531C5DFAF6003B8B6B /* ShareController.m in Sources */,
 				72082FED1C5C5F97003FDE83 /* AddDiaryController.m in Sources */,
@@ -837,15 +893,19 @@
 				72FFD2D41C60894800EDEEE3 /* MyForumController.m in Sources */,
 				720E80511C5A157C00B865D1 /* TourView.m in Sources */,
 				72082FE41C5C4EEB003FDE83 /* SearchWeatherController.m in Sources */,
+				7203F2571C7C5467009C8BE4 /* Weather.m in Sources */,
+				7203F2681C7D598D009C8BE4 /* LineData.m in Sources */,
 				72082FF01C5C6A0A003FDE83 /* TravelView.m in Sources */,
 				72FFD2DA1C608B9400EDEEE3 /* StrategyListController.m in Sources */,
 				720E80421C5A153A00B865D1 /* TourModel.m in Sources */,
 				72082FF31C5C904E003FDE83 /* PartnerView.m in Sources */,
 				720E802D1C5A14D500B865D1 /* IndexController.m in Sources */,
+				7203F26E1C7EF14E009C8BE4 /* CurveView.m in Sources */,
 				F46884BF1C5B3BF10097C8DC /* TableViewCell.m in Sources */,
 				720E804E1C5A156F00B865D1 /* SearchView.m in Sources */,
 				72082FE71C5C5558003FDE83 /* TourManageController.m in Sources */,
 				720E80391C5A151900B865D1 /* ComModel.m in Sources */,
+				7203F25A1C7C5AE3009C8BE4 /* WeatherDetail.m in Sources */,
 				F46884BD1C5B3BF10097C8DC /* LikeButton.m in Sources */,
 				720E80331C5A14F300B865D1 /* TourFeelingController.m in Sources */,
 				72FFD2D71C60897A00EDEEE3 /* UserManageController.m in Sources */,
@@ -853,10 +913,13 @@
 				720E7FAF1C59EA2F00B865D1 /* AppDelegate.m in Sources */,
 				720E80301C5A14E300B865D1 /* SearchController.m in Sources */,
 				720E804B1C5A156500B865D1 /* IndexView.m in Sources */,
+				7203F2631C7D4055009C8BE4 /* IndexDetail.m in Sources */,
+				72046E041C7756C1008F2F8B /* PhotoTextCell.m in Sources */,
 				720E80481C5A155C00B865D1 /* ComView.m in Sources */,
 				72C4D0501C5DFAD0003B8B6B /* FootController.m in Sources */,
 				72FFD2E31C608E5200EDEEE3 /* ChangePasswordController.m in Sources */,
 				720E802A1C5A14C800B865D1 /* CommunityController.m in Sources */,
+				7203F25D1C7C604C009C8BE4 /* CityWeather.m in Sources */,
 				720E80271C5A14B700B865D1 /* BaseController.m in Sources */,
 				72FFD2E01C608D6000EDEEE3 /* TravelViewController.m in Sources */,
 				72C4D0621C5E1DB4003B8B6B /* DrawerView.m in Sources */,
@@ -864,6 +927,7 @@
 				720E7FAC1C59EA2F00B865D1 /* main.m in Sources */,
 				720783981C5AFFAF00DC3045 /* TourDetailController.m in Sources */,
 				72082FF91C5C98C5003FDE83 /* TourPartnerController.m in Sources */,
+				7203F26B1C7DE675009C8BE4 /* WeatherCell.m in Sources */,
 				728818B01C5B8C8500C62C7D /* TabbarView.m in Sources */,
 				72082FEA1C5C5E14003FDE83 /* TemplateController.m in Sources */,
 				72C4D0591C5DFCFD003B8B6B /* PartnerDetailController.m in Sources */,

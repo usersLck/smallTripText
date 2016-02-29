@@ -10,4 +10,8 @@
 
 @interface IndexModel : NSObject
 
+@property (nonatomic, retain)NSString *idcord;
+
+@property (nonatomic, retain)NSString *name;
+
 @end
