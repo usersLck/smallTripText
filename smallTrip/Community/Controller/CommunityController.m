@@ -20,6 +20,7 @@
 
 #import "ForumController.h"
 
+#import "ForumListViewController.h"
 
 //  社交主页
 @interface CommunityController ()
@@ -38,14 +39,17 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = NO;
+//    NSLog(@"%@", self.navigationController.navigationBar);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.view.backgroundColor = [UIColor grayColor];
     self.navigationItem.title = @"社交";
-    
+
     UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"旅友排行", @"结伴旅行", @"问答专区"]];
     seg.frame = CGRectMake(0, BUTTONHEIGHT, KWIDTH, BUTTONHEIGHT);
     [self.view addSubview:seg];
@@ -64,15 +68,22 @@
     self.partner.button.tag = 3001;
     
     
-    self.forum = [[ForumView alloc] initWithFrame:self.travel.frame];
-    [self.view addSubview:self.forum];
-    self.forum.tag = 2002;
-    [self.forum.button addTarget:self action:@selector(returnVC:) forControlEvents:UIControlEventTouchUpInside];
-    self.forum.button.tag = 3002;
-
+//    self.forum = [[ForumView alloc] initWithFrame:self.travel.frame];
+//    [self.view addSubview:self.forum];
+//    self.forum.tag = 2002;
+//    [self.forum.button addTarget:self action:@selector(returnVC:) forControlEvents:UIControlEventTouchUpInside];
+//    self.forum.button.tag = 3002;
+    
+    ForumListViewController *forumListVC = [[ForumListViewController alloc] init];
+    forumListVC.view.tag = 2002;
+    [self.view addSubview:forumListVC.view];
+    [self addChildViewController:forumListVC];
+    
+    
     seg.selectedSegmentIndex = 0;
     
     [self.view bringSubviewToFront:self.travel];
+    NSLog(@"%@", self.navigationController);
 }
 
 - (void)returnVC:(UIButton *)sender{
@@ -87,9 +98,30 @@
 }
 
 - (void)changeView:(UISegmentedControl *)sender{
+    UIViewController *VC = [self viewController:[self.view viewWithTag:2000 + sender.selectedSegmentIndex]];
+    
+
+//        ((ForumListViewController *)VC).searchController.active = NO;
+    
+        
+    
+
     [self.view bringSubviewToFront:[self.view viewWithTag:2000 + sender.selectedSegmentIndex]];
 }
-
+- (UIViewController *)viewController:(UIView *)view {
+//    for (UIView *next = [view superview]; next; [next superview]) {
+//        UIResponder *nextResponder = [next nextResponder];
+//        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+//            return (UIViewController *)nextResponder;
+//        }
+//    }
+//    return nil;
+    id next = [view nextResponder];
+    while (![next isKindOfClass:[UIViewController class]] && next != nil) {
+        next = [next nextResponder];
+    }
+    return (UIViewController *)next;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
