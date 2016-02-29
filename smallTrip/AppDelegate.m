@@ -7,17 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
-#import "IndexController.h"
-
-#import "CommunityController.h"
-
-#import "SearchController.h"
-
-#import "TourFeelingController.h"
-
+#import "RootTabBarViewController.h"
 #import "DrawerController.h"
-
 #import <RESideMenu.h>
 
 @interface AppDelegate () <RESideMenuDelegate>
@@ -33,35 +24,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor  = [UIColor whiteColor];
     
-    UITabBarController *tabbar = [[UITabBarController alloc] init];
-    
-    IndexController *index = [[IndexController alloc] init];
-    UINavigationController *indexNavi = [[UINavigationController alloc] initWithRootViewController:index];
-    indexNavi.tabBarItem.title = @"首页";
-    indexNavi.tabBarItem.image = [UIImage imageNamed:@"index"];
-    
-    SearchController *search = [[SearchController alloc] init];
-    UINavigationController *searchNavi = [[UINavigationController alloc] initWithRootViewController:search];
-    searchNavi.tabBarItem.title = @"发现";
-    searchNavi.tabBarItem.image = [UIImage imageNamed:@"search"];
-    
-    
-    TourFeelingController *tour = [[TourFeelingController alloc] init];
-    UINavigationController *tourNavi = [[UINavigationController alloc] initWithRootViewController:tour];
-    tourNavi.tabBarItem.title = @"游圈";
-    tourNavi.tabBarItem.image = [UIImage imageNamed:@"tour"];
-    
-    CommunityController *community = [[CommunityController alloc] init];
-    UINavigationController *communityNavi = [[UINavigationController alloc] initWithRootViewController:community];
-    communityNavi.tabBarItem.title = @"社交";
-    communityNavi.tabBarItem.image = [UIImage imageNamed:@"community"];
-    
-    
-    NSArray *array = @[indexNavi, searchNavi, tourNavi, communityNavi];
-    
-    tabbar.viewControllers = array;
-    
-    tabbar.selectedIndex = 0;
+    RootTabBarViewController *tabbar = [[RootTabBarViewController alloc] init];
     
     DrawerController *drawer = [[DrawerController alloc] init];
     

@@ -24,7 +24,7 @@
         
         _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _likeButton.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
-        [_likeButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [_likeButton setImage:[UIImage imageNamed:@"weather"] forState:UIControlStateNormal];
         [_likeButton addTarget:self action:@selector(doTap:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_likeButton];
         
