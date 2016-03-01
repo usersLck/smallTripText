@@ -35,7 +35,7 @@
     [self.view addSubview:button];
     [button addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button.tag = 5000;
-    
+
     UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 200, 50)];
     [button1 setTitle:@"ta的足迹" forState:UIControlStateNormal];
     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
