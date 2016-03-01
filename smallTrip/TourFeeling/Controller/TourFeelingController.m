@@ -22,6 +22,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)viewDidLoad {
