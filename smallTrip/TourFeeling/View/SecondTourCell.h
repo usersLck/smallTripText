@@ -7,10 +7,11 @@
 //
 
 #import "FirstTourCell.h"
+#import "TourModel.h"
 
 @interface SecondTourCell : FirstTourCell
-@property(nonatomic, strong) UIImageView *pictureImageView;// 图片
-@property(nonatomic, strong) UILabel *titleLabel;// 标题
+
+@property(nonatomic, strong) TourModel *tourModel;
 
 - (void)cellRotation;
 

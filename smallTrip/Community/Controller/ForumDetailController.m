@@ -16,11 +16,18 @@
 
 @implementation ForumDetailController
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"问答详情";
     self.view.backgroundColor = [UIColor colorWithRed:120 green:130 blue:180 alpha:0.8];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -10,6 +10,7 @@
 
 @interface FirstTourCell : UITableViewCell
 
+@property(nonatomic, strong) UIButton *headButton;// 头像
 @property(nonatomic, strong) UIImageView *headImageView;// 头像
 @property(nonatomic, strong) UILabel *nameLabel;// 昵称
 @property(nonatomic, strong) UILabel *dateLabel;// 发表时间

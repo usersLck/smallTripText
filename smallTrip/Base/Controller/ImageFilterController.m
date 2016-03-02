@@ -10,12 +10,7 @@
 
 @interface ImageFilterController ()
 
-//@property(nonatomic, strong) UIImageView *imageView;
-//@property(nonatomic, strong) UIImage *originImage;
-//@property(nonatomic, strong) UIImage *buttonImage;
-
 @property(nonatomic, strong) UIScrollView *scrollview;
-
 @property(nonatomic, strong) NSArray *filterEnNameArr;
 @property(nonatomic, strong) NSArray *filterCnNameArr;
 
@@ -27,7 +22,6 @@
     if (!_filterEnNameArr) {
         self.filterEnNameArr = [NSArray arrayWithObjects:@"OriginImage", @"CIPhotoEffectChrome", @"CIPhotoEffectFade",@"CIPhotoEffectInstant",@"CIPhotoEffectMono",@"CIPhotoEffectNoir",@"CIPhotoEffectProcess",@"CIPhotoEffectTonal",@"CIPhotoEffectTransfer",@"CISRGBToneCurveToLinear", nil];
     }
-    
     return _filterEnNameArr;
 }
 
@@ -44,7 +38,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
     
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT)];
@@ -54,31 +48,66 @@
 //    self.originImage = [UIImage imageNamed:@"filter.png"];
     
     [self createFilterScrollView];
-    [self createNavBarButton];
+    [self createButton];
     
 }
 
-- (void)createNavBarButton {
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-    self.navigationItem.leftBarButtonItem = leftButton;
+- (void)createButton {
+    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.frame = CGRectMake(KWIDTH/40, KWIDTH/40, KWIDTH/8, KWIDTH/10);
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+    [cancelButton addTarget:self action:@selector(doCancel:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:cancelButton];
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(save:)];
-    self.navigationItem.rightBarButtonItem = rightButton;
-}
-- (void)cancel:(UIBarButtonItem *)barButtonItem {
-    NSLog(@"cancel");
-//    [self.imageView removeObserver:self forKeyPath:@"image"];
-}
-- (void)save:(UIBarButtonItem *)barButtonItem {
-    [self.imageView removeObserver:self forKeyPath:@"image"];
-    
+    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    saveButton.frame = CGRectMake(KWIDTH - KWIDTH/40 - KWIDTH/8, KWIDTH/40, KWIDTH/8, KWIDTH/10);
+    [saveButton setTitle:@"保存" forState:UIControlStateNormal];
+    [saveButton addTarget:self action:@selector(doSave:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:saveButton];
 }
 
+- (void)doCancel:(UIButton *)button {
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)doSave:(UIButton *)button {
+    if (self.imageView.image) {
+        // 保存图片到相册
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image: didFinishSavingWithError: contextInfo:), nil);
+        
+        //  测试上传服务器
+        [self testUpload];
+    }
+}
+// 保存图片回调方法
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error) {
+        NSLog(@"保存失败");// 提示保存失败
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"保存失败" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alertVC animated:YES completion:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+            });
+        }];
+        
+        
+    } else {
+        NSLog(@"保存成功");
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"保存成功" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alertVC animated:YES completion:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [alertVC dismissViewControllerAnimated:YES completion:nil];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            });
+        }];
+    }
+}
 
 - (void)createFilterScrollView {
     self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, KHEIGHT *6/7, KWIDTH, KHEIGHT / 8)];
     self.scrollview.contentSize = CGSizeMake(2*KWIDTH , 0);
-//    [self.view addSubview:self.scrollview];
+    [self.view addSubview:self.scrollview];
     
     self.scrollview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     
@@ -103,30 +132,27 @@
         label.font = [UIFont systemFontOfSize:15];
         [self.scrollview addSubview:label];
         
-        [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:nil];
+//        [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:nil];
         
     }
 }
 
-// self.imageView.image有值时才出现滤镜的选择
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"image"]) {
-        UIImage *image = change[@"new"];
-        if (image) {
-            [self.view addSubview:_scrollview];
-        } else {
-            [self.imageView removeObserver:self forKeyPath:@"image"];
-            [_scrollview removeFromSuperview];
-        }
-    }
+- (void)testUpload {
+    
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.imageView removeObserver:self forKeyPath:@"image"];
-    [_scrollview removeFromSuperview];
-}
-
+//// self.imageView.image有值时才出现滤镜的选择
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+//    if ([keyPath isEqualToString:@"image"]) {
+//        UIImage *image = change[@"new"];
+//        if (image) {
+//            [self.view addSubview:_scrollview];
+//        } else {
+//            [self.imageView removeObserver:self forKeyPath:@"image"];
+//            [_scrollview removeFromSuperview];
+//        }
+//    }
+//}
 
 // 图片滤镜效果
 - (UIImage *)imageHandleByFilter:(NSString *)filterName withImage:(UIImage *)image{

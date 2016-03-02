@@ -14,4 +14,7 @@
 @property(nonatomic, strong) UIImage *originImage;
 @property(nonatomic, strong) UIImage *buttonImage;
 
+// 测试上传
+- (void)testUpload;
+
 @end

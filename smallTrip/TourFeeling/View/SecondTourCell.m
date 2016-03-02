@@ -7,6 +7,14 @@
 //
 
 #import "SecondTourCell.h"
+#import <UIImageView+WebCache.h>
+#import <UIButton+WebCache.h>
+#import "DetailTourModel.h"
+
+@interface SecondTourCell ()
+@property(nonatomic, strong) UIImageView *pictureImageView;// 图片
+@property(nonatomic, strong) UILabel *titleLabel;// 标题
+@end
 
 @implementation SecondTourCell
 
@@ -22,8 +30,7 @@
         _titleLabel.text = @"标题";
         _titleLabel.font = [UIFont systemFontOfSize:19];
         [self.contentView addSubview:_titleLabel];
-        
-        
+                
     }
     return self;
 }
@@ -31,23 +38,23 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    _pictureImageView.frame = CGRectMake(KWIDTH/80, 0, KWIDTH-KWIDTH/40, KHEIGHT/4);
+    _pictureImageView.frame = CGRectMake(KWIDTH/80, 5, KWIDTH-KWIDTH/40, KHEIGHT/4 - 5);
     
 //    _titleLabel.frame = CGRectMake(self.headImageView.frame.origin.x, _pictureImageView.frame.origin.y + _pictureImageView.bounds.size.height + 5, KWIDTH, KWIDTH/20);
  
-    _titleLabel.frame = CGRectMake(self.headImageView.frame.origin.x, self.headImageView.frame.origin.y + self.headImageView.bounds.size.height + 5, KWIDTH, KWIDTH/25);
+    _titleLabel.frame = CGRectMake(self.headButton.frame.origin.x, self.headButton.frame.origin.y + self.headButton.bounds.size.height + 10, KWIDTH, KWIDTH/25);
      
-    self.contentLabel.frame = CGRectMake(self.headImageView.frame.origin.x, _titleLabel.frame.origin.y + _titleLabel.bounds.size.height , KWIDTH - 2 * self.headImageView.frame.origin.x, 60);
+    self.contentLabel.frame = CGRectMake(self.headButton.frame.origin.x, _titleLabel.frame.origin.y + _titleLabel.bounds.size.height , KWIDTH - 2 * self.headButton.frame.origin.x, 60);
    
-    self.attentionButton.frame = CGRectMake(self.headImageView.frame.origin.x, self.contentLabel.frame.origin.y + self.contentLabel.bounds.size.height + 10, KWIDTH/20, KWIDTH/20);
+    self.attentionButton.frame = CGRectMake(self.headButton.frame.origin.x, self.contentLabel.frame.origin.y + self.contentLabel.bounds.size.height + 10, KWIDTH/20, KWIDTH/20);
    
     self.commentButton.frame = CGRectMake(KWIDTH * 2 / 3, self.attentionButton.frame.origin.y, self.attentionButton.bounds.size.width, self.attentionButton.bounds.size.height);
     
-    self.commentCountLabel.frame = CGRectMake(self.commentButton.frame.origin.x + self.commentButton.bounds.size.width, self.attentionButton.frame.origin.y, KWIDTH/10, self.attentionButton.bounds.size.height);
+    self.commentCountLabel.frame = CGRectMake(self.commentButton.frame.origin.x + self.commentButton.bounds.size.width + 5, self.attentionButton.frame.origin.y, KWIDTH/10, self.attentionButton.bounds.size.height);
     
     self.praiseButton.frame = CGRectMake(self.commentCountLabel.frame.origin.x + self.commentCountLabel.bounds.size.width, self.attentionButton.frame.origin.y, self.attentionButton.bounds.size.width, self.attentionButton.bounds.size.height);
     
-    self.praiseCountLabel.frame = CGRectMake(self.praiseButton.frame.origin.x + self.praiseButton.bounds.size.width, self.attentionButton.frame.origin.y, KWIDTH/10, self.attentionButton.bounds.size.height);
+    self.praiseCountLabel.frame = CGRectMake(self.praiseButton.frame.origin.x + self.praiseButton.bounds.size.width + 5, self.attentionButton.frame.origin.y, KWIDTH/10, self.attentionButton.bounds.size.height);
     
 }
 
@@ -80,12 +87,27 @@
     //    [cell cellOffset];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+- (void)setTourModel:(TourModel *)tourModel {
+    _tourModel = tourModel;
+    [self.headButton sd_setImageWithURL:[NSURL URLWithString:tourModel.photo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"header.png"]];
+//    [self.headButton sd_setBackgroundImageWithURL:[NSURL URLWithString:tourModel.photo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"header.png"]];
+    self.nameLabel.text = tourModel.userName;
+    self.dateLabel.text = tourModel.time;
+    self.titleLabel.text = tourModel.name;
+    if (tourModel.goodNumber.length > 3) {
+//        self.praiseCountLabel.text = [NSString stringWithFormat:@"%d.%"]
+    }
+    self.commentCountLabel.text = tourModel.commentNumber;
+    self.praiseCountLabel.text = tourModel.goodNumber;
+    for (DetailTourModel *detailModel in tourModel.listArr) {
+        if ([detailModel.type isEqualToString:@"2"]) {
+            [self.pictureImageView sd_setImageWithURL:[NSURL URLWithString:detailModel.description0] placeholderImage:nil];
+        } else {
+            self.contentLabel.text = detailModel.description0;
+        }
+    }
+    
 }
-*/
 
 @end

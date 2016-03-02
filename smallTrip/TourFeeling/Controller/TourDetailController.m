@@ -7,12 +7,14 @@
 //
 
 #import "TourDetailController.h"
-
+#import "RootTabBarViewController.h"
 #import "TabbarView.h"
 
 
 //  游记详情
-@interface TourDetailController ()
+@interface TourDetailController ()<UITableViewDataSource>
+
+@property(nonatomic, strong) UITableView *detailTableView;
 
 @end
 
@@ -21,7 +23,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
+    ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = YES;
     [self CreateTabButton];
     self.view.backgroundColor = [UIColor brownColor];
 }
@@ -33,6 +35,13 @@
    
 }
 
+- (void)createDetailTableView {
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.dataSource = self;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _detailTableView = tableView;
+//    [_detailTableView registerClass:[] forCellReuseIdentifier:<#(nonnull NSString *)#>]
+}
 
 
 - (void)viewDidLoad {
@@ -41,16 +50,29 @@
     self.navigationItem.title = @"游记详情";
     self.view.backgroundColor = [UIColor purpleColor];
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStyleDone target:self action:@selector(returnIndex:)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(returnIndex:)];
     self.navigationItem.leftBarButtonItem = button;
     
-    
+    NSLog(@"%@", self.tourModel.listArr);
     
 }
 
 - (void)returnIndex:(UIBarButtonItem *)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - UITableViewDataSoure
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tourModel.listArr.count;
+}
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//}
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
