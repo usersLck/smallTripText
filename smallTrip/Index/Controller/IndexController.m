@@ -14,6 +14,8 @@
 
 #import "TourDetailController.h"
 
+#import "RootTabBarViewController.h"
+
 #import <RESideMenu.h>
 
 //#import "NetHandler.h"
@@ -37,7 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-//    self.tabBarController.tabBar.hidden = NO;
+    ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = NO;
 }
 
 
