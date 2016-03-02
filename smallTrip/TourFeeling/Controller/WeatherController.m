@@ -9,12 +9,12 @@
 #import "TourDetailController.h"
 
 #import "WeatherController.h"
-
+/*
 #import "TabbarView.h"
 
 #import "SearchWeatherController.h"
 
-#import "NetHandler.h"
+//#import "NetHandler.h"
 
 #import "CityWeather.h"
 
@@ -27,7 +27,7 @@
 #import "WeatherCell.h"
 
 #define kUrlAll @"http://aider.meizu.com/app/weather/listWeather?cityIds=101120101"
-
+*/
 //  天气主页
 @interface WeatherController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -42,7 +42,7 @@
 @end
 
 @implementation WeatherController
-
+/*
 - (NSMutableArray *)array{
     if (!_array) {
         self.array = [NSMutableArray array];

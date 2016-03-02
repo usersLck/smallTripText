@@ -16,7 +16,7 @@
 
 #import <RESideMenu.h>
 
-#import "NetHandler.h"
+//#import "NetHandler.h"
 
 #define kUrlAll @"http://192.168.0.3:8080/text/aaa"
 //http://lolbox.duowan.com/phone/apiHeroDetail.php?OSType=iOS8.1.2&v=70&heroName=Ashe"
@@ -84,7 +84,7 @@
 //    NSLog(@"%@", error);
 //    NSError *jsonerr = nil;
 //    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&jsonerr];
-    
+    /*
     [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
         NSError *error = nil;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&error];
@@ -96,7 +96,7 @@
             NSLog(@"%@\n%@", index.idcord, index.name);
         }
     }];
-    
+    */
     TourDetailController *tour = [[TourDetailController alloc] init];
     [self.navigationController pushViewController:tour animated:YES];
 }
