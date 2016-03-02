@@ -108,7 +108,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TourDetailController *tourDetailVC = [[TourDetailController alloc] init];
     // 通过model传值
-    
+//    tourDetailVC.tourModel = 
     [self.navigationController pushViewController:tourDetailVC animated:YES];
 }
 

@@ -194,6 +194,8 @@
 		79CC16391C80824E0085786D /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CC16381C80824E0085786D /* TestViewController.m */; };
 		79E646BA1C85BC0D006D24CF /* DetailTourModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E646B91C85BC0D006D24CF /* DetailTourModel.m */; };
 		79E646BE1C85C64B006D24CF /* header.png in Resources */ = {isa = PBXBuildFile; fileRef = 79E646BD1C85C64B006D24CF /* header.png */; };
+		79E646C11C870EDD006D24CF /* DetailTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E646C01C870EDD006D24CF /* DetailTextCell.m */; };
+		79E646C41C870EEC006D24CF /* DetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E646C31C870EEC006D24CF /* DetailImageCell.m */; };
 		8D0CFAE841ED1A1DA01A796A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 047672840C2A20FD5D333830 /* libPods.a */; };
 		F46884BD1C5B3BF10097C8DC /* LikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884B81C5B3BF10097C8DC /* LikeButton.m */; };
 		F46884BE1C5B3BF10097C8DC /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884BA1C5B3BF10097C8DC /* ShareButton.m */; };
@@ -472,6 +474,10 @@
 		79E646B81C85BC0D006D24CF /* DetailTourModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTourModel.h; sourceTree = "<group>"; };
 		79E646B91C85BC0D006D24CF /* DetailTourModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTourModel.m; sourceTree = "<group>"; };
 		79E646BD1C85C64B006D24CF /* header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header.png; sourceTree = "<group>"; };
+		79E646BF1C870EDD006D24CF /* DetailTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTextCell.h; sourceTree = "<group>"; };
+		79E646C01C870EDD006D24CF /* DetailTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTextCell.m; sourceTree = "<group>"; };
+		79E646C21C870EEC006D24CF /* DetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailImageCell.h; sourceTree = "<group>"; };
+		79E646C31C870EEC006D24CF /* DetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailImageCell.m; sourceTree = "<group>"; };
 		F46884B71C5B3BF10097C8DC /* LikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeButton.h; sourceTree = "<group>"; };
 		F46884B81C5B3BF10097C8DC /* LikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeButton.m; sourceTree = "<group>"; };
 		F46884B91C5B3BF10097C8DC /* ShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareButton.h; sourceTree = "<group>"; };
@@ -782,6 +788,10 @@
 				79C939151C843C2C00275827 /* ManagerTopView.m */,
 				79C939111C84345D00275827 /* TourManagerView.h */,
 				79C939121C84345D00275827 /* TourManagerView.m */,
+				79E646BF1C870EDD006D24CF /* DetailTextCell.h */,
+				79E646C01C870EDD006D24CF /* DetailTextCell.m */,
+				79E646C21C870EEC006D24CF /* DetailImageCell.h */,
+				79E646C31C870EEC006D24CF /* DetailImageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1380,6 +1390,7 @@
 				72FFD2D71C60897A00EDEEE3 /* UserManageController.m in Sources */,
 				72082FFC1C5C9A09003FDE83 /* FindPartnerController.m in Sources */,
 				720E7FAF1C59EA2F00B865D1 /* AppDelegate.m in Sources */,
+				79E646C41C870EEC006D24CF /* DetailImageCell.m in Sources */,
 				720E80301C5A14E300B865D1 /* SearchController.m in Sources */,
 				720E804B1C5A156500B865D1 /* IndexView.m in Sources */,
 				720E80481C5A155C00B865D1 /* ComView.m in Sources */,
@@ -1387,6 +1398,7 @@
 				79C938221C83DD2600275827 /* ForumListViewController.m in Sources */,
 				72FFD2E31C608E5200EDEEE3 /* ChangePasswordController.m in Sources */,
 				720E802A1C5A14C800B865D1 /* CommunityController.m in Sources */,
+				79E646C11C870EDD006D24CF /* DetailTextCell.m in Sources */,
 				720E80271C5A14B700B865D1 /* BaseController.m in Sources */,
 				72FFD2E01C608D6000EDEEE3 /* TravelViewController.m in Sources */,
 				72C4D0621C5E1DB4003B8B6B /* DrawerView.m in Sources */,

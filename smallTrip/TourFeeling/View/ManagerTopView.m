@@ -7,13 +7,14 @@
 //
 
 #import "ManagerTopView.h"
-
+#import "TourModel.h"
+#import <UIButton+WebCache.h>
 @implementation ManagerTopView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-//        self.backgroundColor = [UIColor orangeColor];
+        self.backgroundColor = [UIColor orangeColor];
         
         _imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_imageButton setImage:[UIImage imageNamed:@"test"] forState:UIControlStateNormal];
@@ -32,6 +33,13 @@
         
     }
     return self;
+}
+
+- (void)setTourModel:(TourModel *)tourModel {
+    _tourModel = tourModel;
+    [_imageButton sd_setImageWithURL:[NSURL URLWithString:tourModel.photo] forState:UIControlStateNormal placeholderImage:nil];
+    _nameLabel.text = tourModel.userName;
+    _countLabel.text = tourModel.time;
 }
 
 /*

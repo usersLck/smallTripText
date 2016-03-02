@@ -10,9 +10,15 @@
 #import "RootTabBarViewController.h"
 #import "TabbarView.h"
 
+#import "DetailTextCell.h"
+#import "DetailImageCell.h"
+#import "DetailTourModel.h"
+#import <UIImageView+WebCache.h>
+#import "ManagerTopView.h"
+
 
 //  游记详情
-@interface TourDetailController ()<UITableViewDataSource>
+@interface TourDetailController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, strong) UITableView *detailTableView;
 
@@ -38,9 +44,13 @@
 - (void)createDetailTableView {
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     tableView.dataSource = self;
+    tableView.delegate = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.backgroundColor = [UIColor orangeColor];
     _detailTableView = tableView;
-//    [_detailTableView registerClass:[] forCellReuseIdentifier:<#(nonnull NSString *)#>]
+    [_detailTableView registerClass:[DetailTextCell class] forCellReuseIdentifier:@"text"];
+    [_detailTableView registerClass:[DetailImageCell class] forCellReuseIdentifier:@"image"];
+    [self.view addSubview:_detailTableView];
 }
 
 
@@ -54,6 +64,7 @@
     self.navigationItem.leftBarButtonItem = button;
     
     NSLog(@"%@", self.tourModel.listArr);
+    [self createDetailTableView];
     
 }
 
@@ -65,13 +76,35 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.tourModel.listArr.count;
 }
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    DetailTourModel *model = self.tourModel.listArr[indexPath.row];
+    if ([model.type isEqualToString:@"1"]) {
+        DetailTextCell *cell = [tableView dequeueReusableCellWithIdentifier:@"text"];
+        cell.label.text = model.description0;
+        return cell;
+    } else if ([model.type isEqualToString:@"2"]) {
+        DetailImageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"image"];
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.description0] placeholderImage:nil];
+        return cell;
+    }
+    return nil;
+}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    DetailTourModel *model = self.tourModel.listArr[indexPath.row];
+    if ([model.type isEqualToString:@"1"]) {
+        NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:17]};
+        CGRect rect = [model.description0 boundingRectWithSize:CGSizeMake(KWIDTH - KWIDTH/20, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil];
+        return rect.size.height + KWIDTH/20;
+    }
+    return KWIDTH/20 + 200;
+}
 
-
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    ManagerTopView *topView = [[ManagerTopView alloc] init];
+    topView.tourModel = self.tourModel;
+    return topView;
+}
 
 
 - (void)didReceiveMemoryWarning {

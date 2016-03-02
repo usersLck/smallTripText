@@ -43,12 +43,15 @@
     
     AFHTTPSessionManager *mager = [AFHTTPSessionManager manager];
     mager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+//    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+//    [mager setSecurityPolicy:securityPolicy];
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@"000" forKey:@"userName"];
     [parameters setObject:@"2" forKey:@"type"];
     
-    [mager POST:kUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [mager POST:kUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 0.5);
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -61,7 +64,7 @@
         [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
         NSLog(@"forma %@", formData);
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"成功");
+        NSLog(@"成功%@", responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"失败 %@", error);
     }];

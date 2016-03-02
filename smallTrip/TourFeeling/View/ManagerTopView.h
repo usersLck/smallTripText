@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TourModel;
 
 @interface ManagerTopView : UIView
 
@@ -14,6 +15,6 @@
 @property(nonatomic, strong) UILabel *nameLabel;
 @property(nonatomic, strong) UILabel *countLabel;
 
-
+@property(nonatomic, strong) TourModel *tourModel;
 
 @end
