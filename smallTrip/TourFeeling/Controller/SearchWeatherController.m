@@ -12,6 +12,8 @@
 //  天气搜索
 @interface SearchWeatherController ()
 
+@property (nonatomic, retain)UITableView *table;
+
 @end
 
 @implementation SearchWeatherController
@@ -19,8 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.view.backgroundColor = [UIColor cyanColor];
+    _table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT) style:UITableViewStylePlain];
 }
 
 - (void)didReceiveMemoryWarning {
