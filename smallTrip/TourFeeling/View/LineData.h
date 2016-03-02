@@ -16,6 +16,8 @@
 
 @property (nonatomic, retain)NSMutableArray *lastArray;
 
+@property (nonatomic, assign)NSInteger type;
+
 - (instancetype)initWithFrame:(CGRect)frame andArray:(NSArray *)array andType:(NSInteger *)type;
 
 @end
