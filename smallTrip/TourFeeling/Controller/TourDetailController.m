@@ -7,7 +7,7 @@
 //
 
 #import "TourDetailController.h"
-
+#import "RootTabBarViewController.h"
 #import "TabbarView.h"
 
 
@@ -21,7 +21,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
+//    self.tabBarController.tabBar.hidden = YES;
+    ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = YES;
     [self CreateTabButton];
     self.view.backgroundColor = [UIColor brownColor];
 }

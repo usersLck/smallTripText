@@ -90,7 +90,7 @@
     
     UINavigationController *userNavi = [[UINavigationController alloc] initWithRootViewController:user];
     
-    NSArray *array = @[collect, tourManage, myTour, forum, user];
+//    NSArray *array = @[collect, tourManage, myTour, forum, user];
     
     NSArray *arr = @[collectNavi, tourManageNavi, myTourNavi, forumNavi, userNavi];
     

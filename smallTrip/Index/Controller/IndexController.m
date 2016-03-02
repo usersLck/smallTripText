@@ -14,6 +14,8 @@
 
 #import "TourDetailController.h"
 
+#import "RootTabBarViewController.h"
+
 #import <RESideMenu.h>
 
 #import "NetHandler.h"
@@ -37,7 +39,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
+    ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = NO;
+//    self.tabBarController.tabBar.hidden = YES;
 }
 
 
@@ -70,20 +73,11 @@
 }
 
 - (void)returnC:(UIButton *)sender{
+    NSString* encodedString = [[kUrlAll stringByAppendingString:@"name=北京"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:encodedString];
+    NSLog(@"%@", url);
     
-    NSURL *url = [NSURL URLWithString:kUrlAll];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"GET"];
     
-//    NSData *datas = [@"date=20151101&startRecord=1&len=5&udid=1234567890&terminalType=Iphone&cid=213" dataUsingEncoding:NSUTF8StringEncod ing];
-//    [request setHTTPBody:datas];
-    //  发送请求，建立链接
-//    NSURLResponse *response = nil;
-//    NSError *error = nil;
-//    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//    NSLog(@"%@", error);
-//    NSError *jsonerr = nil;
-//    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&jsonerr];
     
     [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
         NSError *error = nil;
