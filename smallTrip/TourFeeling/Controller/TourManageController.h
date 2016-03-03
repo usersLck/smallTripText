@@ -10,4 +10,6 @@
 
 @interface TourManageController : UIViewController
 
+@property(nonatomic, strong) NSMutableArray *array;
+
 @end

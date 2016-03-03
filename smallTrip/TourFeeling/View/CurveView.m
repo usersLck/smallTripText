@@ -12,11 +12,13 @@
 
 #import "weatherDetail.h"
 
+#import "WeatherView.h"
+
 @interface CurveView ()
 
 @property (nonatomic, assign)NSInteger type;
 
-@property (nonatomic, retain)NSMutableArray *pointArray;
+//@property (nonatomic, retain)NSMutableArray *pointArray;
 
 @property (nonatomic, assign)NSInteger sum;
 
@@ -78,10 +80,21 @@
 
 - (void)drawRect:(CGRect)rect{
     if (self.type != 0) {
-       for (int i = 0; i < 7; i++) {
+       for (int i = 0; i < 8; i++) {
            [self drawData:i];
            [self drawBack:i];
        }
+        for (int i = 1 ; i < 7; i++) {
+            WeatherView *view = [[WeatherView alloc] initWithFrame:CGRectMake(KWIDTH / 7 * i - TABBARHEIGHT / 2, ((NSNumber *)self.pointArray[i]).doubleValue - TABBARHEIGHT * 2 + TABBARHEIGHT / 4, TABBARHEIGHT * 5 / 4, TABBARHEIGHT * 2)];
+            [self addSubview:view];
+            NSLog(@"%@", NSStringFromCGRect(view.frame));
+            WeatherDetail *detail = self.array[i];
+            NSRange range = NSMakeRange(11, 5);
+            view.label1.text = [detail.startTime substringWithRange:range];
+            view.label2.text = detail.weather;
+            NSInteger temp = (detail.highestTemperature + detail.lowerestTemperature) / 2;
+            view.label3.text = [NSString stringWithFormat:@"%ld°", temp] ;
+        }
     }
 }
 
@@ -90,11 +103,10 @@
     if (i != 0) {
         WeatherDetail *detail = self.array[i];
         NSInteger temp = (detail.highestTemperature + detail.lowerestTemperature) / 2 - _min;
-        [bezier moveToPoint:CGPointMake((i - 1) * KWIDTH / 6, ((NSNumber *)_pointArray[i - 1]).doubleValue)];
-        [bezier addLineToPoint:CGPointMake((i - 1) * KWIDTH / 6 ,  100)];
-        [bezier addLineToPoint:CGPointMake(i * KWIDTH / 6 ,  100)];
-        [bezier addLineToPoint:CGPointMake(i * KWIDTH / 6 ,  100 - 30 / _sum * temp)];
-//        [bezier addLineToPoint:CGPointMake((i - 1) * KWIDTH / 6 ,  ((NSNumber *)_pointArray[i - 1]).doubleValue)];
+        [bezier moveToPoint:CGPointMake((i - 1) * KWIDTH / 7, ((NSNumber *)_pointArray[i - 1]).doubleValue)];
+        [bezier addLineToPoint:CGPointMake((i - 1) * KWIDTH / 7 ,  105)];
+        [bezier addLineToPoint:CGPointMake(i * KWIDTH / 7 ,  105)];
+        [bezier addLineToPoint:CGPointMake(i * KWIDTH / 7 ,  100 - 30 / _sum * temp)];
         [bezier closePath];
         UIColor *backColor = [UIColor whiteColor];
         [backColor set];
@@ -111,13 +123,15 @@
     WeatherDetail *detail = self.array[i];
     NSInteger temp = (detail.highestTemperature + detail.lowerestTemperature) / 2 - _min;
     CGFloat center = 0.0;
-    if (((NSNumber *)_pointArray[i - 1]).doubleValue < (100 - 30 / _sum * temp)) {
-        center = ((100 - 30 / _sum * temp) - ((NSNumber *)_pointArray[i - 1]).doubleValue) / 2 + ((NSNumber *)_pointArray[i - 1]).doubleValue - 3;
-    }else{
-        center = (((NSNumber *)_pointArray[i - 1]).doubleValue - (100 - 30 / _sum * temp)) / 2 + 100 - 30 / _sum * temp - 3;
+    if (i != 0) {
+        if (((NSNumber *)_pointArray[i - 1]).doubleValue < (100 - 30 / _sum * temp)) {
+            center = ((100 - 30 / _sum * temp) - ((NSNumber *)_pointArray[i - 1]).doubleValue) / 2 + ((NSNumber *)_pointArray[i - 1]).doubleValue - 3;
+        }else{
+            center = (((NSNumber *)_pointArray[i - 1]).doubleValue - (100 - 30 / _sum * temp)) / 2 + 100 - 30 / _sum * temp - 3;
+        }
+        [bezierPath moveToPoint:CGPointMake((i - 1) * KWIDTH / 7, ((NSNumber *)_pointArray[i - 1]).doubleValue)];
+        [bezierPath addQuadCurveToPoint:CGPointMake(i * KWIDTH / 7 ,  100 - 30 / _sum * temp) controlPoint:CGPointMake(i * KWIDTH / 7 - KWIDTH / 12 - 3,  center)];
     }
-    [bezierPath moveToPoint:CGPointMake((i - 1) * KWIDTH / 6, ((NSNumber *)_pointArray[i - 1]).doubleValue)];
-    [bezierPath addQuadCurveToPoint:CGPointMake(i * KWIDTH / 6 ,  100 - 30 / _sum * temp) controlPoint:CGPointMake(i * KWIDTH / 6 - KWIDTH / 12 - 3,  center)];
     [self.pointArray addObject:[NSNumber numberWithDouble:100 - 30 / _sum * temp]];
     UIColor *strokeColor = [UIColor whiteColor];
     [strokeColor set];

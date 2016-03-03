@@ -10,125 +10,222 @@
 #import "ForumDetailController.h"
 #import "CommunityController.h"
 #import "ForumListCell.h"
+#import "HistoryViewController.h"
+#import <AFNetworking.h>
+#import "ForumModel.h"
+#import <MJRefresh.h>
+
 
 @interface ForumListViewController ()<UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate>
 
-@property (nonatomic, strong) NSMutableArray *dataList;
-@property (nonatomic, strong) NSMutableArray *searchList;
+@property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIView *alphaView;
+@property (nonatomic, strong) NSMutableArray *historyArray; 
+@property (nonatomic, strong) NSMutableArray *dataSourceArr;
+@property (nonatomic, strong) NSMutableArray *showArr;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
 @implementation ForumListViewController
 
-- (UIView *)alphaView {
-    if (!_alphaView) {
-        _alphaView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT)];
-        _alphaView.backgroundColor = [UIColor blackColor];
-        _alphaView.alpha = 0.6;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignResponder)];
-        [_alphaView addGestureRecognizer:tap];
+#pragma mark - 属性懒加载
+
+- (NSMutableArray *)historyArray {
+    if (!_historyArray) {
+        _historyArray = [NSMutableArray arrayWithCapacity:0];
     }
-    return _alphaView;
+    return _historyArray;
 }
+
+- (NSArray *)dataSourceArr {
+    if (!_dataSourceArr) {
+        _dataSourceArr = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _dataSourceArr;
+}
+
+- (NSMutableArray *)showArr {
+    if (!_showArr) {
+        _showArr = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _showArr;
+}
+
 - (void)resignResponder {
     _searchController.active = NO;
     self.parentViewController.navigationController.navigationBar.hidden = YES;
 }
 
+#pragma mark - 设置TableView
+- (void)setTableView {
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    [self.view addSubview:_tableView];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [_tableView registerClass:[ForumListCell class] forCellReuseIdentifier:@"cell"];
+}
+
+# pragma mark - 设置SearchController
+- (void)setSearchController {
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchController.searchResultsUpdater = self;
+    [_searchController.searchBar sizeToFit];
+    _searchController.searchBar.delegate = self;
+    _tableView.tableHeaderView = _searchController.searchBar;
+    _tableView.rowHeight = 200;
+    
+    _searchController.dimsBackgroundDuringPresentation = YES;
+    _searchController.obscuresBackgroundDuringPresentation = YES;
+    _searchController.hidesBottomBarWhenPushed = YES;
+    
+    _searchController.hidesNavigationBarDuringPresentation = NO;
+}
+
+#pragma mark - 获取NSURL
+- (NSString *)getURlStr {
+    NSString *url = [NSString stringWithFormat:@"http://10.80.12.36:8080/text/question?name=%@&nowpage=%ld", _name, _page];
+    url = [url stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    return url;
+}
+
+#pragma mark - 视图加载
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.view.frame = CGRectMake(0, 66, KWIDTH, KHEIGHT - 66);
-    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    [self.view addSubview:tableView];
-    tableView.delegate = self;
-    tableView.dataSource = self;
+    [self setTableView];
     
-    tableView.pagingEnabled = YES;
-    [tableView registerClass:[ForumListCell class] forCellReuseIdentifier:@"cell"];
+    [self setSearchController];
     
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    _searchController.searchResultsUpdater = self;
-    _searchController.dimsBackgroundDuringPresentation = NO;
-    [_searchController.searchBar sizeToFit];
-    _searchController.searchBar.delegate = self;
-    tableView.tableHeaderView = _searchController.searchBar;
-    tableView.rowHeight = 200;
+    // 历史搜索记录视图的控制器
+    HistoryViewController *historyVC = [[HistoryViewController alloc] init];
+    historyVC.view.backgroundColor = [UIColor whiteColor];
+    historyVC.tableView.delegate = self;
+    [self addChildViewController:historyVC];
     
-    _searchController.dimsBackgroundDuringPresentation = YES;
-    _searchController.obscuresBackgroundDuringPresentation = YES;
-    _searchController.hidesBottomBarWhenPushed = YES;
-//    _searchController.hidesNavigationBarDuringPresentation = NO;
+    
+    _name = @"all";
+    _page = 1;
+    
+    [self getNetworkingData:[self getURlStr]];
 }
 
+#pragma mark - searchBar Delegate
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"%d", _searchController.active);
-    self.parentViewController.navigationController.navigationBar.hidden = YES;
+//    NSLog(@"%d", _searchController.active);
+//    self.parentViewController.navigationController.navigationBar.hidden = YES;
 //    NSLog(@"%@", self.parentViewController.navigationController.navigationBar);
 }
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSLog(@"dddd");
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
-}
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-//    [self.parentViewController.view addSubview:self.alphaView];
-//    CGRect rect = _searchController.searchBar.frame;
-//    [UIView animateWithDuration:0.5 animations:^{
-//       _searchController.searchBar.frame = CGRectMake(0, -46, rect.size.width, rect.size.height);
-//    }];
-
-    return YES;
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+    HistoryViewController *VC = self.childViewControllers[0];
+    [VC setNewTableView:_historyArray];
+    VC.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    [_searchController.view addSubview:VC.view];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    [self.alphaView removeFromSuperview];
+    if (![searchBar.text isEqualToString:@""]) {
+        [self.historyArray addObject:searchBar.text];
+    }
+    _searchController.active = NO;
 }
+
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSLog(@"%@", searchController.searchBar.text);
+    _showArr = [NSMutableArray arrayWithCapacity:0];
+    for (ForumModel *model in _dataSourceArr) {
+        NSString *str = model.title;
+        if ([str containsString:searchController.searchBar.text]) {
+            
+            [_showArr addObject:model];
+            [_tableView reloadData];
+        }
+    }
+    
+}
+
+#pragma mark - TableVire Delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _showArr.count;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ForumListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"back"]];
+    ForumModel *model = self.showArr[indexPath.row];
+    [cell setCell:model];
     
-//    CATransform3D rotation;//3D旋转
-//    
-//    rotation = CATransform3DMakeTranslation(0 ,50 ,20);
-//                    rotation = CATransform3DMakeRotation( M_PI_4 , 0.0, 0.7, 0.4);
-//    //逆时针旋转
-//    
-//    rotation = CATransform3DScale(rotation, 0.9, .9, 1);
-//    
-//    rotation.m34 = 1.0/ -600;
-//    
-//    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
-//    cell.layer.shadowOffset = CGSizeMake(10, 10);
-//    cell.alpha = 0;
-//    cell.layer.transform = rotation;
-//    
-//    [UIView beginAnimations:@"rotation" context:NULL];
-//    //旋转时间
-//    [UIView setAnimationDuration:0.6];
-//    cell.layer.transform = CATransform3DIdentity;
-//    cell.alpha = 1;
-//    cell.layer.shadowOffset = CGSizeMake(0, 0);
-//    [UIView commitAnimations];
-
+    //    CATransform3D rotation;//3D旋转
+    //
+    //    rotation = CATransform3DMakeTranslation(0 ,50 ,20);
+    //                    rotation = CATransform3DMakeRotation( M_PI_4 , 0.0, 0.7, 0.4);
+    //    //逆时针旋转
+    //
+    //    rotation = CATransform3DScale(rotation, 0.9, .9, 1);
+    //
+    //    rotation.m34 = 1.0/ -600;
+    //
+    //    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
+    //    cell.layer.shadowOffset = CGSizeMake(10, 10);
+    //    cell.alpha = 0;
+    //    cell.layer.transform = rotation;
+    //
+    //    [UIView beginAnimations:@"rotation" context:NULL];
+    //    //旋转时间
+    //    [UIView setAnimationDuration:0.6];
+    //    cell.layer.transform = CATransform3DIdentity;
+    //    cell.alpha = 1;
+    //    cell.layer.shadowOffset = CGSizeMake(0, 0);
+    //    [UIView commitAnimations];
+    
     
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == ((HistoryViewController *)self.childViewControllers[0]).tableView) {
+        self.searchController.searchBar.text = self.historyArray[indexPath.row];
+    } else {
     ForumDetailController *VC = [[ForumDetailController alloc] init];
     _searchController.active = NO;
     [self.navigationController pushViewController:VC animated:YES];
+    //    [self.parentViewController presentViewController:VC animated:YES completion:nil];
+    }
 }
 
 
+
+#pragma mark - 网络请求
+- (void)getNetworkingData:(NSString *)url {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    // 需要转换类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *arr = responseObject[@"success"];
+        for (NSDictionary *dic in arr) {
+            ForumModel *model = [[ForumModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [self.dataSourceArr addObject:model];
+            [self.showArr addObject:model];
+        }
+        [_tableView reloadData];
+        NSLog(@"%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"网络请求失败%@", task);
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

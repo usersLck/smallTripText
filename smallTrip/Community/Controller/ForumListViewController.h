@@ -10,6 +10,5 @@
 
 @interface ForumListViewController : UIViewController
 
-@property (nonatomic, strong) UISearchController *searchController;
 
 @end
