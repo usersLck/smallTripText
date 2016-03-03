@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/NSFileManager.h>
+
 
 @interface AddDiaryCell : UITableViewCell
 

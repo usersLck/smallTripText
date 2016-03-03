@@ -79,6 +79,7 @@
     
     switch (button.tag) {
         case 1000:
+            TVC.section = self.section;
             [self.navigationController pushViewController:TVC animated:YES];
             break;
         case 1001:
@@ -102,9 +103,10 @@
     // 获取系统相册照片
     // 这个image可以用于给外界传值
     UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-    NSDictionary *dict = @{@"image":image, @"sign":@"1"};
+    NSDictionary *dict = @{@"image":image, @"sign":@"1", @"section":self.section};
     // 发送传递image的通知
     [[NSNotificationCenter defaultCenter] postNotificationName:@"image" object:self userInfo:dict];
+    NSLog(@"%@", image);
     
 }
 

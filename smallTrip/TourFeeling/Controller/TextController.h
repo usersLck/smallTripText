@@ -15,5 +15,8 @@
 @property (nonatomic, strong)NSString *text;
 // 作为回传数据的标志
 @property (nonatomic, strong)NSString *key;
+// 分区标志
+@property (nonatomic, strong)NSString *section;
+
 
 @end

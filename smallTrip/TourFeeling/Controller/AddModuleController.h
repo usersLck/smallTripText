@@ -11,4 +11,10 @@
 
 @interface AddModuleController : UIViewController
 
+
+@property (nonatomic, strong)NSString *section;
+
+
+
+
 @end

@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong)UILabel *remainText;
 
+@property (nonatomic, strong)NSString *mySection;
 
 @end
 
@@ -103,6 +104,7 @@
 //    self.remainText.text = @"(限制500字)";
     [self.view addSubview:self.remainText];
     [self getText];
+    [self creatMySection];
 }
 
 // textView 代理方法，用于限制输入字数
@@ -150,11 +152,11 @@
     
     [self.navigationController popToViewController:[self.navigationController viewControllers][5] animated:YES];
     if (self.text.length == 0) {
-        NSDictionary *dict = @{@"text":content, @"sign":@"0"};
+        NSDictionary *dict = @{@"text":content, @"sign":@"0", @"section":self.mySection};
         // 发送通知
         [[NSNotificationCenter defaultCenter] postNotificationName:@"addNum" object:self userInfo:dict];
     }else{
-        NSDictionary *dict = @{@"text":content, @"key":self.key};
+        NSDictionary *dict = @{@"text":content, @"key":self.key, @"section":self.mySection};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"amend" object:self userInfo:dict];
     }
 
@@ -168,7 +170,13 @@
 }
 
 
-
+- (void)creatMySection {
+    
+    
+    self.mySection = self.section;
+    NSLog(@"%@", self.mySection);
+    
+}
 
 
 

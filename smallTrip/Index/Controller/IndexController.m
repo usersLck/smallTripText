@@ -16,7 +16,7 @@
 
 #import <RESideMenu.h>
 
-#import "NetHandler.h"
+//#import "NetHandler.h"
 
 #define kUrlAll @"http://192.168.0.3:8080/text/aaa"
 //http://lolbox.duowan.com/phone/apiHeroDetail.php?OSType=iOS8.1.2&v=70&heroName=Ashe"
@@ -85,17 +85,17 @@
 //    NSError *jsonerr = nil;
 //    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&jsonerr];
     
-    [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
-        NSError *error = nil;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&error];
-        NSLog(@"%@", dic[@"success"]);
-        NSArray *array = dic[@"success"];
-        for (NSDictionary *dics in array) {
-            IndexModel *index = [[IndexModel alloc] init];
-            [index setValuesForKeysWithDictionary:dics];
-            NSLog(@"%@\n%@", index.idcord, index.name);
-        }
-    }];
+//    [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
+//        NSError *error = nil;
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&error];
+//        NSLog(@"%@", dic[@"success"]);
+//        NSArray *array = dic[@"success"];
+//        for (NSDictionary *dics in array) {
+//            IndexModel *index = [[IndexModel alloc] init];
+//            [index setValuesForKeysWithDictionary:dics];
+//            NSLog(@"%@\n%@", index.idcord, index.name);
+//        }
+//    }];
     
     TourDetailController *tour = [[TourDetailController alloc] init];
     [self.navigationController pushViewController:tour animated:YES];
