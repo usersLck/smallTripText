@@ -14,45 +14,117 @@
 
 #import "SearchWeatherController.h"
 
+#import "NetHandler.h"
+
+#import "CityWeather.h"
+
+#import "CityPollute.h"
+
+#import "ShareButton.h"
+
+#import "LineData.h"
+
+#import "weatherDetail.h"
+
+#import "WeatherCell.h"
+
+#define kUrlAll @"http://aider.meizu.com/app/weather/listWeather?cityIds=101030100"
 
 //  天气主页
-@interface WeatherController ()
+@interface WeatherController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, retain)NSMutableArray *array;
+
+@property (nonatomic, retain)UITableView *table;
+
+@property (nonatomic, assign)NSInteger type;
+
+@property (nonatomic, assign)CGFloat initPoint;
 
 @end
 
 @implementation WeatherController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor redColor];
-    [self CreateTabButton];
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(KWIDTH / 22, KWIDTH / 22 + TABBARHEIGHT + 10, KWIDTH / 11, KWIDTH / 11);
-    [self.view addSubview:button];
-    [button setImage:[UIImage imageNamed:@"magnifier"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(returnSearch:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStyleDone target:self action:@selector(returnIndex:)];
-    self.navigationItem.leftBarButtonItem = backButton;
+- (NSMutableArray *)array{
+    if (!_array) {
+        self.array = [NSMutableArray array];
+    }
+    return _array;
 }
 
-- (void)returnSearch:(UIButton *)sender{
-    SearchWeatherController *search = [[SearchWeatherController alloc] init];
-    [self.navigationController pushViewController:search animated:YES];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self getData];
+    
+    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.navigationItem.title = @"天气";
+    
+    [self CreateTabButton];
+    
+    [self CreateView];
+
+}
+
+- (void)CreateView{
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"首页" style:UIBarButtonItemStyleDone target:self action:@selector(returnIndex:)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    self.table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT - TABBARHEIGHT) style:UITableViewStylePlain];
+    [self.view addSubview:_table];
+    self.table.dataSource = self;
+    self.table.delegate = self;
+    self.table.separatorStyle = UITableViewCellSelectionStyleNone;
+    [self.table registerClass:[WeatherCell class] forCellReuseIdentifier:@"weatherCell"];
+}
+
+- (void)getData{
+    [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
+        NSError *error = nil;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&error];
+        NSArray *arrays = dic[@"value"];
+        for (NSDictionary *dic in arrays) {
+            CityWeather *weather = [[CityWeather alloc] init];
+            [weather setValuesForKeysWithDictionary:dic];
+            [self.array addObject:weather];
+        }
+        [self.table reloadData];
+    }];
 }
 
 - (void)returnIndex:(UIBarButtonItem *)sender{
     [self.navigationController popToViewController:[self.navigationController viewControllers][1] animated:YES];
 }
 
-
 - (void)CreateTabButton{
     
     TabbarView *tabView = [[TabbarView alloc] initWithFrame:CGRectMake(0, KHEIGHT - TABBARHEIGHT, KWIDTH, TABBARHEIGHT) andDelegate:self];
     [self.view addSubview:tabView];
     
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    WeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:@"weatherCell" forIndexPath:indexPath];
+    
+    if(self.array.count){
+        CityWeather *cityWeather = self.array[0];
+        cell.array = cityWeather.detailArray;
+        cell.weekArray = ((CityWeather *)self.array[0]).weatherArray;
+        cell.cityNameLabel.text = cityWeather.city;
+        cell.qualityLabel.text = cityWeather.pollute.aqi;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return KHEIGHT * 2 - TABBARHEIGHT;
 }
 
 - (void)didReceiveMemoryWarning {

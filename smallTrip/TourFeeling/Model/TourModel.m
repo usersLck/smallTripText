@@ -10,4 +10,25 @@
 
 @implementation TourModel
 
+- (NSMutableArray *)listArr {
+    if (_listArr == nil) {
+        self.listArr = [NSMutableArray array];
+    }
+    return _listArr;
+}
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"detailList"]) {
+        for (NSDictionary *dict in value) {
+            DetailTourModel *detailTourModel = [[DetailTourModel alloc] init];
+            [detailTourModel setValuesForKeysWithDictionary:dict];
+            [self.listArr addObject:detailTourModel];
+        }
+    }
+}
+
+//- (void)setValue:(id)value forKey:(NSString *)key {
+//    [super setValue:value forKey:key];
+//    
+//}
+
 @end

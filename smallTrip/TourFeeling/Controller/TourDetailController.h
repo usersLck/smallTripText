@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TourModel.h"
 
 @interface TourDetailController : UIViewController
+
+@property(nonatomic, strong) TourModel *tourModel;
 
 @end
