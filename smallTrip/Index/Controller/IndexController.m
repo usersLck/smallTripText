@@ -7,15 +7,11 @@
 //
 
 #import "IndexController.h"
-
 #import "SearchController.h"
-
 #import "TourFeelingController.h"
-
 #import "TourDetailController.h"
-
 #import <RESideMenu.h>
-
+#import "RootTabBarViewController.h"
 
 //  首页
 #import "LikeButton.h"
@@ -29,7 +25,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-//    self.tabBarController.tabBar.hidden = NO;
+    ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = NO;
 }
 
 
