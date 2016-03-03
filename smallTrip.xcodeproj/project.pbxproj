@@ -221,6 +221,8 @@
 		F46884BD1C5B3BF10097C8DC /* LikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884B81C5B3BF10097C8DC /* LikeButton.m */; };
 		F46884BE1C5B3BF10097C8DC /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884BA1C5B3BF10097C8DC /* ShareButton.m */; };
 		F46884BF1C5B3BF10097C8DC /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F46884BC1C5B3BF10097C8DC /* TableViewCell.m */; };
+		F4881D801C87D2F9000A82F0 /* ForumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881D7F1C87D2F9000A82F0 /* ForumModel.m */; };
+		F4881D831C87D314000A82F0 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881D821C87D314000A82F0 /* HistoryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -536,6 +538,10 @@
 		F46884BA1C5B3BF10097C8DC /* ShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareButton.m; sourceTree = "<group>"; };
 		F46884BB1C5B3BF10097C8DC /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		F46884BC1C5B3BF10097C8DC /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		F4881D7E1C87D2F9000A82F0 /* ForumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumModel.h; sourceTree = "<group>"; };
+		F4881D7F1C87D2F9000A82F0 /* ForumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumModel.m; sourceTree = "<group>"; };
+		F4881D811C87D314000A82F0 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		F4881D821C87D314000A82F0 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -707,6 +713,8 @@
 				72C4D0581C5DFCFD003B8B6B /* PartnerDetailController.m */,
 				72C4D05A1C5E15CE003B8B6B /* ForumDetailController.h */,
 				72C4D05B1C5E15CE003B8B6B /* ForumDetailController.m */,
+				F4881D811C87D314000A82F0 /* HistoryViewController.h */,
+				F4881D821C87D314000A82F0 /* HistoryViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -714,6 +722,8 @@
 		720E7FE21C59F0C600B865D1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F4881D7E1C87D2F9000A82F0 /* ForumModel.h */,
+				F4881D7F1C87D2F9000A82F0 /* ForumModel.m */,
 				720E80371C5A151900B865D1 /* ComModel.h */,
 				720E80381C5A151900B865D1 /* ComModel.m */,
 			);
@@ -1454,6 +1464,7 @@
 				72C4D05C1C5E15CE003B8B6B /* ForumDetailController.m in Sources */,
 				F46884BE1C5B3BF10097C8DC /* ShareButton.m in Sources */,
 				72FFD2E61C608F1200EDEEE3 /* EditPasswordController.m in Sources */,
+				F4881D831C87D314000A82F0 /* HistoryViewController.m in Sources */,
 				72082FFF1C5C9C10003FDE83 /* ForumController.m in Sources */,
 				728818AA1C5B6D6700C62C7D /* WeatherController.m in Sources */,
 				72FFD2DD1C608BA500EDEEE3 /* TourListController.m in Sources */,
@@ -1485,6 +1496,7 @@
 				720E80391C5A151900B865D1 /* ComModel.m in Sources */,
 				F46884BD1C5B3BF10097C8DC /* LikeButton.m in Sources */,
 				79C939131C84345D00275827 /* TourManagerView.m in Sources */,
+				F4881D801C87D2F9000A82F0 /* ForumModel.m in Sources */,
 				79CC16391C80824E0085786D /* TestViewController.m in Sources */,
 				720E80331C5A14F300B865D1 /* TourFeelingController.m in Sources */,
 				72FFD2D71C60897A00EDEEE3 /* UserManageController.m in Sources */,
