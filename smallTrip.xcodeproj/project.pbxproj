@@ -184,6 +184,8 @@
 		F4881B311C83D251000A82F0 /* 98-palette.png in Resources */ = {isa = PBXBuildFile; fileRef = F4881AC31C83D251000A82F0 /* 98-palette.png */; };
 		F4881B321C83D251000A82F0 /* 99-umbrella.png in Resources */ = {isa = PBXBuildFile; fileRef = F4881AC41C83D251000A82F0 /* 99-umbrella.png */; };
 		F4881B351C83D28F000A82F0 /* RootTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881B341C83D28F000A82F0 /* RootTabBarViewController.m */; };
+		F4881B3B1C8427AE000A82F0 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881B3A1C8427AE000A82F0 /* HistoryViewController.m */; };
+		F4881B3E1C846ECE000A82F0 /* ForumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4881B3D1C846ECE000A82F0 /* ForumModel.m */; };
 		F4D7E5EF1C7E92B900DF2A5C /* ForumListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7E5EE1C7E92B900DF2A5C /* ForumListCell.m */; };
 /* End PBXBuildFile section */
 
@@ -443,6 +445,10 @@
 		F4881AC41C83D251000A82F0 /* 99-umbrella.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "99-umbrella.png"; sourceTree = "<group>"; };
 		F4881B331C83D28F000A82F0 /* RootTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarViewController.h; sourceTree = "<group>"; };
 		F4881B341C83D28F000A82F0 /* RootTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarViewController.m; sourceTree = "<group>"; };
+		F4881B391C8427AE000A82F0 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		F4881B3A1C8427AE000A82F0 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		F4881B3C1C846ECE000A82F0 /* ForumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumModel.h; sourceTree = "<group>"; };
+		F4881B3D1C846ECE000A82F0 /* ForumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumModel.m; sourceTree = "<group>"; };
 		F4D7E5ED1C7E92B900DF2A5C /* ForumListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumListCell.h; sourceTree = "<group>"; };
 		F4D7E5EE1C7E92B900DF2A5C /* ForumListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -616,6 +622,8 @@
 				72C4D0581C5DFCFD003B8B6B /* PartnerDetailController.m */,
 				72C4D05A1C5E15CE003B8B6B /* ForumDetailController.h */,
 				72C4D05B1C5E15CE003B8B6B /* ForumDetailController.m */,
+				F4881B391C8427AE000A82F0 /* HistoryViewController.h */,
+				F4881B3A1C8427AE000A82F0 /* HistoryViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -625,6 +633,8 @@
 			children = (
 				720E80371C5A151900B865D1 /* ComModel.h */,
 				720E80381C5A151900B865D1 /* ComModel.m */,
+				F4881B3C1C846ECE000A82F0 /* ForumModel.h */,
+				F4881B3D1C846ECE000A82F0 /* ForumModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1316,6 +1326,7 @@
 				72082FFC1C5C9A09003FDE83 /* FindPartnerController.m in Sources */,
 				720E7FAF1C59EA2F00B865D1 /* AppDelegate.m in Sources */,
 				720E80301C5A14E300B865D1 /* SearchController.m in Sources */,
+				F4881B3E1C846ECE000A82F0 /* ForumModel.m in Sources */,
 				720E804B1C5A156500B865D1 /* IndexView.m in Sources */,
 				720E80481C5A155C00B865D1 /* ComView.m in Sources */,
 				72C4D0501C5DFAD0003B8B6B /* FootController.m in Sources */,
@@ -1331,6 +1342,7 @@
 				728818B01C5B8C8500C62C7D /* TabbarView.m in Sources */,
 				72082FEA1C5C5E14003FDE83 /* TemplateController.m in Sources */,
 				72C4D0591C5DFCFD003B8B6B /* PartnerDetailController.m in Sources */,
+				F4881B3B1C8427AE000A82F0 /* HistoryViewController.m in Sources */,
 				72C4D0651C5E1DC7003B8B6B /* Drawer.m in Sources */,
 				72C4D0561C5DFB34003B8B6B /* ForumManageController.m in Sources */,
 				F4881B351C83D28F000A82F0 /* RootTabBarViewController.m in Sources */,

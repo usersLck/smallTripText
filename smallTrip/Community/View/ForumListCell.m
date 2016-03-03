@@ -8,6 +8,8 @@
 
 #import "ForumListCell.h"
 #import "LikeButton.h"
+#import <UIButton+WebCache.h>
+
 @interface ForumListCell ()
 
 @property (nonatomic, strong) UIButton *photo;
@@ -45,7 +47,13 @@
     }
     return self;
 }
-
+- (void)setCell:(ForumModel *)model {
+    [_photo sd_setImageWithURL:[NSURL URLWithString:model.photo] forState:UIControlStateNormal];
+    _timer.text = model.time;
+    _title.text = model.title;
+    _name.text = model.name;
+    _descriptions.backgroundColor = [UIColor redColor];
+}
 - (void)awakeFromNib {
     // Initialization code
 }

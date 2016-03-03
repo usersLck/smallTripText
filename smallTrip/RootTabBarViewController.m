@@ -36,6 +36,7 @@
         button.tag = 1000 + i;
         [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"a%d", i]] forState:UIControlStateNormal];
     }
+
     
     [self setNavigation];
     
@@ -59,9 +60,9 @@
     UINavigationController *communityNavi = [[UINavigationController alloc] initWithRootViewController:community];
     
     
-    NSArray *array = @[indexNavi, searchNavi, tourNavi, communityNavi];
+    self.viewControllers = @[indexNavi, searchNavi, tourNavi, communityNavi];
     
-    self.viewControllers = array;
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
