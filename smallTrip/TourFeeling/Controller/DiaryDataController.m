@@ -106,7 +106,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     AddDiaryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"register" forIndexPath:indexPath];
     NSMutableArray *sectionArray = [NSMutableArray arrayWithArray:self.sectionArr[indexPath.section]];
     NSMutableArray *pointArr = [NSMutableArray arrayWithArray:self.markArr[indexPath.section]];
@@ -117,10 +117,10 @@
     cell.sectionNum = indexPath.section;
     cell.sectionArr = sectionArray;
     cell.placeArr = placeArr;
-//    NSLog(@"^^^%@", sectionArray);
+    //    NSLog(@"^^^%@", sectionArray);
     cell.pointArr = pointArr;
     cell.section = collectionNum;
-//    NSLog(@"xxxxxxx%ld", collectionNum);
+    //    NSLog(@"xxxxxxx%ld", collectionNum);
     return cell;
     
 }
@@ -185,10 +185,10 @@
 // 设置日期
 //- (void)setDays:(NSString *)days {
 //    _days = days;
-//    
+//
 //    NSArray *arr = [days componentsSeparatedByString:@"-"];
-//    
-//    
+//
+//
 //}
 
 
@@ -222,14 +222,14 @@
     
     
     [self.view addSubview:self.choseModuleView];
- 
+    
 }
 
 // 取消选择模块页面，回到游记编辑页面
 - (void)cancelAdd:(UIButton *)button {
     
     [self.view sendSubviewToBack:self.choseModuleView];
-
+    
 }
 
 
@@ -277,10 +277,10 @@
     
     NSMutableDictionary *dict = sectionArray[section];
     [dict setObject:str forKey:key];
-//    NSLog(@"trueSection:%ld", section);
-//    NSLog(@"%@,%@", str, key);
-//    NSLog(@"dict:%@", sectionArray);
-
+    //    NSLog(@"trueSection:%ld", section);
+    //    NSLog(@"%@,%@", str, key);
+    //    NSLog(@"dict:%@", sectionArray);
+    
     // 设置位置标记和类型标记的数组
     NSInteger sign = [notification.userInfo[@"sign"] integerValue];
     CGPoint point = CGPointMake(sign, _num);
@@ -293,7 +293,7 @@
 
 - (void)addImageCell:(NSNotification *)notification {
     // 此方法原理同上
-
+    
     NSMutableArray *sectionArray = self.sectionArr[self.tableSection];
     NSMutableArray *pointArr = self.markArr[self.tableSection];
     _num += 1;
@@ -303,7 +303,7 @@
         NSInteger section = [notification.userInfo[@"section"] integerValue];
         NSMutableDictionary *dict = sectionArray[section];
         [dict setObject:image forKey:key];
-
+        
         // 设置位置标记和类型标记的数组
         NSInteger sign = [notification.userInfo[@"sign"] integerValue];
         CGPoint point = CGPointMake(sign, _num);
@@ -342,7 +342,7 @@
     NSInteger collectionNum = [num integerValue];
     collectionNum += 1;
     NSNumber *newNum = [NSNumber numberWithInteger:collectionNum];
-
+    
     NSString *placeName = notification.userInfo[@"place"];
     NSMutableArray *collectionPlaceArr = self.placeArr[tableSectionNum];
     [collectionPlaceArr insertObject:placeName atIndex:collectionNum - 2];
@@ -355,8 +355,8 @@
     [sectionArray addObject:dict];
     NSMutableArray *arr = [NSMutableArray array];
     [pointArr addObject:arr];
-//    NSLog(@"sectionArr:%@", sectionArray);
-
+    //    NSLog(@"sectionArr:%@", sectionArray);
+    
     [self.tableView reloadData];
     
 }
@@ -398,9 +398,11 @@
 #pragma mark - 存储数据到本地
 - (void)saveSourceDictToLocalize {
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Travels" ofType:@"plist"];
-    NSMutableArray *data = [NSMutableArray arrayWithContentsOfFile:plistPath];
-
+    NSArray *oldPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *oldPlistPath1 = [oldPaths objectAtIndex:0];
+    // 获得完整文件名
+    NSString *oldFileName = [oldPlistPath1 stringByAppendingPathComponent:@"Travels.plist"];
+    NSArray *data = [NSArray arrayWithContentsOfFile:oldFileName];
     // 地点
     NSMutableArray *transitPlaceArr = [NSMutableArray arrayWithArray:self.placeArr];
     NSMutableArray *newPlaceArr = [NSMutableArray array];
@@ -467,7 +469,7 @@
     [self.sourceDict setObject:self.beginDate forKey:@"beginDate"];
     
     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:self.sourceDict];
-    
+    self.travelsSourceArr = [NSMutableArray arrayWithArray:data];
     [self.travelsSourceArr addObject:dict];
     NSArray *bigArrNow = [NSArray arrayWithArray:self.travelsSourceArr];
     
@@ -475,17 +477,16 @@
     NSString *plistPath1 = [paths objectAtIndex:0];
     // 获得完整文件名
     NSString *fileName = [plistPath1 stringByAppendingPathComponent:@"Travels.plist"];
-    [bigArrNow writeToFile:fileName atomically:YES];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
-        
-        [dict writeToFile:fileName atomically:YES];
-        //        NSLog(@"文件写入完成");
-    }
-        NSLog(@"%@", fileName);
+    //    NSFileManager *fm = [NSFileManager defaultManager];
+    //    if ([fm createFileAtPath:fileName contents:nil attributes:nil] ==YES) {
     
-        NSArray *myPlaceArr = [NSArray arrayWithContentsOfFile:fileName];
-        NSLog(@"%@", myPlaceArr);
+    [bigArrNow writeToFile:fileName atomically:YES];
+    //        NSLog(@"文件写入完成");
+    //    }
+    NSLog(@"%@", fileName);
+    
+    NSArray *myPlaceArr = [NSArray arrayWithContentsOfFile:fileName];
+    NSLog(@"%@", myPlaceArr);
     
     
 }
@@ -500,21 +501,21 @@
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [sectionArr addObject:dict];
         [self.sectionArr addObject:sectionArr];
-
+        
         NSMutableArray *pointArr = [NSMutableArray array];
         NSMutableArray *arr = [NSMutableArray array];
         [pointArr addObject:arr];
         [self.markArr addObject:pointArr];
-
+        
         NSMutableArray *collectionPlaceArr = [NSMutableArray array];
         NSString *place = @"点击添加景点";
         [collectionPlaceArr addObject:place];
         [self.placeArr addObject:collectionPlaceArr];
-
+        
         NSInteger collectionSection = 1;
         NSNumber *num = [NSNumber numberWithInteger:collectionSection];
         [self.numArr addObject:num];
-
+        
     }
 }
 
@@ -603,14 +604,14 @@
     
 }
 
-- (NSMutableArray *)travelsSourceArr {
-    
-    if (!_travelsSourceArr) {
-        self.travelsSourceArr = [NSMutableArray array];
-    }
-    return _travelsSourceArr;
-    
-}
+//- (NSMutableArray *)travelsSourceArr {
+//
+//    if (!_travelsSourceArr) {
+//        self.travelsSourceArr = [NSMutableArray array];
+//    }
+//    return _travelsSourceArr;
+//
+//}
 
 - (NSMutableDictionary *)sourceDict {
     

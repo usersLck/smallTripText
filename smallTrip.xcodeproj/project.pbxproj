@@ -46,6 +46,14 @@
 		4EC60C051C8DBC670026D673 /* open.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC60C041C8DBC670026D673 /* open.png */; };
 		4EC60C091C8DD3EE0026D673 /* theEnd.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC60C081C8DD3EE0026D673 /* theEnd.png */; };
 		4EFCDFF41C8EDA8100D7A1B6 /* CoverPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EFCDFF31C8EDA8100D7A1B6 /* CoverPic.png */; };
+		720677201C8F046600D9E6AE /* travelNotesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7206771F1C8F046600D9E6AE /* travelNotesCell.m */; };
+		720677271C8F0CC800D9E6AE /* cloudy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 720677211C8F0CC800D9E6AE /* cloudy1.png */; };
+		720677281C8F0CC800D9E6AE /* cloudy11.png in Resources */ = {isa = PBXBuildFile; fileRef = 720677221C8F0CC800D9E6AE /* cloudy11.png */; };
+		720677291C8F0CC800D9E6AE /* fine1.png in Resources */ = {isa = PBXBuildFile; fileRef = 720677231C8F0CC800D9E6AE /* fine1.png */; };
+		7206772A1C8F0CC800D9E6AE /* haze1.png in Resources */ = {isa = PBXBuildFile; fileRef = 720677241C8F0CC800D9E6AE /* haze1.png */; };
+		7206772B1C8F0CC800D9E6AE /* rain1.png in Resources */ = {isa = PBXBuildFile; fileRef = 720677251C8F0CC800D9E6AE /* rain1.png */; };
+		7206772C1C8F0CC800D9E6AE /* snow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 720677261C8F0CC800D9E6AE /* snow1.png */; };
+		7206772E1C8F0CE700D9E6AE /* dian.png in Resources */ = {isa = PBXBuildFile; fileRef = 7206772D1C8F0CE700D9E6AE /* dian.png */; };
 		720783901C5AF50000DC3045 /* tour.png in Resources */ = {isa = PBXBuildFile; fileRef = 7207838C1C5AF50000DC3045 /* tour.png */; };
 		720783911C5AF50000DC3045 /* index.png in Resources */ = {isa = PBXBuildFile; fileRef = 7207838D1C5AF50000DC3045 /* index.png */; };
 		720783921C5AF50000DC3045 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 7207838E1C5AF50000DC3045 /* search.png */; };
@@ -345,6 +353,15 @@
 		4EC60C041C8DBC670026D673 /* open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open.png; sourceTree = "<group>"; };
 		4EC60C081C8DD3EE0026D673 /* theEnd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = theEnd.png; sourceTree = "<group>"; };
 		4EFCDFF31C8EDA8100D7A1B6 /* CoverPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CoverPic.png; sourceTree = "<group>"; };
+		7206771E1C8F046600D9E6AE /* travelNotesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = travelNotesCell.h; sourceTree = "<group>"; };
+		7206771F1C8F046600D9E6AE /* travelNotesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = travelNotesCell.m; sourceTree = "<group>"; };
+		720677211C8F0CC800D9E6AE /* cloudy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudy1.png; sourceTree = "<group>"; };
+		720677221C8F0CC800D9E6AE /* cloudy11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudy11.png; sourceTree = "<group>"; };
+		720677231C8F0CC800D9E6AE /* fine1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fine1.png; sourceTree = "<group>"; };
+		720677241C8F0CC800D9E6AE /* haze1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haze1.png; sourceTree = "<group>"; };
+		720677251C8F0CC800D9E6AE /* rain1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rain1.png; sourceTree = "<group>"; };
+		720677261C8F0CC800D9E6AE /* snow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow1.png; sourceTree = "<group>"; };
+		7206772D1C8F0CE700D9E6AE /* dian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dian.png; sourceTree = "<group>"; };
 		7207838C1C5AF50000DC3045 /* tour.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tour.png; sourceTree = "<group>"; };
 		7207838D1C5AF50000DC3045 /* index.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = index.png; sourceTree = "<group>"; };
 		7207838E1C5AF50000DC3045 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
@@ -1077,6 +1094,13 @@
 				72159A1C1C8725E5002D25FC /* weatherBack.png */,
 				721599F41C872367002D25FC /* NetHandler.h */,
 				721599F51C872367002D25FC /* NetHandler.m */,
+				720677211C8F0CC800D9E6AE /* cloudy1.png */,
+				720677221C8F0CC800D9E6AE /* cloudy11.png */,
+				720677231C8F0CC800D9E6AE /* fine1.png */,
+				720677241C8F0CC800D9E6AE /* haze1.png */,
+				720677251C8F0CC800D9E6AE /* rain1.png */,
+				720677261C8F0CC800D9E6AE /* snow1.png */,
+				7206772D1C8F0CE700D9E6AE /* dian.png */,
 				79C938321C84298100275827 /* images */,
 				79CC162B1C80534A0085786D /* filter.png */,
 				79C9390F1C842C1900275827 /* test.png */,
@@ -1188,6 +1212,8 @@
 			children = (
 				72C4D0601C5E1DB4003B8B6B /* DrawerView.h */,
 				72C4D0611C5E1DB4003B8B6B /* DrawerView.m */,
+				7206771E1C8F046600D9E6AE /* travelNotesCell.h */,
+				7206771F1C8F046600D9E6AE /* travelNotesCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1452,6 +1478,7 @@
 				79C938E61C84298200275827 /* 62-contrast.png in Resources */,
 				720783931C5AF50000DC3045 /* community.png in Resources */,
 				79C938FB1C84298200275827 /* 84-lightbulb.png in Resources */,
+				7206772E1C8F0CE700D9E6AE /* dian.png in Resources */,
 				79C938CA1C84298200275827 /* 33-cabinet.png in Resources */,
 				79C939081C84298200275827 /* 97-puzzle.png in Resources */,
 				72159A211C8725E5002D25FC /* fog.png in Resources */,
@@ -1461,6 +1488,7 @@
 				79C938F41C84298200275827 /* 76-baby.png in Resources */,
 				79C938B31C84298100275827 /* 110-bug.png in Resources */,
 				79CC162C1C80534A0085786D /* filter.png in Resources */,
+				7206772B1C8F0CC800D9E6AE /* rain1.png in Resources */,
 				79C938C81C84298100275827 /* 31-ipod.png in Resources */,
 				79C939041C84298200275827 /* 93-thermometer.png in Resources */,
 				79C938C31C84298100275827 /* 26-bandaid.png in Resources */,
@@ -1472,6 +1500,7 @@
 				79C938A21C84298100275827 /* 01-refresh.png in Resources */,
 				4E9E8E2B1C8C4FF000C8305A /* pictureAdd.png in Resources */,
 				79C938FE1C84298200275827 /* 87-wineglass.png in Resources */,
+				720677271C8F0CC800D9E6AE /* cloudy1.png in Resources */,
 				79C938F51C84298200275827 /* 77-ekg.png in Resources */,
 				720783921C5AF50000DC3045 /* search.png in Resources */,
 				79C938DF1C84298200275827 /* 55-network.png in Resources */,
@@ -1505,6 +1534,7 @@
 				79C938E01C84298200275827 /* 56-cloud.png in Resources */,
 				79C938C41C84298100275827 /* 28-star.png in Resources */,
 				79CC130D1C7D77B30085786D /* pinglun.png in Resources */,
+				720677281C8F0CC800D9E6AE /* cloudy11.png in Resources */,
 				4EC60C051C8DBC670026D673 /* open.png in Resources */,
 				79C938D11C84298200275827 /* 41-picture-frame.png in Resources */,
 				4E9E8E2C1C8C4FF000C8305A /* textAdd.png in Resources */,
@@ -1514,6 +1544,7 @@
 				4EBF41F41C8E6E57000A5440 /* fjTest.png in Resources */,
 				79C938D51C84298200275827 /* 45-movie1.png in Resources */,
 				79C938E41C84298200275827 /* 60-signpost.png in Resources */,
+				720677291C8F0CC800D9E6AE /* fine1.png in Resources */,
 				79C939101C842C1900275827 /* test.png in Resources */,
 				79C938AE1C84298100275827 /* 106-sliders.png in Resources */,
 				79C938EC1C84298200275827 /* 68-paperclip.png in Resources */,
@@ -1545,6 +1576,7 @@
 				4EC60C021C8DA0B30026D673 /* point32.png in Resources */,
 				79C939011C84298200275827 /* 90-lifebuoy.png in Resources */,
 				79C938FA1C84298200275827 /* 83-calendar.png in Resources */,
+				7206772C1C8F0CC800D9E6AE /* snow1.png in Resources */,
 				79C938D41C84298200275827 /* 44-shoebox.png in Resources */,
 				79C938BD1C84298100275827 /* 20-gear2.png in Resources */,
 				79C938C61C84298100275827 /* 3.png in Resources */,
@@ -1577,6 +1609,7 @@
 				79C939001C84298200275827 /* 89-dumbbell.png in Resources */,
 				79C938BF1C84298100275827 /* 22-skull-n-crossbones.png in Resources */,
 				720783901C5AF50000DC3045 /* tour.png in Resources */,
+				7206772A1C8F0CC800D9E6AE /* haze1.png in Resources */,
 				79C938D91C84298200275827 /* 49-battery.png in Resources */,
 				79C938E51C84298200275827 /* 61-brightness.png in Resources */,
 				79C939071C84298200275827 /* 96-book.png in Resources */,
@@ -1738,6 +1771,7 @@
 				720E80271C5A14B700B865D1 /* BaseController.m in Sources */,
 				72FFD2E01C608D6000EDEEE3 /* TravelViewController.m in Sources */,
 				72C4D0621C5E1DB4003B8B6B /* DrawerView.m in Sources */,
+				720677201C8F046600D9E6AE /* travelNotesCell.m in Sources */,
 				4E6928201C882BC3007601FD /* DiaryDataController.m in Sources */,
 				72FFD2D11C6088F700EDEEE3 /* MyTourController.m in Sources */,
 				720E7FAC1C59EA2F00B865D1 /* main.m in Sources */,

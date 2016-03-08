@@ -59,7 +59,9 @@
 }
 
 - (void)returnC:(UIButton *)sender{
-    
+    NSString *STR = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSArray *ARR = [NSArray arrayWithContentsOfFile:@"/Users/liuchangkai/Library/Developer/CoreSimulator/Devices/FBE732A0-EAAF-46EF-8F0A-59EDFBD915F0/data/Containers/Data/Application/BE830CDC-9AE2-4218-A241-9C97C2E28915/Documents/Travels.plist"];
+    NSLog(@"%@", ARR);
     TourDetailController *tour = [[TourDetailController alloc] init];
     [self.navigationController pushViewController:tour animated:YES];
 }
