@@ -50,6 +50,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - button触发方法
 - (void)returnVc:(UIButton *)sender{
     
     StrategyListController *strategy = [[StrategyListController alloc] init];
