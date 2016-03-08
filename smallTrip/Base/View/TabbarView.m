@@ -29,7 +29,7 @@
 - (instancetype)initWithFrame:(CGRect)frame andDelegate:(id)delegate{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
         self.delegate = delegate;
         
         UIImage *strategyIcon = [UIImage imageNamed:@"strategy"];

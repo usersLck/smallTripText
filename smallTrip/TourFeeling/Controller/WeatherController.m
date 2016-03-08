@@ -9,14 +9,16 @@
 #import "TourDetailController.h"
 
 #import "WeatherController.h"
-/*
+
 #import "TabbarView.h"
 
 #import "SearchWeatherController.h"
 
-//#import "NetHandler.h"
+#import "NetHandler.h"
 
 #import "CityWeather.h"
+
+#import "CityPollute.h"
 
 #import "ShareButton.h"
 
@@ -26,8 +28,8 @@
 
 #import "WeatherCell.h"
 
-#define kUrlAll @"http://aider.meizu.com/app/weather/listWeather?cityIds=101120101"
-*/
+#define kUrlAll @"http://aider.meizu.com/app/weather/listWeather?cityIds=%@"
+
 //  天气主页
 @interface WeatherController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -42,7 +44,13 @@
 @end
 
 @implementation WeatherController
-/*
+
+- (void)setName:(NSString *)name{
+    _name = [NSString stringWithFormat:kUrlAll, name];
+    
+    [self getData];
+}
+
 - (NSMutableArray *)array{
     if (!_array) {
         self.array = [NSMutableArray array];
@@ -54,7 +62,6 @@
     [super viewDidLoad];
     
     [self getData];
-    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -74,11 +81,15 @@
     [self.view addSubview:_table];
     self.table.dataSource = self;
     self.table.delegate = self;
+    self.table.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.table registerClass:[WeatherCell class] forCellReuseIdentifier:@"weatherCell"];
 }
 
 - (void)getData{
-    [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
+    if (!self.name) {
+        self.name = @"101010100";
+    }
+    [NetHandler getDataWithUrl:self.name completion:^(NSData *data) {
         NSError *error = nil;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&error];
         NSArray *arrays = dic[@"value"];
@@ -86,47 +97,20 @@
             CityWeather *weather = [[CityWeather alloc] init];
             [weather setValuesForKeysWithDictionary:dic];
             [self.array addObject:weather];
-            LineData *line = [[LineData alloc] initWithFrame:CGRectMake(10, KHEIGHT * 2 / 3 - TABBARHEIGHT, KWIDTH - 20, TABBARHEIGHT) andArray:((CityWeather *)self.array[0]).detailArray andType:1];
-//            [self.view addSubview:line];
-            for (int i = 0; i < line.topArray.count; i++) {
-                WeatherDetail *detail = ((CityWeather *)self.array[0]).detailArray[i];
-                NSRange range = NSMakeRange(11, 5);
-                ((UILabel *)line.topArray[i]).text = [detail.startTime substringWithRange:range];
-                ((UILabel *)line.secondArray[i]).text = detail.weather;
-                NSInteger temp = (detail.highestTemperature + detail.lowerestTemperature) / 2;
-                ((UILabel *)line.lastArray[i]).text = [NSString stringWithFormat:@"%ld", temp] ;
-            }
-            
         }
-        [self.table reloadData];
+        if (!((CityWeather *)[self.array lastObject]).city) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请求失败" message:@"很抱歉您搜索的地区没有详细天气请重新选择" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        }else{
+            [self.table reloadData];
+        }
+        
     }];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    _initPoint = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"%lf", scrollView.contentOffset.y - _initPoint);
-    if ((scrollView.contentOffset.y - _initPoint) >= 100) {
-        self.type = 1;
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (self.type != 0) {
-        scrollView.contentOffset = CGPointMake(0, 300);
-        self.type = 0;
-    }else{
-        scrollView.contentOffset = CGPointMake(0, 0);
-    }
-    
 }
 
 - (void)returnIndex:(UIBarButtonItem *)sender{
     [self.navigationController popToViewController:[self.navigationController viewControllers][1] animated:YES];
 }
-
 
 - (void)CreateTabButton{
     
@@ -134,8 +118,6 @@
     [self.view addSubview:tabView];
     
 }
-
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -145,9 +127,13 @@
     WeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:@"weatherCell" forIndexPath:indexPath];
     
     if(self.array.count){
-        cell.array = ((CityWeather *)self.array[0]).detailArray;
+        CityWeather *cityWeather = [self.array lastObject];
+        cell.array = cityWeather.detailArray;
+        cell.weekArray = ((CityWeather *)[self.array lastObject]).weatherArray;
+        cell.cityNameLabel.text = cityWeather.city;
+        cell.qualityLabel.text = cityWeather.pollute.aqi;
     }
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

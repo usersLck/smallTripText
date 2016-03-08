@@ -11,9 +11,9 @@
 
 @interface ManagerTopView : UIView
 
-@property(nonatomic, strong, readonly) UIButton *imageButton;
-@property(nonatomic, strong, readonly) UILabel *nameLabel;
-@property(nonatomic, strong, readonly) UILabel *dateLabel;
+@property(nonatomic, strong) UIButton *imageButton;
+@property(nonatomic, strong) UILabel *nameLabel;
+@property(nonatomic, strong) UILabel *countLabel;
 
 @property(nonatomic, strong) TourModel *tourModel;
 

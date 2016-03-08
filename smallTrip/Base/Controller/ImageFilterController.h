@@ -14,6 +14,12 @@
 @property(nonatomic, strong) UIImage *showImage;// 展示图片
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, strong) UIImage *buttonImage;
+@property (nonatomic, strong)UIImage *image;
+
+- (void)doSave:(UIButton *)button;
+
+
+
 
 // 测试上传
 - (void)testUpload;

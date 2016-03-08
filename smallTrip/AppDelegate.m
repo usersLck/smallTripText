@@ -32,6 +32,7 @@
     
     RESideMenu *reside = [[RESideMenu alloc] initWithContentViewController:tabbar leftMenuViewController:drawerNavi rightMenuViewController:nil];
     reside.view.backgroundColor = [UIColor yellowColor];
+    reside.backgroundImage = [UIImage imageNamed:@"cloudy11"];
     reside.view.frame = [UIScreen mainScreen].bounds;
     reside.menuPreferredStatusBarStyle = UIStatusBarStyleLightContent;
     reside.contentViewShadowColor = [UIColor blackColor];

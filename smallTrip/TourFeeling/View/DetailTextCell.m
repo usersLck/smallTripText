@@ -7,13 +7,12 @@
 //
 
 #import "DetailTextCell.h"
-#import "DetailTourModel.h"
 
 @implementation DetailTextCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor orangeColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         _label = [[UILabel alloc] init];
         _label.textColor = [UIColor whiteColor];
@@ -27,9 +26,14 @@
     _label.frame = CGRectMake(KWIDTH/40, KWIDTH/40, KWIDTH - KWIDTH/20, self.bounds.size.height - KWIDTH/20);
 }
 
-- (void)setDetailModel:(DetailTourModel *)detailModel {
-    _detailModel = detailModel;
-    _label.text = detailModel.description0;
+- (void)awakeFromNib {
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
 }
 
 @end

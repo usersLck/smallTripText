@@ -12,4 +12,6 @@
 
 @property (nonatomic, retain)NSMutableArray *array;
 
+@property (nonatomic, retain)NSMutableArray *pointArray;
+
 @end

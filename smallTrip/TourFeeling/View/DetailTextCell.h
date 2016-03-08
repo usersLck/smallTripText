@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DetailTourModel;
 
 @interface DetailTextCell : UITableViewCell
 
-@property(nonatomic, strong, readonly) UILabel *label;
-@property(nonatomic, strong) DetailTourModel *detailModel;
+@property(nonatomic, strong) UILabel *label;
 
 
 @end

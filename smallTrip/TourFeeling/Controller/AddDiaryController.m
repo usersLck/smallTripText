@@ -7,6 +7,8 @@
 //
 
 #import "AddDiaryController.h"
+#import "PrefixHeader.pch"
+#import "DiaryTitleController.h"
 
 
 //  编写游记页面
@@ -18,11 +20,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"添加游记";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *button_1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    button_1.frame = CGRectMake(KWIDTH / 10, KHEIGHT / 3, KWIDTH / 5, KHEIGHT / 5);
+    button_1.titleLabel.text = @"长游记";
+    button_1.backgroundColor = [UIColor blackColor];
+    button_1.tintColor = [UIColor greenColor];
+    [button_1 addTarget:self action:@selector(writeLD:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button_1];
+    
+    
+    
+    
 }
+
+- (void)writeLD:(UIButton *)button {
+    DiaryTitleController *DTC = [[DiaryTitleController alloc] init];
+    [self.navigationController pushViewController:DTC animated:YES];
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

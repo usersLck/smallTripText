@@ -9,17 +9,6 @@
 #import "FirstTourCell.h"
 
 @implementation FirstTourCell
-/*
-@property(nonatomic, strong) UIImageView *headImageView;// 头像
-@property(nonatomic, strong) UILabel *nameLabel;// 昵称
-@property(nonatomic, strong) UILabel *dateLabel;// 发表时间
-//@property(nonatomic, strong) UIImageView *pictureImageView;// 图片
-//@property(nonatomic, strong) UILabel *titleLabel;// 标题
-@property(nonatomic, strong) UILabel *contentLabel;// 内容
-@property(nonatomic, strong) UIButton *attentionButton;// 关注
-@property(nonatomic, strong) UIButton *commentButton;// 评论
-@property(nonatomic, strong) UIButton *praiseButton;// 点赞
-*/
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

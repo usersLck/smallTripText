@@ -38,8 +38,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    self.tabBarController.tabBar.hidden = NO;
-//    NSLog(@"%@", self.navigationController.navigationBar);
+//    self.tabBarController.tabBar.hidden = NO;
+
 }
 
 - (void)viewDidLoad {
@@ -83,7 +83,6 @@
     seg.selectedSegmentIndex = 0;
     
     [self.view bringSubviewToFront:self.travel];
-    NSLog(@"%@", self.navigationController);
 }
 
 - (void)returnVC:(UIButton *)sender{
@@ -100,12 +99,6 @@
 - (void)changeView:(UISegmentedControl *)sender{
     UIViewController *VC = [self viewController:[self.view viewWithTag:2000 + sender.selectedSegmentIndex]];
     
-
-//        ((ForumListViewController *)VC).searchController.active = NO;
-    
-        
-    
-
     [self.view bringSubviewToFront:[self.view viewWithTag:2000 + sender.selectedSegmentIndex]];
 }
 - (UIViewController *)viewController:(UIView *)view {

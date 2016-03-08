@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DetailTourModel;
 
 @interface DetailImageCell : UITableViewCell
 
-@property(nonatomic, strong, readonly) UIImageView *imageV;
-@property(nonatomic, strong) DetailTourModel *detailModel;
+@property(nonatomic, strong) UIImageView *imageV;
 
 
 @end
