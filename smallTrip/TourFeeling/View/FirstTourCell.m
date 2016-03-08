@@ -29,47 +29,46 @@
 //        _headImageView.layer.cornerRadius = _headImageView.bounds.size.width / 2;// 圆形展示头像
 //        [self.contentView addSubview:_headImageView];
         
-        self.headButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _headButton.layer.cornerRadius = _headButton.bounds.size.width / 2;
+        _headButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _headButton.layer.cornerRadius = KWIDTH/20;
+        _headButton.clipsToBounds = YES;
         [self.contentView addSubview:_headButton];
         
-        self.nameLabel = [[UILabel alloc] init];
+        _nameLabel = [[UILabel alloc] init];
         _nameLabel.text = @"昵称";
         [self.contentView addSubview:_nameLabel];
         
-        self.dateLabel = [[UILabel alloc] init];
-//        NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:10];
-        _dateLabel.text = [NSString stringWithFormat:@"几分钟前"];
+        _dateLabel = [[UILabel alloc] init];
         _dateLabel.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:_dateLabel];
         
-        self.contentLabel = [[UILabel alloc] init];
+        _contentLabel = [[UILabel alloc] init];
         _contentLabel.text = @"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         _contentLabel.numberOfLines = 0;
         [_contentLabel sizeToFit];
         [self.contentView addSubview:_contentLabel];
         
-        self.attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_attentionButton setBackgroundImage:[UIImage imageNamed:@"shoucang.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:_attentionButton];
         
-        self.commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _commentButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_commentButton setBackgroundImage:[UIImage imageNamed:@"pinglun.png"] forState:UIControlStateNormal];
         
         [self.contentView addSubview:_commentButton];
         
-        self.commentCountLabel = [[UILabel alloc] init];
+        _commentCountLabel = [[UILabel alloc] init];
         _commentCountLabel.text = @"888";
         _commentCountLabel.textColor = [UIColor redColor];
         [self.contentView addSubview:_commentCountLabel];
         
         
-        self.praiseButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _praiseButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_praiseButton setBackgroundImage:[UIImage imageNamed:@"dianzan.png"] forState:UIControlStateNormal];
         [_praiseButton addTarget:self action:@selector(addParise:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_praiseButton];
         
-        self.praiseCountLabel = [[UILabel alloc] init];
+        _praiseCountLabel = [[UILabel alloc] init];
         _praiseCountLabel.text = @"1232222";
         _praiseCountLabel.textColor = [UIColor redColor];
         [self.contentView addSubview:_praiseCountLabel];

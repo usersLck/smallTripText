@@ -19,46 +19,63 @@
 #import <MJRefreshFooter.h>
 #import <MJRefresh.h>
 #import "TourModel.h"
+#import "TourPartnerController.h"
 
 #define kTourMainUrlStr @"http://10.80.12.36:8080/text/travels"
+#define kAppendingStr @"?nowpage=1"
 
 //  游圈主页
 @interface TourFeelingController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) NSMutableArray *array;
-@property(nonatomic, strong) NSMutableArray *firstArr;
 
 @end
 
-@implementation TourFeelingController
+typedef NS_ENUM(NSInteger, RequireType){
+    hearderRequire,
+    footerRequire,
+    normalRequire
+};
 
-// 数据解析
-- (void)requireData {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
-    [manager GET:kTourMainUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:_tableView animated:YES];
-        NSArray *arr = responseObject[@"success"];
-        self.array = [NSMutableArray arrayWithCapacity:0];
-        self.firstArr = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dict in arr) {
-            TourModel *tourModel = [[TourModel alloc] init];
-            [tourModel setValuesForKeysWithDictionary:dict];
+@implementation TourFeelingController
+static int page = 1;
+
+// 解析数据
+- (void)jsonAnalysis:(id)responseObject requireType:(RequireType)requireType {
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+    NSArray *arr = dict[@"success"];
+    self.array = [NSMutableArray arrayWithCapacity:0];
+    for (NSDictionary *dict in arr) {
+        TourModel *tourModel = [[TourModel alloc] init];
+        [tourModel setValuesForKeysWithDictionary:dict];
+        if (requireType == hearderRequire) {
+            self.array = [NSMutableArray array];
             [self.array addObject:tourModel];
         }
+        [self.array addObject:tourModel];
+    }
+}
 
+// 网络请求
+- (void)requireDataWithURLString:(NSString *)urlStr requireType:(RequireType)requireType {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:_tableView animated:YES];
+        [self jsonAnalysis:responseObject requireType:requireType];
         [self.tableView reloadData];
-        
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        NSLog(@"网络请求错误：%@", error);
     }];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-////    self.navigationController.navigationBar.hidden = YES;
+    ////    self.navigationController.navigationBar.hidden = YES;
     ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = NO;
 }
 
@@ -71,22 +88,18 @@
     [_tableView registerClass:[FirstTourCell class] forCellReuseIdentifier:@"cell"];
     [_tableView registerClass:[SecondTourCell class] forCellReuseIdentifier:@"cell2"];
     MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
-    progressHUD.labelText = @"玩命加载中...";
+    progressHUD.labelText = @"数据加载中...";
 }
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
     self.navigationItem.title = @"游 圈";
     self.view.backgroundColor = [UIColor blueColor];
     
     [self createTableView];
-    [self requireData];
-    
+    [self requireDataWithURLString:[kTourMainUrlStr stringByAppendingString:kAppendingStr] requireType:normalRequire];
     
 //    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(returnManage:)];
 //    self.navigationItem.rightBarButtonItem = barButtonItem;
@@ -101,30 +114,26 @@
     [self testFilter];
     [self addHeaderRefresh];
     [self addFooterRefresh];
-    
 }
-
+// 下拉加载
 - (void)addHeaderRefresh {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"ddd");
-        
-            [self requireData];
-//            [_tableView reloadData];
-            [_tableView.mj_header endRefreshing];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{        
+            [self requireDataWithURLString:kTourMainUrlStr requireType:hearderRequire];
+            // 放到网络请求里去结束刷新
+//            [_tableView.mj_header endRefreshing];
         });
     }];
     [header setTitle:@"正在刷新数据..." forState:MJRefreshStateRefreshing];
     _tableView.mj_header = header;
 }
-
+// 下拉刷新
 - (void)addFooterRefresh {
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"上拉");
-            
-            [_tableView reloadData];
-            [_tableView.mj_footer endRefreshing];
+            page++;
+            NSString *urlStr = [kTourMainUrlStr stringByAppendingString:[NSString stringWithFormat:@"?nowpage=%d", page]];
+            [self requireDataWithURLString:urlStr requireType:footerRequire];
         });
     }];
     [footer setTitle:MJRefreshAutoFooterRefreshingText forState:MJRefreshStateRefreshing];
@@ -141,6 +150,7 @@
 }
 - (void)test:(UIButton *)button {
     TestViewController *test = [[TestViewController alloc] init];
+    
     [self presentViewController:test animated:YES completion:nil];
 }
 
@@ -152,7 +162,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     SecondTourCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2"];
-    [cell cellRotation];// cell添加动画
+    [cell.headButton addTarget:self action:@selector(goTourPartner:) forControlEvents:UIControlEventTouchUpInside];
     TourModel *tourModel = self.array[indexPath.row];
     cell.tourModel = tourModel;
     
@@ -161,9 +171,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     return KHEIGHT/4 + 3;
-
 }
 
 #pragma mark - UITableViewDelegate
@@ -178,9 +186,12 @@
     [self.navigationController pushViewController:manage animated:YES];
 }
 
-
-
-
+#warning 跳转到旅游主页
+- (void)goTourPartner:(UIButton *)button {
+    TourPartnerController *tourPartnerVc = [[TourPartnerController alloc] init];
+//    tourPartnerVc. =
+    [self.navigationController pushViewController:tourPartnerVc animated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {
@@ -188,14 +199,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

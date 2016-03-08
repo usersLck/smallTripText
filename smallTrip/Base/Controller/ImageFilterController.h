@@ -10,8 +10,9 @@
 
 @interface ImageFilterController : UIViewController
 
+@property(nonatomic, strong) UIImage *originImage;// 原始图片
+@property(nonatomic, strong) UIImage *showImage;// 展示图片
 @property(nonatomic, strong) UIImageView *imageView;
-@property(nonatomic, strong) UIImage *originImage;
 @property(nonatomic, strong) UIImage *buttonImage;
 
 // 测试上传

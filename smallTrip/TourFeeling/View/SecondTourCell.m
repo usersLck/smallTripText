@@ -21,16 +21,16 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.pictureImageView = [[UIImageView alloc] init];
         _pictureImageView.image = [UIImage imageNamed:@"test.png"];
         [self insertSubview:_pictureImageView atIndex:0];
 
-        
         self.titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"标题";
         _titleLabel.font = [UIFont systemFontOfSize:19];
         [self.contentView addSubview:_titleLabel];
-                
+        
+        [self cellRotation];
     }
     return self;
 }
@@ -40,8 +40,6 @@
     
     _pictureImageView.frame = CGRectMake(KWIDTH/80, 5, KWIDTH-KWIDTH/40, KHEIGHT/4 - 5);
     
-//    _titleLabel.frame = CGRectMake(self.headImageView.frame.origin.x, _pictureImageView.frame.origin.y + _pictureImageView.bounds.size.height + 5, KWIDTH, KWIDTH/20);
- 
     _titleLabel.frame = CGRectMake(self.headButton.frame.origin.x, self.headButton.frame.origin.y + self.headButton.bounds.size.height + 10, KWIDTH, KWIDTH/25);
      
     self.contentLabel.frame = CGRectMake(self.headButton.frame.origin.x, _titleLabel.frame.origin.y + _titleLabel.bounds.size.height , KWIDTH - 2 * self.headButton.frame.origin.x, 60);
@@ -63,18 +61,13 @@
     
     rotation = CATransform3DMakeTranslation(0 ,50 ,20);
     //                rotation = CATransform3DMakeRotation( M_PI_4 , 0.0, 0.7, 0.4);
-    //逆时针旋转
-    
+    //逆时针旋
     rotation = CATransform3DScale(rotation, 0.9, .9, 1);
-    
     rotation.m34 = 1.0/ -600;
-    
     self.layer.shadowColor = [[UIColor blackColor]CGColor];
     self.layer.shadowOffset = CGSizeMake(10, 10);
     self.alpha = 0;
-    
     self.layer.transform = rotation;
-    
     [UIView beginAnimations:@"rotation" context:NULL];
     //旋转时间
     [UIView setAnimationDuration:0.6];
@@ -83,21 +76,15 @@
     self.layer.shadowOffset = CGSizeMake(0, 0);
     [UIView commitAnimations];
     //    }
-    
     //    [cell cellOffset];
 }
-
 
 - (void)setTourModel:(TourModel *)tourModel {
     _tourModel = tourModel;
     [self.headButton sd_setImageWithURL:[NSURL URLWithString:tourModel.photo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"header.png"]];
-//    [self.headButton sd_setBackgroundImageWithURL:[NSURL URLWithString:tourModel.photo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"header.png"]];
     self.nameLabel.text = tourModel.userName;
-    self.dateLabel.text = tourModel.time;
+    self.dateLabel.text = [tourModel.time substringToIndex:10];
     self.titleLabel.text = tourModel.name;
-    if (tourModel.goodNumber.length > 3) {
-//        self.praiseCountLabel.text = [NSString stringWithFormat:@"%d.%"]
-    }
     self.commentCountLabel.text = tourModel.commentNumber;
     self.praiseCountLabel.text = tourModel.goodNumber;
     for (DetailTourModel *detailModel in tourModel.listArr) {
@@ -107,7 +94,6 @@
             self.contentLabel.text = detailModel.description0;
         }
     }
-    
 }
 
 @end

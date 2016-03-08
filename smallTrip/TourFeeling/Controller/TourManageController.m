@@ -25,6 +25,13 @@
 
 @implementation TourManageController
 
+- (NSMutableArray *)arr {
+    if (!_arr) {
+        self.arr = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", @"4", nil];
+    }
+    return _arr;
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
@@ -65,15 +72,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 70;
+    return KWIDTH/5.8;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ManagerTopView *topView = [[ManagerTopView alloc] init];
-    return topView;
+    if (section == 0) {
+        ManagerTopView *topView = [[ManagerTopView alloc] init];
+        return topView;
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return self.arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,8 +101,10 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     // 现修改数据，再操作UI
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        [self.arr removeObjectAtIndex:indexPath.row];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [self.arr removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [tableView reloadData];
+#warning  同时要删除本地沙盒里的文件和服务器的内容
     }
     
 }
@@ -108,7 +120,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TourDetailController *tourDetailVC = [[TourDetailController alloc] init];
     // 通过model传值
-    
+//    tourDetailVC.tourModel = 
     [self.navigationController pushViewController:tourDetailVC animated:YES];
 }
 

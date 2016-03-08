@@ -14,6 +14,9 @@
 @property(nonatomic, strong) NSArray *filterEnNameArr;
 @property(nonatomic, strong) NSArray *filterCnNameArr;
 
+//@property(nonatomic, strong) UIImageView *imageView;
+//@property(nonatomic, strong) UIImage *buttonImage;
+
 @end
 
 @implementation ImageFilterController
@@ -41,11 +44,17 @@
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
     
+    NSLog(@"image%@", self.showImage);
+    CGFloat width = self.showImage.size.width;
+    CGFloat height = self.showImage.size.height;
+    if (self.showImage) {
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KWIDTH * (height/width))];
+        [self.view addSubview:self.imageView];
+    } else {
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT)];
-//    self.imageView.image = [UIImage imageNamed:@"filter"];
     [self.view addSubview:self.imageView];
+    }
     
-//    self.originImage = [UIImage imageNamed:@"filter.png"];
     
     [self createFilterScrollView];
     [self createButton];
@@ -68,7 +77,6 @@
 }
 
 - (void)doCancel:(UIButton *)button {
-//    [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)doSave:(UIButton *)button {

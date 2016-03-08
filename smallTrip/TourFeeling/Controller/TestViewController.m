@@ -31,37 +31,38 @@
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     if (picker.sourceType == UIImagePickerControllerSourceTypeSavedPhotosAlbum) {
-        self.imageView.image = info[@"UIImagePickerControllerOriginalImage"];
+        self.showImage = info[@"UIImagePickerControllerOriginalImage"];
         self.originImage = info[@"UIImagePickerControllerOriginalImage"];
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+#warning 图片上传
+// 图片上传
 - (void)testUpload {
     [super testUpload];
     
     AFHTTPSessionManager *mager = [AFHTTPSessionManager manager];
     mager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+//    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+//    [mager setSecurityPolicy:securityPolicy];
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"000" forKey:@"userName"];
-    [parameters setObject:@"2" forKey:@"type"];
     
-    [mager POST:kUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [mager POST:kUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
-        NSData *imageData = UIImageJPEGRepresentation(self.imageView.image, 0.5);
+        NSData *imageData = UIImageJPEGRepresentation(self.showImage, 0.5);
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"yyyyMMddHHmmss";
         NSString *str = [formatter stringFromDate:[NSDate date]];
         NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
-        
-        NSString *name = @"shenme";
+        NSString *name = @"type=2";
         
         [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
-        NSLog(@"forma %@", formData);
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"成功");
+        NSLog(@"成功%@", responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"失败 %@", error);
     }];
