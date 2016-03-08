@@ -39,7 +39,15 @@
     [button4 addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button4.tag = 5001;
     
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(returnIndex:)];
+    self.navigationItem.leftBarButtonItem = button;
     
+    
+    
+}
+
+- (void)returnIndex:(UIButton *)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)returnVc:(UIButton *)sender{

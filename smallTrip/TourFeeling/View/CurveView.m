@@ -87,7 +87,6 @@
         for (int i = 1 ; i < 7; i++) {
             WeatherView *view = [[WeatherView alloc] initWithFrame:CGRectMake(KWIDTH / 7 * i - TABBARHEIGHT / 2, ((NSNumber *)self.pointArray[i]).doubleValue - TABBARHEIGHT * 2 + TABBARHEIGHT / 4, TABBARHEIGHT * 5 / 4, TABBARHEIGHT * 2)];
             [self addSubview:view];
-            NSLog(@"%@", NSStringFromCGRect(view.frame));
             WeatherDetail *detail = self.array[i];
             NSRange range = NSMakeRange(11, 5);
             view.label1.text = [detail.startTime substringWithRange:range];

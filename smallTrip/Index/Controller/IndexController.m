@@ -33,7 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     self.navigationItem.title = @"推荐";
     self.view.backgroundColor  = [UIColor redColor];
     self.view.backgroundColor  = [UIColor whiteColor];

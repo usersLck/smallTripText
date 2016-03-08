@@ -40,11 +40,9 @@
         _label3.textColor = [UIColor whiteColor];
         
         _image = [[UIImageView alloc] initWithFrame:CGRectMake(_label1.frame.origin.x + _label1.bounds.size.width / 2 - _label1.bounds.size.height / 2, frame.size.height * 3 / 4, _label1.bounds.size.height, _label1.bounds.size.height)];
-        _image.image = [UIImage imageNamed:@"3"];
+        _image.image = [UIImage imageNamed:@"dian"];
         [self addSubview:_image];
         
-        
-
     }
     return self;
 }

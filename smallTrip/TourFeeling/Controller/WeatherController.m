@@ -28,7 +28,7 @@
 
 #import "WeatherCell.h"
 
-#define kUrlAll @"http://aider.meizu.com/app/weather/listWeather?cityIds=101030100"
+#define kUrlAll @"http://aider.meizu.com/app/weather/listWeather?cityIds=%@"
 
 //  天气主页
 @interface WeatherController () <UITableViewDataSource, UITableViewDelegate>
@@ -45,6 +45,12 @@
 
 @implementation WeatherController
 
+- (void)setName:(NSString *)name{
+    _name = [NSString stringWithFormat:kUrlAll, name];
+    
+    [self getData];
+}
+
 - (NSMutableArray *)array{
     if (!_array) {
         self.array = [NSMutableArray array];
@@ -56,7 +62,6 @@
     [super viewDidLoad];
     
     [self getData];
-    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -81,7 +86,10 @@
 }
 
 - (void)getData{
-    [NetHandler getDataWithUrl:kUrlAll completion:^(NSData *data) {
+    if (!self.name) {
+        self.name = @"101010100";
+    }
+    [NetHandler getDataWithUrl:self.name completion:^(NSData *data) {
         NSError *error = nil;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:&error];
         NSArray *arrays = dic[@"value"];
@@ -90,7 +98,13 @@
             [weather setValuesForKeysWithDictionary:dic];
             [self.array addObject:weather];
         }
-        [self.table reloadData];
+        if (!((CityWeather *)[self.array lastObject]).city) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"请求失败" message:@"很抱歉您搜索的地区没有详细天气请重新选择" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        }else{
+            [self.table reloadData];
+        }
+        
     }];
 }
 
@@ -113,9 +127,9 @@
     WeatherCell *cell = [tableView dequeueReusableCellWithIdentifier:@"weatherCell" forIndexPath:indexPath];
     
     if(self.array.count){
-        CityWeather *cityWeather = self.array[0];
+        CityWeather *cityWeather = [self.array lastObject];
         cell.array = cityWeather.detailArray;
-        cell.weekArray = ((CityWeather *)self.array[0]).weatherArray;
+        cell.weekArray = ((CityWeather *)[self.array lastObject]).weatherArray;
         cell.cityNameLabel.text = cityWeather.city;
         cell.qualityLabel.text = cityWeather.pollute.aqi;
     }

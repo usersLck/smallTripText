@@ -10,4 +10,6 @@
 
 @interface WeatherController : UIViewController
 
+@property (nonatomic, retain)NSString *name;
+
 @end

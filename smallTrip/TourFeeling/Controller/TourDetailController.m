@@ -31,7 +31,7 @@
     self.navigationController.navigationBar.hidden = NO;
     ((RootTabBarViewController *)self.tabBarController).tabBarView.hidden = YES;
     [self CreateTabButton];
-    self.view.backgroundColor = [UIColor brownColor];
+//    self.view.backgroundColor = [UIColor brownColor];
 }
 
 - (void)CreateTabButton{

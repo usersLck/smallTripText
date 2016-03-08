@@ -20,11 +20,19 @@
 
 #import "Weather.h"
 
+#import "WeatherController.h"
+
 #import "SearchWeatherController.h"
+
+#import <Accelerate/Accelerate.h>
 
 @interface WeatherCell ()
 
 @property (nonatomic, retain)UIImageView *images;
+
+@property (nonatomic, retain)CurveView *curve;
+
+@property (nonatomic, retain)UIImageView *weatherImage;
 
 @end
 
@@ -40,13 +48,48 @@
     // Configure the view for the selected state
 }
 
+
+
 - (void)setArray:(NSMutableArray *)array{
     _array = array;
-    CurveView *curve = [[CurveView alloc] initWithFrame:CGRectMake(0, KHEIGHT * 2 / 3 - 100, KWIDTH, 400)];
-    curve.array = array;
-    [self.contentView addSubview:curve];
+    _curve.array = array;
+    [self.contentView addSubview:_curve];
+
     WeatherDetail *detail = self.array[0];
     _weatherLabel.text = detail.weather;
+    
+    NSString *weather = @"";
+    if ([detail.weather rangeOfString:@"雪"].location != NSNotFound) {
+        weather = @"snow1";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather rangeOfString:@"雨"].location != NSNotFound){
+        weather = @"rain1";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather rangeOfString:@"霾"].location != NSNotFound){
+        weather = @"haze1";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather rangeOfString:@"雾"].location != NSNotFound){
+        weather = @"fog";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather rangeOfString:@"沙尘"].location != NSNotFound){
+        weather = @"storm";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather rangeOfString:@"阴"].location != NSNotFound){
+        weather = @"cloudy11";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather rangeOfString:@"多云"].location != NSNotFound){
+        weather = @"cloudys";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }else if ([detail.weather isEqualToString:@"晴"]){
+        weather = @"fine1";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }
+    else{
+        weather = @"weather";
+        _weatherImage.image = [UIImage imageNamed:weather];
+    }
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    [user setObject:weather forKey:@"weatherImage"];
     NSInteger temp = (detail.highestTemperature + detail.lowerestTemperature) / 2;
     _temperatureLabel.text = [NSString stringWithFormat:@"%ld°", temp] ;
     
@@ -93,21 +136,22 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        NSLog(@"%@", NSStringFromCGRect([UIScreen mainScreen].bounds));
-        UIImageView *images = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weatherBack"]];
-        images.frame = CGRectMake(0, 0, KWIDTH, KHEIGHT * 2 / 3);
-        [self.contentView addSubview:images];
-        images.userInteractionEnabled = YES;
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        NSString *weatherImage = [ user objectForKey:@"weatherImage"];
+        _weatherImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT * 2 / 3) ];
+        _weatherImage.image = [UIImage imageNamed:weatherImage];
+        [self.contentView addSubview:_weatherImage];
+        _weatherImage.userInteractionEnabled = YES;
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(KWIDTH / 22, TABBARHEIGHT * 2, KWIDTH / 11, KWIDTH / 11);
-        [images addSubview:button];
+        [_weatherImage addSubview:button];
         [button setImage:[UIImage imageNamed:@"magnifier"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(returnSearch:) forControlEvents:UIControlEventTouchUpInside];
         
         ShareButton *share = [[ShareButton alloc] initShareButton];
         share.frame = CGRectMake(KWIDTH - BUTTONHEIGHT * 1.5,  TABBARHEIGHT * 2, BUTTONHEIGHT, BUTTONHEIGHT);
-        [images addSubview:share];
+        [_weatherImage addSubview:share];
         
         _cityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, KHEIGHT / 5, KWIDTH, TABBARHEIGHT)];
         [self.contentView addSubview:_cityNameLabel];
@@ -134,6 +178,9 @@
         
         _line = [[LineData alloc] initWithFrame:CGRectMake(10, KHEIGHT * 2 / 3 + TABBARHEIGHT, KWIDTH - 20, TABBARHEIGHT * 2) andArray:((CityWeather *)self.array[0]).detailArray andType:0];
         [self.contentView addSubview:_line];
+        
+        _curve = [[CurveView alloc] initWithFrame:CGRectMake(0, KHEIGHT * 2 / 3 - 100, KWIDTH, 400)];
+//        [self.contentView addSubview:_curve];
     }
     return self;
 }
@@ -153,7 +200,7 @@
 - (void)returnSearch:(UIButton *)sender{
     id controller = [self viewController];
     SearchWeatherController *search = [[SearchWeatherController alloc] init];
-    [controller pushViewController:search animated:YES];
+    [((WeatherController *)controller).navigationController pushViewController:search animated:YES];
 }
 
 @end

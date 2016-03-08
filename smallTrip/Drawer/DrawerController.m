@@ -29,42 +29,62 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor orangeColor];
+    self.navigationItem.title = @"微途";
+    NSArray *arr = [NSArray arrayWithObjects:@"我的游记", @"我的收藏", @"我的旅行单", @"我的社交", @"账户管理", nil];
+    NSArray *imageArr = [NSArray arrayWithObjects:@"fine", @"rain1", @"cloudy1", @"cloudy11", @"snow1", nil];
+    for (int i = 0 ; i < arr.count; i++) {
+        UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(85, KHEIGHT / 7 * (i + 1), 20, 20)];
+        image.image = [UIImage imageNamed:imageArr[i]];
+        [self.view addSubview:image];
+        
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(105, KHEIGHT / 7 * (i + 1), 110, 20)];
+        [button setTitle:arr[i] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.view addSubview:button];
+        [button addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = 5000 + i;
+
+    }
+    /*
+    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(85, KHEIGHT / 8, 20, 20)];
+    image.image = [UIImage imageNamed:@"fine"];
+    [self.view addSubview:image];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(50, 50, 200, 50)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(105, KHEIGHT / 8, 110, 20)];
     [button setTitle:@"我的游记" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:button];
     [button addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button.tag = 5000;
     
-    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 200, 50)];
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(105, KHEIGHT / 8 * 2, 110, 30)];
     [button1 setTitle:@"我的收藏" forState:UIControlStateNormal];
     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:button1];
     [button1 addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button1.tag = 5001;
     
-    UIButton *button2 = [[UIButton alloc] initWithFrame:CGRectMake(50, 150, 200, 50)];
+    UIButton *button2 = [[UIButton alloc] initWithFrame:CGRectMake(100, KHEIGHT / 8 * 3, 110, 30)];
     [button2 setTitle:@"我的旅行单" forState:UIControlStateNormal];
     [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:button2];
     [button2 addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button2.tag = 5002;
     
-    UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake(50, 200, 200, 50)];
+    UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake(100, KHEIGHT / 8 * 4, 110, 30)];
     [button3 setTitle:@"我的社交" forState:UIControlStateNormal];
     [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:button3];
     [button3 addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button3.tag = 5003;
     
-    UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(50, 250, 200, 50)];
+    UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(100, KHEIGHT / 8 * 5, 110, 30)];
     [button4 setTitle:@"账户管理" forState:UIControlStateNormal];
     [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:button4];
     [button4 addTarget:self action:@selector(returnVc:) forControlEvents:UIControlEventTouchUpInside];
     button4.tag = 5004;
-    
+    */
     
 }
 
@@ -92,7 +112,7 @@
     
 //    NSArray *array = @[collect, tourManage, myTour, forum, user];
     
-    NSArray *arr = @[collectNavi, tourManageNavi, myTourNavi, forumNavi, userNavi];
+    NSArray *arr = @[tourManageNavi, collectNavi, myTourNavi, forumNavi, userNavi];
     
     [self presentViewController:arr[sender.tag % 1000] animated:YES completion:nil ];
     
