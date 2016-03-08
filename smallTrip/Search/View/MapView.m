@@ -17,7 +17,7 @@
     if (self = [super initWithFrame:frame]) {
         
         _mapImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT/3.5)];
-        _mapImageV.image = [UIImage imageNamed:@"map.png"];
+        _mapImageV.image = [UIImage imageNamed:@"mapworld.png"];
         [self addSubview:_mapImageV];
         
         _NorthAmericaButton = [UIButton buttonWithType:UIButtonTypeCustom];

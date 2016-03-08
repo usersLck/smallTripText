@@ -12,6 +12,6 @@
 @interface SecondTourCell : FirstTourCell
 
 @property(nonatomic, strong) TourModel *tourModel;
-
+- (void)cellRotation;
 
 @end
