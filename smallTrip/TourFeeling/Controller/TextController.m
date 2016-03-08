@@ -150,12 +150,13 @@
     
     NSString *content = self.textView.text;
     
-    [self.navigationController popToViewController:[self.navigationController viewControllers][5] animated:YES];
+    [self.navigationController popToViewController:[self.navigationController viewControllers][2] animated:YES];
     if (self.text.length == 0) {
         NSDictionary *dict = @{@"text":content, @"sign":@"0", @"section":self.mySection};
         // 发送通知
         [[NSNotificationCenter defaultCenter] postNotificationName:@"addNum" object:self userInfo:dict];
     }else{
+        // 修改文本
         NSDictionary *dict = @{@"text":content, @"key":self.key, @"section":self.mySection};
         [[NSNotificationCenter defaultCenter] postNotificationName:@"amend" object:self userInfo:dict];
     }

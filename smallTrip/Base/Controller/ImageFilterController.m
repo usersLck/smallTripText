@@ -36,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.navigationController.navigationBar.hidden = YES;
     self.tabBarController.tabBar.hidden = YES;
@@ -46,11 +45,21 @@
     [self.view addSubview:self.imageView];
     
 //    self.originImage = [UIImage imageNamed:@"filter.png"];
-    
+    [self collocateImageView];
     [self createFilterScrollView];
     [self createButton];
     
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    self.navigationController.navigationBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = NO;
+    
+    
+}
+
+
 
 - (void)createButton {
     UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,13 +80,12 @@
 //    [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-- (void)doSave:(UIButton *)button {
+- (void)doSave:(UIButton *)button{
     if (self.imageView.image) {
         // 保存图片到相册
         UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image: didFinishSavingWithError: contextInfo:), nil);
-        
-        //  测试上传服务器
-        [self testUpload];
+//        //  测试上传服务器
+//        [self testUpload];
     }
 }
 // 保存图片回调方法
@@ -93,16 +101,15 @@
         
         
     } else {
-        NSLog(@"保存成功");
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"提示" message:@"保存成功" preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:alertVC animated:YES completion:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [alertVC dismissViewControllerAnimated:YES completion:nil];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            });
-        }];
+         
     }
 }
+
+- (void)collocateImageView {
+    self.imageView.image = self.image;
+    self.originImage = self.image;
+}
+
 
 - (void)createFilterScrollView {
     self.scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, KHEIGHT *6/7, KWIDTH, KHEIGHT / 8)];

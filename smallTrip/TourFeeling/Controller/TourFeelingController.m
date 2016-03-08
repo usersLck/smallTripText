@@ -20,7 +20,11 @@
 #import <MJRefresh.h>
 #import "TourModel.h"
 
-#define kTourMainUrlStr @"http://10.80.12.36:8080/text/travels"
+#import "DiaryTitleController.h"
+
+
+
+#define kTourMainUrlStr @"http://10.80.12.36:8080/text/travels?nowpage=1"
 
 //  游圈主页
 @interface TourFeelingController ()<UITableViewDataSource, UITableViewDelegate>
@@ -29,9 +33,41 @@
 @property(nonatomic, strong) NSMutableArray *array;
 @property(nonatomic, strong) NSMutableArray *firstArr;
 
+
+// 点击加号按钮弹出view
+@property (nonatomic, strong)UIView *addView;
+
 @end
 
 @implementation TourFeelingController
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self.view sendSubviewToBack:self.addView];
+    
+}
+
+
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationItem.title = @"游 圈";
+    self.view.backgroundColor = [UIColor blueColor];
+    [self creatAddView];
+    [self createTableView];
+    [self requireData];
+    [self testFilter];
+    [self addHeaderRefresh];
+    [self addFooterRefresh];
+    // 创建加号按钮
+    [self addArticleButton];
+    
+}
 
 // 数据解析
 - (void)requireData {
@@ -72,36 +108,6 @@
     [_tableView registerClass:[SecondTourCell class] forCellReuseIdentifier:@"cell2"];
     MBProgressHUD *progressHUD = [MBProgressHUD showHUDAddedTo:_tableView animated:YES];
     progressHUD.labelText = @"玩命加载中...";
-}
-
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    
-    self.navigationItem.title = @"游 圈";
-    self.view.backgroundColor = [UIColor blueColor];
-    
-    [self createTableView];
-    [self requireData];
-    
-    
-//    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(returnManage:)];
-//    self.navigationItem.rightBarButtonItem = barButtonItem;
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(KWIDTH / 4 * 3, KHEIGHT - TABBARHEIGHT * 2, TABBARHEIGHT, TABBARHEIGHT);
-    [self.view addSubview:button];
-    [button setTitle:@"+" forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:34];
-    [button addTarget:self action:@selector(returnManage:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self testFilter];
-    [self addHeaderRefresh];
-    [self addFooterRefresh];
-    
 }
 
 - (void)addHeaderRefresh {
@@ -173,13 +179,81 @@
     [self.navigationController pushViewController:tourDetailController animated:YES];
 }
 
-- (void)returnManage:(UIButton *)sender{
-    TourManageController *manage = [[TourManageController alloc] init];
-    [self.navigationController pushViewController:manage animated:YES];
+// 创建加号按钮
+- (void)addArticleButton {
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(KWIDTH / 5 * 4, KHEIGHT / 7 * 5, KWIDTH / 6, KWIDTH / 6);
+    button.backgroundColor = [UIColor greenColor];
+    button.layer.cornerRadius = KWIDTH / 12;
+    [button setImage:[UIImage imageNamed:@"add0"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(addView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
+    
 }
 
+// 实现加号按钮方法
+- (void)addView:(UIButton *)button {
+    
+    [self.view bringSubviewToFront:self.addView];
+    
+    
+}
 
+// 创建添加页面
+- (void)creatAddView {
+    
+    self.addView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, KHEIGHT)];
+    self.addView.backgroundColor = [UIColor blueColor];
+    self.addView.alpha = 0.5;
+    
+    UIButton *addTravelsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addTravelsButton.frame = CGRectMake(KWIDTH / 9, KHEIGHT / 3, KWIDTH / 3, KWIDTH / 3);
+    addTravelsButton.tag = 1001;
+    addTravelsButton.backgroundColor = [UIColor clearColor];
+    addTravelsButton.alpha = 1;
+    [addTravelsButton setImage:[UIImage imageNamed:@"youji"] forState:UIControlStateNormal];
+    [addTravelsButton addTarget:self action:@selector(writeTravels:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addView addSubview:addTravelsButton];
+    
+    UIButton *addMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    addMessageButton.frame = CGRectMake(KWIDTH / 9 * 5, KHEIGHT / 3, KWIDTH / 3, KWIDTH / 3);
+    addMessageButton.tag = 1002;
+    addMessageButton.backgroundColor = [UIColor clearColor];
+    addMessageButton.alpha = 1;
+    [addMessageButton setImage:[UIImage imageNamed:@"shuoshuo"] forState:UIControlStateNormal];
+    [addMessageButton addTarget:self action:@selector(writeTravels:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addView addSubview:addMessageButton];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(KWIDTH / 5 * 4, KHEIGHT / 7 * 5, KWIDTH / 6, KWIDTH / 6);
+    button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"add2"]];
+    button.layer.cornerRadius = KWIDTH / 12;
+    [button addTarget:self action:@selector(returnMainView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addView addSubview:button];
+    
+    
+    
+    [self.view addSubview:self.addView];
+    
+}
 
+// 跳转到编辑游记(或心情)页面
+- (void)writeTravels:(UIButton *)button {
+    if (button.tag == 1001) {
+        DiaryTitleController *DTVC = [[DiaryTitleController alloc] init];
+        [self.navigationController pushViewController:DTVC animated:YES];
+    }else{
+        
+    }
+}
+
+- (void)returnMainView:(UIButton *)button {
+    
+    [self.view sendSubviewToBack:self.addView];
+    
+}
 
 
 

@@ -13,6 +13,12 @@
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, strong) UIImage *originImage;
 @property(nonatomic, strong) UIImage *buttonImage;
+@property (nonatomic, strong)UIImage *image;
+
+- (void)doSave:(UIButton *)button;
+
+
+
 
 // 测试上传
 - (void)testUpload;

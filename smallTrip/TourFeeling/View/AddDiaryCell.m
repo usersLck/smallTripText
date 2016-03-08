@@ -12,13 +12,13 @@
 #import "AddModuleCell.h"
 #import "ImageCell.h"
 #import "TextController.h"
+#import "HeaderView.h"
+#import "PlaceChoseController.h"
 
-
-
-@interface AddDiaryCell ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface AddDiaryCell ()<UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 {
-    NSInteger _sign; // 判断使用哪种cell的标志
+//    NSInteger _sign; // 判断使用哪种cell的标志
     NSInteger _num; // 字典中元素个数
 }
 
@@ -29,23 +29,15 @@
 // 存储判断cell依据
 @property (nonatomic, strong)NSMutableArray *signArr;
 
-// 数据源字典
-//@property (nonatomic, strong)NSMutableDictionary *sourcrDict;
-
-// 存储cell类型和顺序的数组
-@property (nonatomic, strong)NSMutableArray *pointArr;
-
-// 存储不同section数据源字典的数组
-@property (nonatomic, strong)NSMutableArray *sectionArr;
-
 // 存储不同字典元素个数的数组
 @property (nonatomic, strong)NSMutableArray * numberArr;
 
 // 数据包字典
 @property (nonatomic, strong)NSMutableDictionary *packetDict;
 
-// 存储数据包字典的数组
-@property (nonatomic, strong)NSMutableArray *sourceArr;
+// 测试字典
+@property (nonatomic, strong)NSMutableDictionary *testDict;
+
 
 @end
 
@@ -57,34 +49,33 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 
-        // 注册成为观察者
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addItemNum:) name:@"addNum" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImageCell:) name:@"image" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(amendCell:) name:@"amend" object:nil];
-        [self creatSectionArr];
         self.layout = [[UICollectionViewFlowLayout alloc] init];
         self.layout.itemSize = CGSizeMake(KWIDTH/4, KWIDTH/4);
         self.layout.minimumLineSpacing = KWIDTH / 12;
         self.layout.minimumInteritemSpacing = 0;
         self.layout.sectionInset = UIEdgeInsetsMake(10, KWIDTH / 12, 0, KWIDTH / 12);
+        
+        // 设置分区头大小
+        self.layout.headerReferenceSize = CGSizeMake(KWIDTH, KHEIGHT / 20);
+        
+        
         NSInteger height = [self calculateHeight];
         self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KWIDTH, height) collectionViewLayout:self.layout];
         self.collectionView.dataSource = self;
         self.collectionView.delegate = self;
-        self.collectionView.backgroundColor = [UIColor whiteColor];
+        self.collectionView.backgroundColor = [UIColor BACKCOLOR];
         
         
         [self.contentView addSubview:self.collectionView];
         [self.collectionView registerClass:[CollectionViewCell class] forCellWithReuseIdentifier:@"sum"];
         [self.collectionView registerClass:[AddModuleCell class] forCellWithReuseIdentifier:@"add"];
         [self.collectionView registerClass:[ImageCell class] forCellWithReuseIdentifier:@"image"];
-        
+        [self.collectionView registerClass:[HeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
         // 添加长按手势
         UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlelongGesture:)];
         [self.collectionView addGestureRecognizer:longGesture];
         
     }
-    
     
     return self;
 }
@@ -95,14 +86,117 @@
     return YES;
 }
 
-#warning source -- 数据源没改变
+
+// 设置分区数
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+//    if (_section == 0) {
+//        return _section + 1;
+//    }else{
+//        return _section;
+//    }
+    return self.section;
+    
+}
+
+//- (NSInteger)section{
+//    if (!_section) {
+//        self.section = 1;
+//    }
+//    return _section;
+//}
+
+// 设置每个分区的Item个数
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if ((self.sectionArr.count != 0) && (((NSDictionary *)self.sectionArr[section]).allKeys.count != 0)) {
+        NSLog(@"%@", self.sectionArr);
+        NSMutableDictionary *dict = self.sectionArr[section];
+        return dict.count;
+    }else{
+        return 0;
+    }
+    
+}
+
+// 对collectionView的Cell进行设置
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    // 动态获取对应的数据源字典和标记数组
+//    NSMutableDictionary *dict = self.sectionArr[indexPath.section];
+//    NSMutableArray *arr = self.pointArr[indexPath.section];
+    NSMutableDictionary *dict = self.sectionArr[indexPath.section];
+    NSMutableArray *arr = self.pointArr[indexPath.section];
+    // 做保护，如果取出的标记数组为nil，则返回的也是nil
+    if (arr.count != 0) {
+        // 取出对应的标记值点
+        CGPoint point = ((NSValue *)arr[indexPath.row]).CGPointValue;
+        // strX是cell类型标记
+        NSString *strX = [NSString stringWithFormat:@"%d", (int)point.x];
+        // strY是数据源字典中对应value的key
+        NSString *strY = [NSString stringWithFormat:@"%d", (int)point.y];
+        // 对cell类型进行判断
+        if ([strX isEqualToString:@"0"]) {
+            CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sum" forIndexPath:indexPath];
+            cell.backgroundColor = [UIColor cyanColor];
+            cell.myLabel.text = dict[strY];
+            return cell;
+        }else{
+            ImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"image" forIndexPath:indexPath];
+            cell.myImageV.image = dict[strY];
+            return cell;
+        }
+    }else{
+        return nil;
+    }
+
+}
+
+// 设置分区头
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+    if ([kind isEqualToString:@"UICollectionElementKindSectionHeader"]) {
+        HeaderView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+        [view.placeNameButton setTitle:self.placeArr[indexPath.section] forState:UIControlStateNormal];
+        view.placeNameButton.tag = indexPath.section + 1020;
+        view.addButton.tag = indexPath.section + 1030;
+        [view.addButton addTarget:self action:@selector(sendInform:) forControlEvents:UIControlEventTouchUpInside];
+        [view.placeNameButton addTarget:self action:@selector(chosePlace:) forControlEvents:UIControlEventTouchUpInside];
+        return view;
+    }else{
+        return nil;
+    }
+
+}
+
+// 实现collectionView的Cell点击事件
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSMutableArray *arr = self.pointArr[indexPath.section];
+    NSMutableDictionary *dict = self.sectionArr[indexPath.section];
+    UIViewController *myVC = [self viewController];
+    
+    CGPoint point = ((NSValue *)arr[indexPath.row]).CGPointValue;
+    NSString *strX = [NSString stringWithFormat:@"%d", (int)point.x];
+    NSString *strY = [NSString stringWithFormat:@"%d", (int)point.y];
+    
+    if ([strX isEqualToString:@"0"]) {
+        TextController *textC = [[TextController alloc] init];
+        textC.text = dict[strY];
+        textC.key = strY;
+        [myVC.navigationController pushViewController:textC animated:YES];
+    }else{
+        
+    }
+}
+
+#pragma mark - 实现collectionView重排的重要方法(拖动手势方法，修改数据源)
 // 改动源数据 -- 最重要的一步
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     
-    NSMutableArray *arr1 = self.pointArr[sourceIndexPath.section];
-    NSMutableArray *arr2 = self.pointArr[destinationIndexPath.section];
-    NSMutableDictionary *dict1 = self.sectionArr[sourceIndexPath.section];
-    NSMutableDictionary *dict2 = self.sectionArr[destinationIndexPath.section];
+    NSMutableArray *arr1 = [NSMutableArray arrayWithArray:self.pointArr[sourceIndexPath.section]];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithArray:self.pointArr[destinationIndexPath.section]];
+    NSMutableDictionary *dict1 = [NSMutableDictionary dictionaryWithDictionary:self.sectionArr[sourceIndexPath.section]];
+    NSMutableDictionary *dict2 = [NSMutableDictionary dictionaryWithDictionary:self.sectionArr[destinationIndexPath.section]];
     //取出源item数据
     CGPoint point1 = ((NSValue *)arr1[sourceIndexPath.row]).CGPointValue;
     NSString *str = [NSString stringWithFormat:@"%ld", (NSInteger)point1.y];
@@ -114,88 +208,24 @@
     //将数据插入到资源数组中的目标位置上
     [arr2 insertObject:objc atIndex:destinationIndexPath.row];
     [dict2 setObject:objc1 forKey:str];
+    
+    [self.pointArr removeObjectAtIndex:sourceIndexPath.section];
+    [self.pointArr insertObject:arr1 atIndex:sourceIndexPath.section];
+    
+    [self.pointArr removeObjectAtIndex:destinationIndexPath.section];
+    [self.pointArr insertObject:arr2 atIndex:destinationIndexPath.section];
+    
+    [self.sectionArr removeObjectAtIndex:sourceIndexPath.section];
+    [self.sectionArr insertObject:dict1 atIndex:sourceIndexPath.section];
+    [self.sectionArr removeObjectAtIndex:destinationIndexPath.section];
+    [self.sectionArr insertObject:dict2 atIndex:destinationIndexPath.section];
+    
+    NSString *tableSection = [NSString stringWithFormat:@"%ld", self.sectionNum];
+    NSDictionary *newSource = @{@"section":self.sectionArr, @"point":self.pointArr, @"tableSection":tableSection};
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"alterSource" object:self userInfo:newSource];
     [collectionView reloadData];
- 
-}
-
-// 设置分区数
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.sectionArr.count;
-}
-
-// 设置每个分区的Item个数
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    NSMutableDictionary *dict = self.sectionArr[section];
-    
-    return dict.count + 1;
-}
-
-// 对collectionView的Cell进行设置
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // 动态获取对应的数据源字典和标记数组
-    NSMutableDictionary *dict = self.sectionArr[indexPath.section];
-    NSMutableArray *arr = self.pointArr[indexPath.section];
-    // 判断第几个cell
-    if (indexPath.row == dict.count) {
-        AddModuleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"add" forIndexPath:indexPath];
-        return cell;
-    }else{
-        // 做保护，如果取出的标记数组为nil，则返回的也是nil
-        if (arr != nil) {
-            // 取出对应的标记值点
-            CGPoint point = ((NSValue *)arr[indexPath.row]).CGPointValue;
-            // strX是cell类型标记
-            NSString *strX = [NSString stringWithFormat:@"%d", (int)point.x];
-            // strY是数据源字典中对应value的key
-            NSString *strY = [NSString stringWithFormat:@"%d", (int)point.y];
-            // 对cell类型进行判断
-            if ([strX isEqualToString:@"0"]) {
-                CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"sum" forIndexPath:indexPath];
-                cell.backgroundColor = [UIColor cyanColor];
-                cell.myLabel.text = dict[strY];
-                return cell;
-            }else{
-                ImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"image" forIndexPath:indexPath];
-                cell.myImageV.image = dict[strY];
-                return cell;
-            }
-        }else{
-            return nil;
-        }
-        
-    }
-
-}
-
-// 实现collectionView的Cell点击事件
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSString *section = [NSString stringWithFormat:@"%ld", indexPath.section];
-    NSMutableArray *arr = self.pointArr[indexPath.section];
-    NSMutableDictionary *dict = self.sectionArr[indexPath.section];
-    UIViewController *myVC = [self viewController];
-    // 判断是cell位置，如果是最后一个就进入添加页面，否则进入编辑页面并传值
-    if (indexPath.row == dict.count) {
-        
-        AddModuleController *AMC = [[AddModuleController alloc] init];
-        AMC.section = section;
-        [myVC.navigationController pushViewController:AMC animated:YES];
-    }else{
-        
-        CGPoint point = ((NSValue *)arr[indexPath.row]).CGPointValue;
-        NSString *strX = [NSString stringWithFormat:@"%d", (int)point.x];
-        NSString *strY = [NSString stringWithFormat:@"%d", (int)point.y];
-        
-        if ([strX isEqualToString:@"0"]) {
-            TextController *textC = [[TextController alloc] init];
-            textC.text = dict[strY];
-            textC.key = strY;
-            [myVC.navigationController pushViewController:textC animated:YES];
-        }else{
-            
-        }
-    }
     
 }
 
@@ -213,7 +243,6 @@
             //在路径上则开始移动该路径上的cell
             [self.collectionView beginInteractiveMovementForItemAtIndexPath:indexPath];
         }
-            
             break;
             
         case UIGestureRecognizerStateChanged:
@@ -236,40 +265,66 @@
     
 }
 
-
-// 创建数据源数组
-- (void)creatSectionArr {
-    for (int i = 0; i < 3; i++) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [self.sectionArr addObject:dict];
-        NSMutableArray *arr = [NSMutableArray array];
-        [self.pointArr addObject:arr];
-        
+#pragma mark - 一些按钮方法
+// 点击加号按钮发送通知
+- (void)sendInform:(UIButton *)button {
+    for (int i = 0; i < _section + 1; i++) {
+        if (button.tag == (1030 + i)) {
+            NSString *tableSection = [NSString stringWithFormat:@"%ld", self.sectionNum];
+            NSString *collectionSection = [NSString stringWithFormat:@"%d", i];
+            NSDictionary *dict = @{@"collectionSection":collectionSection, @"tableSection":tableSection};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"showAddModule" object:self userInfo:dict];
+        }
     }
-    [self.packetDict setObject:self.sectionArr forKey:@"sourceDict"];
-    [self.packetDict setObject:self.pointArr forKey:@"signArr"];
+}
+
+
+- (void)chosePlace:(UIButton *)button {
+    
+    for (int i = 0; i < _section + 1; i++) {
+        if (button.tag == (1020 + i)) {
+            // 跳转到选择地点页面
+            NSString *row = [NSString stringWithFormat:@"%ld", self.sectionNum];
+            NSDictionary *dict = @{@"section":row};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"position" object:self userInfo:dict];
+        }
+    }
+}
+
+#pragma mark - 一些set方法
+@synthesize sectionArr = _sectionArr;
+@synthesize pointArr = _pointArr;
+- (void)setSectionArr:(NSMutableArray *)sectionArr {
+    _sectionArr = sectionArr;
+    NSLog(@"&&&%@", _sectionArr);
+    [self.collectionView reloadData];
+}
+
+- (void)setPointArr:(NSMutableArray *)pointArr {
+    _pointArr = pointArr;
+    [self.collectionView reloadData];
 }
 
 // 计算collectionView高度
 - (NSInteger)calculateHeight {
     
     NSInteger height = 0;
-    NSLog(@"%ld", (NSInteger)self.layout.itemSize.height);
-    for (int i = 0; i < self.sectionArr.count; i++) {
-        NSMutableDictionary *dict = self.sectionArr[i];
-        height += (self.layout.itemSize.height + KWIDTH / 12) * (dict.count / 3 + 1);
-        NSLog(@"%ld", height);
-        
+    if (_section > 0) {
+        for (NSMutableDictionary *dict in self.sectionArr) {
+            if (dict.count != 0) {
+                height += (self.layout.itemSize.height + KWIDTH / 12) * (dict.count / 3 + 1);
+            }
+        }
+    }else{
+        height = KHEIGHT / 3;
     }
-    NSString *heightStr = [NSString stringWithFormat:@"%ld", height];
+    NSString *heightStr = [NSString stringWithFormat:@"%ld", (long)(KHEIGHT / 15 * (_section + 1) + height)];
     NSDictionary *dict = @{@"height":heightStr};
     [[NSNotificationCenter defaultCenter] postNotificationName:@"height" object:self userInfo:dict];
-    
-    return height;
+    return KHEIGHT / 15 * (_section + 1) + height;
 }
 
-
-// 寻找响应链上的controller 用来模态到新的界面
+#pragma mark - 寻找响应链上的controller 用来模态到新的界面
 - (UIViewController *)viewController {
     for (UIView* next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
@@ -278,71 +333,6 @@
         }
     }
     return nil;
-}
-
-// 实现通知方法
-- (void)addItemNum:(NSNotification *)notification {
-    
-    // 添加区分cell类型的标记
-    [self.signArr addObject:notification.userInfo[@"sign"]];
-    // 添加cell个数
-    _num +=1;
-    // 获取外界传来的文本
-    NSString *str = notification.userInfo[@"text"];
-    // 设置key
-    NSString *key = [NSString stringWithFormat:@"%ld", _num];
-    // 将文本和对应key添加到数据源字典中
-    NSInteger section = [notification.userInfo[@"section"] integerValue];
-    NSMutableDictionary *dict = self.sectionArr[section];
-    [dict setObject:str forKey:key];
-    // 重置collectionView的frame
-    NSInteger height = [self calculateHeight];
-    self.collectionView.frame = CGRectMake(0, 0, KWIDTH, height);
-    // 设置位置标记和类型标记的数组
-    NSInteger sign = [notification.userInfo[@"sign"] integerValue];
-    CGPoint point = CGPointMake(sign, _num);
-    // 在数组中添加值对(CGPoint类型)，要注意CGPoint添加到数组中必须是NSValue类型
-    NSMutableArray *arr = self.pointArr[section];
-    [arr addObject:[NSValue valueWithCGPoint:point]];
-    // 本地存储
-    [self saveSourceDict];
-    // 每次增加新数据，都要刷新collectionView
-    [self.collectionView reloadData];
-}
-
-- (void)addImageCell:(NSNotification *)notification {
-    // 此方法原理同上
-    [self.signArr addObject:notification.userInfo[@"sign"]];
-    _num += 1;
-    UIImage *image = notification.userInfo[@"image"];
-    if (image != nil) {
-        NSString *key = [NSString stringWithFormat:@"%ld", _num];
-        NSInteger section = [notification.userInfo[@"section"] integerValue];
-        NSMutableDictionary *dict = self.sectionArr[section];
-        [dict setObject:image forKey:key];
-        NSInteger height = [self calculateHeight];
-        self.collectionView.frame = CGRectMake(0, 0, KWIDTH, height);
-        // 设置位置标记和类型标记的数组
-        NSInteger sign = [notification.userInfo[@"sign"] integerValue];
-        CGPoint point = CGPointMake(sign, _num);
-        NSMutableArray *arr = self.pointArr[section];
-        [arr addObject:[NSValue valueWithCGPoint:point]];
-        // 本地存储
-        [self saveSourceDict];
-        [self.collectionView reloadData];
-    }
-
-}
-
-- (void)amendCell:(NSNotification *)notification{
-    // 此观察者方法是用来修改对应cell中的内容，并不需要增加数据源字典中的数据
-    NSString *key = notification.userInfo[@"key"];
-    NSString *text = notification.userInfo[@"text"];
-    NSInteger section = [notification.userInfo[@"section"] integerValue];
-    NSMutableDictionary *dict = self.sectionArr[section];
-    [dict setObject:text forKey:key];
-    [self.collectionView reloadData];
-    
 }
 
 - (void)saveSourceDict {
@@ -390,42 +380,6 @@
     
 }
 
-#pragma mark - signArr的懒加载
-- (NSMutableArray *)signArr {
-    if (!_signArr) {
-        self.signArr = [NSMutableArray array];
-    }
-    
-    return _signArr;
-}
-
-#pragma mark - sourceDict(collectionView 的数据源)的懒加载
-//- (NSMutableDictionary *)sourcrDict {
-//    if (!_sourcrDict) {
-//        self.sourcrDict = [NSMutableDictionary dictionary];
-//    }
-//    
-//    return _sourcrDict;
-//}
-#pragma mark - pointArr的懒加载
-- (NSMutableArray *)pointArr {
-    if (!_pointArr) {
-        self.pointArr = [NSMutableArray array];
-    }
-    
-    return _pointArr;
-}
-
-#pragma mark - sectionArr的懒加载
-- (NSMutableArray *)sectionArr{
-    
-    if (!_sectionArr) {
-        self.sectionArr = [NSMutableArray array];
-    }
-    
-    return _sectionArr;
-}
-
 #pragma mark - numberArr的懒加载
 - (NSMutableArray *)numberArr {
     
@@ -443,39 +397,38 @@
     if (!_packetDict) {
         self.packetDict = [NSMutableDictionary dictionary];
     }
-    
     return _packetDict;
 }
 
+- (NSMutableArray *)sectionArr {
+    
+    if (!_sectionArr) {
+        self.sectionArr = [NSMutableArray array];
+    }
+    return _sectionArr;
+}
 
+- (NSMutableArray *)pointArr {
+    
+    if (!_pointArr) {
+        self.pointArr = [NSMutableArray array];
+    }
+    return _pointArr;
+}
 
-
-
-
-
-- (void)dealloc {
-    // 移除观察者
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"addNum" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"image" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"amend" object:nil];
+- (NSMutableArray *)placeArr {
+    
+    if (!_placeArr) {
+        self.placeArr = [NSMutableArray array];
+    }
+    return _placeArr;
     
 }
 
-#pragma mark - plist文件
-
-
-
-
-
-
 - (void)awakeFromNib {
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

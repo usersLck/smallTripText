@@ -261,49 +261,56 @@
 
 - (void)toNextTemp:(UIBarButtonItem *)Item {
     
-    DiaryDataController *DDC = [[DiaryDataController alloc] init];
-    [self.navigationController pushViewController:DDC animated:YES];
+//    DiaryDataController *DDC = [[DiaryDataController alloc] init];
+//    [self.navigationController pushViewController:DDC animated:YES];
     // 对各个textfile内容进行判断
-//    if (self.mainLTV.textField.text.length > 0 && self.mainLTV.textField.text.length <= 10) {
-//        if (self.secondLTV.textField.text.length <=15) {
-//            if (self.allDate.textField.text.length >0) {
-//                if ([self.allDate.textField.text intValue] >= 1 && [self.allDate.textField.text intValue] <= 99) {
-//                    if (self.beginDate.textField.text.length != 0) {
-//                        // 所有条件都符合，则跳入下一个页面
-//                        DiaryDataController *DDC = [[DiaryDataController alloc] init];
-//                        [self.navigationController pushViewController:DDC animated:YES];
-//                        
-//                    } else {
-//                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择出发日期" preferredStyle:UIAlertControllerStyleAlert];
-//                        UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-//                        [alertController addAction:leftAction];
-//                        [self presentViewController:alertController animated:YES completion:nil];
-//                    }
-//                }else{
-//                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"旅行天数必须是(0~99)的整数" preferredStyle:UIAlertControllerStyleAlert];
-//                    UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-//                    [alertController addAction:leftAction];
-//                    [self presentViewController:alertController animated:YES completion:nil];
-//                }
-//                
-//            } else {
-//                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"旅行天数不能为空" preferredStyle:UIAlertControllerStyleAlert];
-//                UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-//                [alertController addAction:leftAction];
-//                [self presentViewController:alertController animated:YES completion:nil];
-//            }
-//        } else {
-//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"副标题长度不能大于15个字符" preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-//            [alertController addAction:leftAction];
-//            [self presentViewController:alertController animated:YES completion:nil];
-//        }
-//    }else{
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"游记标题不能为空" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-//        [alertController addAction:leftAction];
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    }
+    if (self.mainLTV.textField.text.length > 0 && self.mainLTV.textField.text.length <= 10) {
+        if (self.secondLTV.textField.text.length <=15) {
+            if (self.allDate.textField.text.length >0) {
+                if ([self.allDate.textField.text intValue] >= 1 && [self.allDate.textField.text intValue] <= 99) {
+                    if (self.beginDate.textField.text.length != 0) {
+                        // 所有条件都符合，则跳入下一个页面
+                        DiaryDataController *DDC = [[DiaryDataController alloc] init];
+                        DDC.numOfRow = self.allDate.textField.text;
+                        DDC.days = self.beginDate.textField.text;
+                        DDC.travelsTitle = self.mainLTV.textField.text;
+                        DDC.secondTitle = self.secondLTV.textField.text;
+                        DDC.beginDate = self.beginDate.textField.text;
+                        
+                        
+                        [self.navigationController pushViewController:DDC animated:YES];
+                        
+                    } else {
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择出发日期" preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                        [alertController addAction:leftAction];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                    }
+                }else{
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"旅行天数必须是(0~99)的整数" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                    [alertController addAction:leftAction];
+                    [self presentViewController:alertController animated:YES completion:nil];
+                }
+                
+            } else {
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"旅行天数不能为空" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                [alertController addAction:leftAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"副标题长度不能大于15个字符" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:leftAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }else{
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"游记标题不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *leftAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:leftAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
     
 }
 
